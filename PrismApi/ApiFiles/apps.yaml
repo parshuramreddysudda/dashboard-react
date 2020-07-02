@@ -1,0 +1,169 @@
+
+  openapi: "3.0.0"
+  info: 
+    title: "Apps Workspace Config API"
+    version: "0.1"
+  components: 
+    schemas: 
+      AppsId: 
+        type: "string"
+        format: "uuid"
+        description: "Unique apps Id"
+        example: "dfdbe066-021d-4882-79c0-bcf3fe27cfc9"
+      AppsCreateEntity: 
+        type: "object"
+        required: 
+          - "name"
+          - "workspaces"
+        properties: 
+          name: 
+            type: "string"
+            description: "Apps name"
+      AppsUpdateEntity: 
+        type: "object"
+        required: 
+          - "name"
+          - "workspaces"
+        properties: 
+          name: 
+            type: "string"
+            description: "Apps name"
+      AppsCreateResponseEntity: 
+        $ref: "#/components/schemas/AppsEntity"
+      AppsUpdateResponseEntity: 
+        $ref: "#/components/schemas/AppsEntity"
+      AppsEntity: 
+        type: "object"
+        required: 
+          - "id"
+          - "name"
+          - "version"
+          - "installed"
+          - "lastestUpdate"
+          - "type"
+        properties: 
+          id: 
+            $ref: "#/components/schemas/AppsId"
+          name: 
+            type: "string"
+            description: "apps name"
+          version: 
+            type: "string"
+            description: "apps Version"
+            enum: 
+              - "beta"
+              - "alpha"
+              - "released"
+              - "early access"
+          installed: 
+            type: "string"
+            format: "date-time"
+            description: "UTC RFC 3339 timestamp of when apps is created"
+          availableat: 
+            type: "string"
+            description: "UTC RFC 3339 timestamp of when apps is updated"
+            enum: 
+              - "Playstore"
+              - "App store"
+              - "Windows store"
+              - "Mac store"
+          type: 
+            type: "string"
+            description: "apps type"
+            enum: 
+              - "Paid"
+              - "Contain in app purchase"
+              - "Free & no ads"
+           
+      AppsCollectionEntity: 
+        type: "array"
+        items: 
+          $ref: "#/components/schemas/AppsEntity"
+           
+  paths: 
+    /api/Apps: 
+      get: 
+        summary: "List all Apps.for a tenant"
+        operationId: "dal.Apps.get_all"
+        responses: 
+          200: 
+            description: "Get a list of all Apps for the tenant."
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/AppsCollectionEntity"
+    /api/Apps/{Apps_id}: 
+      get: 
+        summary: "Get details of a Apps by id"
+        operationId: "dal.Apps.get"
+        parameters: 
+          - 
+            id: "9fd60cdb-b64b-2bdd-1cf1-e87826d527be"
+            name: "pariatur fugiat"
+            version: "early access"
+            installed: "1993-04-02T07:12:42.297Z"
+            type: "Contain in app purchase"
+            availableat: "Playstore"
+            schema: 
+              $ref: "#/components/schemas/AppsId"
+        responses: 
+          200: 
+            description: "Apps got successfully"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/AppsEntity"
+          404: 
+            description: "Apps not found"
+      put: 
+        summary: "Update a Apps"
+        operationId: "dal.Apps.update"
+        parameters: 
+          - 
+            name: "Apps_id"
+            version: "early access"
+            installed: "1993-04-02T07:12:42.297Z"
+            type: "Contain in app purchase"
+            availableat: "Playstore"
+            schema: 
+              $ref: "#/components/schemas/AppsId"
+        requestBody: 
+          description: "Parameters to update a Apps."
+          content: 
+            application/json: 
+              schema: 
+                x-body-name: "Apps"
+                $ref: "#/components/schemas/AppsUpdateEntity"
+              example: 
+                name: "test_Apps"
+                workspaces_type: "vsphere"
+        responses: 
+          200: 
+            description: "Apps updated successfully"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/AppsUpdateResponseEntity"
+                example: 
+                   id: "9fd60cdb-b64b-2bdd-1cf1-e87826d527be"
+                   name: "pariatur fugiat"
+                   version: "early access"
+                   installed: "1993-04-02T07:12:42.297Z"
+                   type: "Contain in app purchase"
+                   availableat: "Playstore"
+      delete: 
+        summary: "Delete a Apps"
+        operationId: "dal.Apps.delete"
+        parameters: 
+          - 
+            id: "9fd60cdb-b64b-2bdd-1cf1-e87826d527be"
+            name: "pariatur fugiat"
+            version: "early access"
+            installed: "1993-04-02T07:12:42.297Z"
+            type: "Contain in app purchase"
+            availableat: "Playstore"
+            schema: 
+              $ref: "#/components/schemas/AppsId"
+        responses: 
+          204: 
+            description: "Apps deleted successfully"

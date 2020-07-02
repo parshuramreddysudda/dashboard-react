@@ -1,0 +1,161 @@
+
+  openapi: "3.0.0"
+  info: 
+    title: "Clients Workspace Config API"
+    version: "0.1"
+  components: 
+    schemas: 
+      ClientId: 
+        type: "string"
+        format: "uuid"
+        description: "Unique Client Id"
+        example: "dfdbe066-021d-4882-79c0-bcf3fe27cfc9"
+      ClientCreateEntity: 
+        type: "object"
+        required: 
+          - "name"
+          - "workspaces"
+        properties: 
+          name: 
+            type: "string"
+            description: "client name"
+      ClientUpdateEntity: 
+        type: "object"
+        required: 
+          - "name"
+          - "workspaces"
+        properties: 
+          name: 
+            type: "string"
+            description: "client name"
+      ClientCreateResponseEntity: 
+        $ref: "#/components/schemas/ClientEntity"
+      ClientUpdateResponseEntity: 
+        $ref: "#/components/schemas/ClientEntity"
+      ClientEntity: 
+        type: "object"
+        required: 
+          - "id"
+          - "name"
+          - "state"
+          - "created"
+          - "updated"
+          - "type"
+        properties: 
+          id: 
+            $ref: "#/components/schemas/ClientId"
+          name: 
+            type: "string"
+            description: "Machine name"
+          state: 
+            type: "string"
+            description: "Machine state"
+            enum: 
+              - "unregistered"
+              - "registered"
+              - "deleted"
+          created: 
+            type: "string"
+            format: "date-time"
+            description: "UTC RFC 3339 timestamp of when device is created"
+          updated: 
+            type: "string"
+            format: "date-time"
+            description: "UTC RFC 3339 timestamp of when device is updated"
+          type: 
+            type: "string"
+            description: "Machine type"
+      ClientCollectionEntity: 
+        type: "array"
+        items: 
+          $ref: "#/components/schemas/ClientEntity"
+  paths: 
+    /api/clients:
+      get: 
+        summary: "List all clients.for a tenant"
+        operationId: "dal.clients.get_all"
+        responses: 
+          200: 
+            description: "Get a list of all Clients for the tenant."
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ClientCollectionEntity"
+    /api/clients/{client_id}:
+      get: 
+        summary: "Get details of a client by id"
+        operationId: "dal.clients.get"
+        parameters: 
+          - 
+            id: "id of Client"
+            name: "name of client"
+            state: "State of client"
+            created: "Created info "
+            update: "Update info  "
+            type: "Client type"
+            schema: 
+              $ref: "#/components/schemas/ClientId"
+        responses: 
+          200: 
+            description: "Clients retrieved successfully"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ClientEntity"
+          404: 
+            description: "Clients not found"
+      put: 
+        summary: "Update a client"
+        operationId: "dal.clients.update"
+        parameters: 
+          - 
+            id: "id of Client"
+            name: "name of client"
+            state: "State of client"
+            created: "Created info "
+            update: "Update info  "
+            type: "Client type"
+            schema: 
+              $ref: "#/components/schemas/ClientId"
+        requestBody: 
+          description: "Parameters to update a client."
+          content: 
+            application/json: 
+              schema: 
+                x-body-name: "client"
+                $ref: "#/components/schemas/ClientUpdateEntity"
+              example: 
+                name: "test_client"
+                workspaces_type: "vsphere"
+        responses: 
+          200: 
+            description: "Clients updated successfully"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ClientUpdateResponseEntity"
+                example: 
+                  id: "id of Client"
+                  name: "name of client"
+                  state: "State of client"
+                  created: "Created info "
+                  update: "Update info  "
+                  type: "Client type"
+          409: 
+            description: "Duplicate client name"
+      delete: 
+        summary: "Delete a client"
+        operationId: "dal.clients.delete"
+        parameters: 
+          - 
+            id: "id of Client"
+            name: "name of client"
+            state: "State of client"
+            created: "Created info "
+            update: "Update info  "
+            type: "Client type"
+            schema: 
+              $ref: "#/components/schemas/ClientId"
+        responses: 
+          204: 
+            description: "Clients deleted successfully"

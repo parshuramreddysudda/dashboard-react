@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Overview Data
+  version: '1.0'
+components:
+  schemas:
+    iOS:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - iOS
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"
+    Windows:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Windows
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"
+    Android:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Android
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"
+    Linux:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Linux
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"        
+    DevGraph:
+      type: object
+      properties:
+        app:
+          type: array
+          items:
+            - $ref: '#/components/schemas/iOS'
+            - $ref: '#/components/schemas/Windows'
+            - $ref: '#/components/schemas/Android'
+            - $ref: '#/components/schemas/Linux'
+servers:
+  - url: 'http://localhost:3000'
+  - url: 'http://192.168.0.6:3000'
+paths:
+  /api/overview/devgraph:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevGraph'

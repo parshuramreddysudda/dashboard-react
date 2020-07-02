@@ -1,0 +1,159 @@
+
+  openapi: "3.0.0"
+  info: 
+    title: "dmachineevice Workspace Config API"
+    version: "0.1"
+  components: 
+    schemas: 
+      machineId: 
+        type: "string"
+        format: "uuid"
+        description: "Unique machine identifier hex uuid string"
+        example: "e274bf3ebe3841"
+      machineCreateEntity: 
+        type: "object"
+        required: 
+          - "name"
+          - "workspaces"
+        properties: 
+          name: 
+            type: "string"
+            description: "machine name"
+      machineUpdateEntity: 
+        type: "object"
+        required: 
+          - "name"
+          - "workspaces"
+        properties: 
+          name: 
+            type: "string"
+            description: "machine name"
+      machineCreateResponseEntity: 
+        $ref: "#/components/schemas/machineEntity"
+      machineUpdateResponseEntity: 
+        $ref: "#/components/schemas/machineEntity"
+      machineEntity: 
+        type: "object"
+        required: 
+          - "id"
+          - "name"
+          - "os"
+          - "ip"
+          - "primary_dns"
+        properties: 
+          id: 
+            $ref: "#/components/schemas/machineId"
+          name: 
+            type: "string"
+            description: "Machine name"
+          os: 
+            type: "string"
+            description: "Machine state"
+            enum: 
+              - "android"
+              - "mac os"
+              - "iOS"
+              - "Linux"
+              - "Unix"
+              - "type-not-found"
+          mac: 
+            type: "string"
+            example: "00:1B:44:T1:3A:B7"
+            pattern: "^[1-9][1-9][:][1-9][A-Z][:][1-9][1-9][:][A-Z][1-9][:][1-9][A-Z][:][A-Z][1-9]" 
+            description: "mac of the Machine"
+          ip: 
+            type: "string"
+            example: "192.168.0.1"
+            pattern: "^[1-2][1-5][1-5][.][1-2][1-5][1-5][.][1-2][1-5][1-5][.][1-2][1-5][1-5]" 
+            description: "Ip of the Machine"
+      machineCollectionEntity: 
+        type: "array"
+        items: 
+          $ref: "#/components/schemas/machineEntity"
+
+  paths: 
+    /api/machines: 
+      get: 
+        summary: "List all machines.for a tenant"
+        operationId: "dal.machines.get_all"
+        responses: 
+          200: 
+            description: "Get a list of all machines for the tenant."
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/machineCollectionEntity"
+    /api/machines/{machine_id}: 
+      get: 
+        summary: "Get details of a machine by id"
+        operationId: "dal.machines.get"
+        parameters: 
+          - 
+            id: "machine_id"
+            name: "Name of machine"
+            os: "Os of machine"
+            mac: "Mac address of machine"
+            ip: "ip address of machine"
+            schema: 
+              $ref: "#/components/schemas/machineId"
+        responses: 
+          200: 
+            description: "machine retrieved successfully"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/machineEntity"
+          404: 
+            description: "machine not found"
+      put: 
+        summary: "Update a machine"
+        operationId: "dal.machines.update"
+        parameters: 
+          - 
+            id: "machine_id"
+            name: "Name of machine"
+            os: "Os of machine"
+            mac: "Mac address of machine"
+            ip: "ip address of machine"
+            schema: 
+              $ref: "#/components/schemas/machineId"
+        requestBody: 
+          description: "Parameters to update a machine."
+          content: 
+            application/json: 
+              schema: 
+                x-body-name: "machine"
+                $ref: "#/components/schemas/machineUpdateEntity"
+              example: 
+                name: "test_machine"
+        responses: 
+          200: 
+            description: "machine updated successfully"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/machineUpdateResponseEntity"
+                example:
+                  id: "machine_id"
+                  name: "Name of machine"
+                  os: "Os of machine"
+                  mac: "Mac address of machine"
+                  ip: "ip address of machine"          
+    
+          409: 
+            description: "Duplicate machine name"
+      delete: 
+        summary: "Delete a machine"
+        operationId: "dal.machines.delete"
+        parameters: 
+          - 
+            id: "machine_id"
+            name: "Name of machine"
+            os: "Os of machine"
+            mac: "Mac address of machine"
+            ip: "ip address of machine"
+            schema: 
+              $ref: "#/components/schemas/machineId"
+        responses: 
+          204: 
+            description: "machine deleted successfully"

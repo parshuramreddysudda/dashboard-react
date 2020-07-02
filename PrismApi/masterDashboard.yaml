@@ -1,0 +1,12 @@
+$include : ./ApiFiles/clients.yaml
+$include : ./ApiFiles/apps.yaml
+$include : ./ApiFiles/machines.yaml
+$include : ./ApiFiles/network.yaml
+$include : ./ApiFiles/overviewApp.yaml
+$include : ./ApiFiles/overviewCloud.yaml
+$include : ./ApiFiles/overviewDev.yaml
+# $include : ./ApiFiles/overviewClients.yaml
+$include : ./ApiFiles/role.yaml
+$include : ./ApiFiles/roles.yaml
+# $include : ./ApiFiles/clientGraph.yaml
+$include : ./ApiFiles/devGraph.yaml

@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: Overview Data
+  version: '1.0'
+components:
+  schemas:
+    Reg:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Registered
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"
+    unReg:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - UnRegistered
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$" 
+    Graphtypes:
+      type: object
+      properties:
+        Clients:
+          type: array
+          items:
+            - $ref: '#/components/schemas/Reg'
+            - $ref: '#/components/schemas/unReg'
+        total:
+          type: integer
+          minimum: 1
+          maximum: 1000
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/overview/clientgraph:
+    get: 
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Graphtypes'

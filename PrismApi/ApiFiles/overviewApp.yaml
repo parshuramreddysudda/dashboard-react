@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: Overview Data
+  version: '1.0'
+components:
+  schemas:
+    React:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - React
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"
+    Angular:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Angular
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"
+    Vue:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Vue
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"
+    Babel:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Babel
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"        
+    Apptypes:
+      type: object
+      properties:
+        app:
+          type: array
+          items:
+            - $ref: '#/components/schemas/React'
+            - $ref: '#/components/schemas/Angular'
+            - $ref: '#/components/schemas/Vue'
+            - $ref: '#/components/schemas/Babel'
+        total:
+          type: integer
+          minimum: 1
+          maximum: 1000
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/overview/application:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apptypes'

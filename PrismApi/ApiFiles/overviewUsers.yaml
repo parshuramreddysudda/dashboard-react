@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: Overview Data
+  version: '1.0'
+components:
+  schemas:
+    Noida:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Noida
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"
+    California:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - California
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"
+    India:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - India
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"
+    NewYork:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - NewYork
+        value:
+           example: 38
+           pattern: "^[1-9][1-9]$"        
+    Client:
+      type: object
+      properties:
+        Locations:
+          type: array
+          items:
+            - $ref: '#/components/schemas/Noida'
+            - $ref: '#/components/schemas/California'
+            - $ref: '#/components/schemas/India'
+            - $ref: '#/components/schemas/NewYork'
+        total:
+          type: integer
+          minimum: 1
+          maximum: 1000
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/overview/locations:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'

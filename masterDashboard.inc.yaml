@@ -1,0 +1,861 @@
+## --------------------
+## DON'T EDIT THIS FILE
+## --------------------
+## Engine: yamlinc@0.1.10
+## Source: PrismApi/masterDashboard.yaml
+
+openapi: 3.0.0
+info:
+  title: Overview Data
+  version: '1.0'
+components:
+  schemas:
+    ClientId:
+      type: string
+      format: uuid
+      description: Unique Client Id
+      example: dfdbe066-021d-4882-79c0-bcf3fe27cfc9
+    ClientCreateEntity:
+      type: object
+      required:
+        - name
+        - workspaces
+      properties:
+        name:
+          type: string
+          description: client name
+    ClientUpdateEntity:
+      type: object
+      required:
+        - name
+        - workspaces
+      properties:
+        name:
+          type: string
+          description: client name
+    ClientCreateResponseEntity:
+      $ref: '#/components/schemas/ClientEntity'
+    ClientUpdateResponseEntity:
+      $ref: '#/components/schemas/ClientEntity'
+    ClientEntity:
+      type: object
+      required:
+        - id
+        - name
+        - state
+        - created
+        - updated
+        - type
+      properties:
+        id:
+          $ref: '#/components/schemas/ClientId'
+        name:
+          type: string
+          description: Machine name
+        state:
+          type: string
+          description: Machine state
+          enum:
+            - unregistered
+            - registered
+            - deleted
+        created:
+          type: string
+          format: date-time
+          description: UTC RFC 3339 timestamp of when device is created
+        updated:
+          type: string
+          format: date-time
+          description: UTC RFC 3339 timestamp of when device is updated
+        type:
+          type: string
+          description: Machine type
+    ClientCollectionEntity:
+      type: array
+      items:
+        $ref: '#/components/schemas/ClientEntity'
+    AppsId:
+      type: string
+      format: uuid
+      description: Unique apps Id
+      example: dfdbe066-021d-4882-79c0-bcf3fe27cfc9
+    AppsCreateEntity:
+      type: object
+      required:
+        - name
+        - workspaces
+      properties:
+        name:
+          type: string
+          description: Apps name
+    AppsUpdateEntity:
+      type: object
+      required:
+        - name
+        - workspaces
+      properties:
+        name:
+          type: string
+          description: Apps name
+    AppsCreateResponseEntity:
+      $ref: '#/components/schemas/AppsEntity'
+    AppsUpdateResponseEntity:
+      $ref: '#/components/schemas/AppsEntity'
+    AppsEntity:
+      type: object
+      required:
+        - id
+        - name
+        - version
+        - installed
+        - lastestUpdate
+        - type
+      properties:
+        id:
+          $ref: '#/components/schemas/AppsId'
+        name:
+          type: string
+          description: apps name
+        version:
+          type: string
+          description: apps Version
+          enum:
+            - beta
+            - alpha
+            - released
+            - early access
+        installed:
+          type: string
+          format: date-time
+          description: UTC RFC 3339 timestamp of when apps is created
+        availableat:
+          type: string
+          description: UTC RFC 3339 timestamp of when apps is updated
+          enum:
+            - Playstore
+            - App store
+            - Windows store
+            - Mac store
+        type:
+          type: string
+          description: apps type
+          enum:
+            - Paid
+            - Contain in app purchase
+            - Free & no ads
+    AppsCollectionEntity:
+      type: array
+      items:
+        $ref: '#/components/schemas/AppsEntity'
+    machineId:
+      type: string
+      format: uuid
+      description: Unique machine identifier hex uuid string
+      example: e274bf3ebe3841
+    machineCreateEntity:
+      type: object
+      required:
+        - name
+        - workspaces
+      properties:
+        name:
+          type: string
+          description: machine name
+    machineUpdateEntity:
+      type: object
+      required:
+        - name
+        - workspaces
+      properties:
+        name:
+          type: string
+          description: machine name
+    machineCreateResponseEntity:
+      $ref: '#/components/schemas/machineEntity'
+    machineUpdateResponseEntity:
+      $ref: '#/components/schemas/machineEntity'
+    machineEntity:
+      type: object
+      required:
+        - id
+        - name
+        - os
+        - ip
+        - primary_dns
+      properties:
+        id:
+          $ref: '#/components/schemas/machineId'
+        name:
+          type: string
+          description: Machine name
+        os:
+          type: string
+          description: Machine state
+          enum:
+            - android
+            - mac os
+            - iOS
+            - Linux
+            - Unix
+            - type-not-found
+        mac:
+          type: string
+          example: '00:1B:44:T1:3A:B7'
+          pattern: >-
+            ^[1-9][1-9][:][1-9][A-Z][:][1-9][1-9][:][A-Z][1-9][:][1-9][A-Z][:][A-Z][1-9]
+          description: mac of the Machine
+        ip:
+          type: string
+          example: 192.168.0.1
+          pattern: >-
+            ^[1-2][1-5][1-5][.][1-2][1-5][1-5][.][1-2][1-5][1-5][.][1-2][1-5][1-5]
+          description: Ip of the Machine
+    machineCollectionEntity:
+      type: array
+      items:
+        $ref: '#/components/schemas/machineEntity'
+    networkId:
+      type: string
+      format: uuid
+      description: Unique network identifier hex uuid string
+      example: e274bf3ebe3841
+    networkCreateEntity:
+      type: object
+      required:
+        - name
+        - workspaces
+      properties:
+        name:
+          type: string
+          description: network name
+    networkUpdateEntity:
+      type: object
+      required:
+        - name
+        - workspaces
+      properties:
+        name:
+          type: string
+          description: network name
+    networkCreateResponseEntity:
+      $ref: '#/components/schemas/networkEntity'
+    networkUpdateResponseEntity:
+      $ref: '#/components/schemas/networkEntity'
+    networkEntity:
+      type: object
+      required:
+        - id
+        - name
+        - started
+        - destroy
+      properties:
+        id:
+          $ref: '#/components/schemas/networkId'
+        name:
+          type: string
+          description: network name
+        started:
+          type: string
+          format: date-time
+          description: UTC RFC 3339 timestamp of when device is created
+        destroy:
+          type: string
+          format: date-time
+          description: UTC RFC 3339 timestamp of when device is created
+    networkCollectionEntity:
+      type: array
+      items:
+        $ref: '#/components/schemas/networkEntity'
+    React:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - React
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Angular:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Angular
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Vue:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Vue
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Babel:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Babel
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Apptypes:
+      type: object
+      properties:
+        app:
+          type: array
+          items:
+            - $ref: '#/components/schemas/React'
+            - $ref: '#/components/schemas/Angular'
+            - $ref: '#/components/schemas/Vue'
+            - $ref: '#/components/schemas/Babel'
+        total:
+          type: integer
+          minimum: 1
+          maximum: 1000
+    AWS:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - AWS
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    GoogleCloud:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - GoogleCloud
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Alibaba:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Alibaba
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Azure:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Azure
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Cloud:
+      type: object
+      properties:
+        cloudNetwork:
+          type: array
+          items:
+            - $ref: '#/components/schemas/AWS'
+            - $ref: '#/components/schemas/GoogleCloud'
+            - $ref: '#/components/schemas/Alibaba'
+            - $ref: '#/components/schemas/Azure'
+        total:
+          type: integer
+          minimum: 1
+          maximum: 1000
+    Windows:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Windows
+            - Windows
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Mac:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Mac
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Linux:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Linux
+            - Linux
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Android:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Android
+            - Android
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Machinetypes:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            - $ref: '#/components/schemas/Windows'
+            - $ref: '#/components/schemas/Mac'
+            - $ref: '#/components/schemas/Linux'
+            - $ref: '#/components/schemas/Android'
+        total:
+          type: integer
+          minimum: 1
+          maximum: 1000
+    role:
+      type: object
+      properties:
+        name:
+          enum:
+            - Administrator
+    iOS:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - iOS
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    DevGraph:
+      type: object
+      properties:
+        app:
+          type: array
+          items:
+            - $ref: '#/components/schemas/iOS'
+            - $ref: '#/components/schemas/Windows'
+            - $ref: '#/components/schemas/Android'
+            - $ref: '#/components/schemas/Linux'
+paths:
+  /api/clients:
+    get:
+      summary: List all clients.for a tenant
+      operationId: dal.clients.get_all
+      responses:
+        '200':
+          description: Get a list of all Clients for the tenant.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientCollectionEntity'
+  '/api/clients/{client_id}':
+    get:
+      summary: Get details of a client by id
+      operationId: dal.clients.get
+      parameters:
+        - id: id of Client
+          name: name of client
+          state: State of client
+          created: 'Created info '
+          update: 'Update info  '
+          type: Client type
+          schema:
+            $ref: '#/components/schemas/ClientId'
+      responses:
+        '200':
+          description: Clients retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientEntity'
+        '404':
+          description: Clients not found
+    put:
+      summary: Update a client
+      operationId: dal.clients.update
+      parameters:
+        - id: id of Client
+          name: name of client
+          state: State of client
+          created: 'Created info '
+          update: 'Update info  '
+          type: Client type
+          schema:
+            $ref: '#/components/schemas/ClientId'
+      requestBody:
+        description: Parameters to update a client.
+        content:
+          application/json:
+            schema:
+              x-body-name: client
+              $ref: '#/components/schemas/ClientUpdateEntity'
+            example:
+              name: test_client
+              workspaces_type: vsphere
+      responses:
+        '200':
+          description: Clients updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientUpdateResponseEntity'
+              example:
+                id: id of Client
+                name: name of client
+                state: State of client
+                created: 'Created info '
+                update: 'Update info  '
+                type: Client type
+        '409':
+          description: Duplicate client name
+    delete:
+      summary: Delete a client
+      operationId: dal.clients.delete
+      parameters:
+        - id: id of Client
+          name: name of client
+          state: State of client
+          created: 'Created info '
+          update: 'Update info  '
+          type: Client type
+          schema:
+            $ref: '#/components/schemas/ClientId'
+      responses:
+        '204':
+          description: Clients deleted successfully
+  /api/Apps:
+    get:
+      summary: List all Apps.for a tenant
+      operationId: dal.Apps.get_all
+      responses:
+        '200':
+          description: Get a list of all Apps for the tenant.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppsCollectionEntity'
+  '/api/Apps/{Apps_id}':
+    get:
+      summary: Get details of a Apps by id
+      operationId: dal.Apps.get
+      parameters:
+        - id: 9fd60cdb-b64b-2bdd-1cf1-e87826d527be
+          name: pariatur fugiat
+          version: early access
+          installed: '1993-04-02T07:12:42.297Z'
+          type: Contain in app purchase
+          availableat: Playstore
+          schema:
+            $ref: '#/components/schemas/AppsId'
+      responses:
+        '200':
+          description: Apps got successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppsEntity'
+        '404':
+          description: Apps not found
+    put:
+      summary: Update a Apps
+      operationId: dal.Apps.update
+      parameters:
+        - name: Apps_id
+          version: early access
+          installed: '1993-04-02T07:12:42.297Z'
+          type: Contain in app purchase
+          availableat: Playstore
+          schema:
+            $ref: '#/components/schemas/AppsId'
+      requestBody:
+        description: Parameters to update a Apps.
+        content:
+          application/json:
+            schema:
+              x-body-name: Apps
+              $ref: '#/components/schemas/AppsUpdateEntity'
+            example:
+              name: test_Apps
+              workspaces_type: vsphere
+      responses:
+        '200':
+          description: Apps updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppsUpdateResponseEntity'
+              example:
+                id: 9fd60cdb-b64b-2bdd-1cf1-e87826d527be
+                name: pariatur fugiat
+                version: early access
+                installed: '1993-04-02T07:12:42.297Z'
+                type: Contain in app purchase
+                availableat: Playstore
+    delete:
+      summary: Delete a Apps
+      operationId: dal.Apps.delete
+      parameters:
+        - id: 9fd60cdb-b64b-2bdd-1cf1-e87826d527be
+          name: pariatur fugiat
+          version: early access
+          installed: '1993-04-02T07:12:42.297Z'
+          type: Contain in app purchase
+          availableat: Playstore
+          schema:
+            $ref: '#/components/schemas/AppsId'
+      responses:
+        '204':
+          description: Apps deleted successfully
+  /api/machines:
+    get:
+      summary: List all machines.for a tenant
+      operationId: dal.machines.get_all
+      responses:
+        '200':
+          description: Get a list of all machines for the tenant.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/machineCollectionEntity'
+  '/api/machines/{machine_id}':
+    get:
+      summary: Get details of a machine by id
+      operationId: dal.machines.get
+      parameters:
+        - id: machine_id
+          name: Name of machine
+          os: Os of machine
+          mac: Mac address of machine
+          ip: ip address of machine
+          schema:
+            $ref: '#/components/schemas/machineId'
+      responses:
+        '200':
+          description: machine retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/machineEntity'
+        '404':
+          description: machine not found
+    put:
+      summary: Update a machine
+      operationId: dal.machines.update
+      parameters:
+        - id: machine_id
+          name: Name of machine
+          os: Os of machine
+          mac: Mac address of machine
+          ip: ip address of machine
+          schema:
+            $ref: '#/components/schemas/machineId'
+      requestBody:
+        description: Parameters to update a machine.
+        content:
+          application/json:
+            schema:
+              x-body-name: machine
+              $ref: '#/components/schemas/machineUpdateEntity'
+            example:
+              name: test_machine
+      responses:
+        '200':
+          description: machine updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/machineUpdateResponseEntity'
+              example:
+                id: machine_id
+                name: Name of machine
+                os: Os of machine
+                mac: Mac address of machine
+                ip: ip address of machine
+        '409':
+          description: Duplicate machine name
+    delete:
+      summary: Delete a machine
+      operationId: dal.machines.delete
+      parameters:
+        - id: machine_id
+          name: Name of machine
+          os: Os of machine
+          mac: Mac address of machine
+          ip: ip address of machine
+          schema:
+            $ref: '#/components/schemas/machineId'
+      responses:
+        '204':
+          description: machine deleted successfully
+  /api/network:
+    get:
+      summary: List all network.for a tenant
+      operationId: dal.network.get_all
+      responses:
+        '200':
+          description: Get a list of all network for the tenant.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/networkCollectionEntity'
+  '/api/network/{network_id}':
+    get:
+      summary: Get details of a network by id
+      operationId: dal.network.get
+      parameters:
+        - id: network_id
+          name: network name
+          started: network started description
+          destroy: network destrou description
+      responses:
+        '200':
+          description: network retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/networkEntity'
+        '404':
+          description: network not found
+    put:
+      summary: Update a network
+      operationId: dal.network.update
+      parameters:
+        - id: network_id
+          name: network name
+          started: network started description
+          destroy: network destrou description
+          schema:
+            $ref: '#/components/schemas/networkId'
+      requestBody:
+        description: Parameters to update a network.
+        content:
+          application/json:
+            schema:
+              x-body-name: network
+              $ref: '#/components/schemas/networkUpdateEntity'
+            example:
+              name: test_network
+              workspaces_type: vsphere
+      responses:
+        '200':
+          description: network updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/networkUpdateResponseEntity'
+              example:
+                id: network_id
+                name: network name
+                started: network started description
+                destroy: network destrou description
+        '409':
+          description: Duplicate network name
+    delete:
+      summary: Delete a network
+      operationId: dal.network.delete
+      parameters:
+        - id: network_id
+          name: network name
+          started: network started description
+          destroy: network destrou description
+          schema:
+            $ref: '#/components/schemas/networkId'
+      responses:
+        '204':
+          description: network deleted successfully
+  /api/overview/application:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apptypes'
+  /api/overview/cloud:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cloud'
+  /api/overview/devices:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machinetypes'
+  /api/role:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/role'
+  /api/myrole:
+    get:
+      summary: Your GET endpoint
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                enum:
+                  - ADMIN
+  /api/overview/devgraph:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevGraph'
+servers:
+  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000'
+  - url: 'http://192.168.0.6:3000'

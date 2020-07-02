@@ -1,0 +1,26 @@
+openapi: 3.0.0
+info:
+  title: Overview Data
+  version: '1.0'
+components:
+  schemas:
+    role:
+      type: object
+      properties:
+          name: 
+            enum: 
+             - Administrator
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/role:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/role'

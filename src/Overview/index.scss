@@ -1,0 +1,22 @@
+ 
+.root{
+    display: flex;
+}
+.details{
+    display: flex;
+    flex-direction: column;
+}
+.topMargin{
+    margin-top: 20px;
+}
+.content{
+    float: 1 0 auto;
+}
+.cover{
+    width: 200px;
+}
+.heading{
+    text-align: center;
+    margin-bottom: 100px;
+
+}

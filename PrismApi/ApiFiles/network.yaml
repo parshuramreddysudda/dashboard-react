@@ -1,0 +1,140 @@
+
+  openapi: "3.0.0"
+  info: 
+    title: "network Workspace Config API"
+    version: "0.1"
+  components: 
+    schemas: 
+      networkId: 
+        type: "string"
+        format: "uuid"
+        description: "Unique network identifier hex uuid string"
+        example: "e274bf3ebe3841"
+      networkCreateEntity: 
+        type: "object"
+        required: 
+          - "name"
+          - "workspaces"
+        properties: 
+          name: 
+            type: "string"
+            description: "network name"
+      networkUpdateEntity: 
+        type: "object"
+        required: 
+          - "name"
+          - "workspaces"
+        properties: 
+          name: 
+            type: "string"
+            description: "network name"
+      networkCreateResponseEntity: 
+        $ref: "#/components/schemas/networkEntity"
+      networkUpdateResponseEntity: 
+        $ref: "#/components/schemas/networkEntity"
+      networkEntity: 
+        type: "object"
+        required: 
+          - "id"
+          - "name"
+          - "started"
+          - "destroy"
+        properties: 
+          id: 
+            $ref: "#/components/schemas/networkId"
+          name: 
+            type: "string"
+            description: "network name"
+          started: 
+            type: "string"
+            format: "date-time"
+            description: "UTC RFC 3339 timestamp of when device is created"
+          destroy: 
+            type: "string"
+            format: "date-time"
+            description: "UTC RFC 3339 timestamp of when device is created"
+
+      networkCollectionEntity: 
+        type: "array"
+        items: 
+          $ref: "#/components/schemas/networkEntity"
+  paths: 
+    /api/network: 
+      get: 
+        summary: "List all network.for a tenant"
+        operationId: "dal.network.get_all"
+        responses: 
+          200: 
+            description: "Get a list of all network for the tenant."
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/networkCollectionEntity"
+    /api/network/{network_id}: 
+      get: 
+        summary: "Get details of a network by id"
+        operationId: "dal.network.get"
+        parameters: 
+          - 
+            id: "network_id"
+            name: "network name"
+            started: "network started description"
+            destroy: "network destrou description"
+        responses: 
+          200: 
+            description: "network retrieved successfully"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/networkEntity"
+          404: 
+            description: "network not found"
+      put: 
+        summary: "Update a network"
+        operationId: "dal.network.update"
+        parameters: 
+          - 
+            id: "network_id"
+            name: "network name"
+            started: "network started description"
+            destroy: "network destrou description"
+            schema: 
+              $ref: "#/components/schemas/networkId"
+        requestBody: 
+          description: "Parameters to update a network."
+          content: 
+            application/json: 
+              schema: 
+                x-body-name: "network"
+                $ref: "#/components/schemas/networkUpdateEntity"
+              example: 
+                name: "test_network"
+                workspaces_type: "vsphere"
+        responses: 
+          200: 
+            description: "network updated successfully"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/networkUpdateResponseEntity"
+                example: 
+                  id: "network_id"
+                  name: "network name"
+                  started: "network started description"
+                  destroy: "network destrou description"
+          409: 
+            description: "Duplicate network name"
+      delete: 
+        summary: "Delete a network"
+        operationId: "dal.network.delete"
+        parameters: 
+          - 
+            id: "network_id"
+            name: "network name"
+            started: "network started description"
+            destroy: "network destrou description"
+            schema: 
+              $ref: "#/components/schemas/networkId"
+        responses: 
+          204: 
+            description: "network deleted successfully"
