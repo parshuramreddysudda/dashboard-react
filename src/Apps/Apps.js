@@ -49,15 +49,16 @@ export default class Apps extends React.Component {
             snakDesc: "Apps details Cleared",
             snakOpen: true,
             snakType: "warning",
-        }, () => { console.log("Clear Data State : ", this.state.snakDesc) });
-        console.log("In Clear Data")
+        });
         return Promise.resolve();
     }
     resetData = () => {
         this.props.fetchApps();
-        this.setState({ snakDesc: "Apps details Reseted" })
-        this.setState({ snakType: "info" })
-        this.setState({ snakOpen: true })
+        this.setState({
+            snakDesc: "Apps details Reseted",
+            snakType: "info",
+            snakOpen: true
+        })
     }
     addDatahandler = (newData) =>
         new Promise((resolve) => {
@@ -83,11 +84,13 @@ export default class Apps extends React.Component {
 
     componentDidMount() {
         this.props.fetchApps();
-        console.log("In CDM")
-        this.setState({ read: permissionHelper.checkPermission("APP", "READ") });
-        this.setState({ delete: permissionHelper.checkPermission("APP", "DELETE") });
-        this.setState({ create: permissionHelper.checkPermission("APP", "CREATE") });
-        this.setState({ update: permissionHelper.checkPermission("APP", "UPDATE") });
+        this.setState({
+            read: permissionHelper.checkPermission("APP", "READ"),
+            delete: permissionHelper.checkPermission("APP", "DELETE"),
+            create: permissionHelper.checkPermission("APP", "CREATE"),
+            update: permissionHelper.checkPermission("APP", "UPDATE")
+        });
+        console.log("Console Read", this.state.read)
     }
     render() {
         let { apps, loading, error, updateApp, } = this.props;
@@ -103,44 +106,44 @@ export default class Apps extends React.Component {
                 />
                 {error ? <h4 id="Error">{<Snakbar id="errorSnakbar" show={true} desc={this.state.networkError} snakType="warning" closeSnak={this.snakClose} />} </h4> : null}
                 {
-                    loading?
+                    loading ?
                         <Loader /> :
-                <div>
-                    {this.state.read ?
+                        <div>
+                            {this.state.read ?
 
-                        <MaterialTable
-                            title="App Details"
-                            columns={this.state.columns}
-                            data={apps}
-                            onRowClick={((evt, selectedRow) => this.setState({ selectedRow }))}
-                            options={{
-                                exportButton: true,
-                                // filtering:true,
-                                rowStyle: rowData => ({
-                                    backgroundColor: (this.state.selectedRow && this.state.selectedRow.tableData.id === rowData.tableData.id) ? '#EEE' : '#FFF'
-                                })
-                            }}
-                            editable={{
-                                onRowAdd: this.state.create && this.addDatahandler,
-                                onRowUpdate: this.state.update && ((newData, oldData) =>
-                                    new Promise((resolve) => {
-                                        setTimeout(() => {
-                                            resolve();
-                                            const data = [...apps];
-                                            data[data.indexOf(oldData)] = newData;
-                                            updateApp(newData, { ...apps, data }, newData.id)
-                                            this.setState({ snakDesc: "Apps id with" + newData.id + " has been succesfully Updated" })
-                                            this.setState({ snakType: "info" })
-                                            this.setState({ snakOpen: true })
-                                        }, 1000);
-                                        console.log(error)
-                                    })),
-                                onRowDelete: this.state.delete && this.deleteDataHandler,
-                            }}
-                        /> : <Forbidden />
-                    }
-                </div>
-                } 
+                                <MaterialTable
+                                    title="App Details"
+                                    columns={this.state.columns}
+                                    data={apps}
+                                    onRowClick={((evt, selectedRow) => this.setState({ selectedRow }))}
+                                    options={{
+                                        exportButton: true,
+                                        // filtering:true,
+                                        rowStyle: rowData => ({
+                                            backgroundColor: (this.state.selectedRow && this.state.selectedRow.tableData.id === rowData.tableData.id) ? '#EEE' : '#FFF'
+                                        })
+                                    }}
+                                    editable={{
+                                        onRowAdd: this.state.create && this.addDatahandler,
+                                        onRowUpdate: this.state.update && ((newData, oldData) =>
+                                            new Promise((resolve) => {
+                                                setTimeout(() => {
+                                                    resolve();
+                                                    const data = [...apps];
+                                                    data[data.indexOf(oldData)] = newData;
+                                                    updateApp(newData, { ...apps, data }, newData.id)
+                                                    this.setState({ snakDesc: "Apps id with" + newData.id + " has been succesfully Updated" })
+                                                    this.setState({ snakType: "info" })
+                                                    this.setState({ snakOpen: true })
+                                                }, 1000);
+                                                console.log(error)
+                                            })),
+                                        onRowDelete: this.state.delete && this.deleteDataHandler,
+                                    }}
+                                /> : <Forbidden />
+                            }
+                        </div>
+                }
                 {this.state.read && <Grid container spacing={2} direction="row" justify="center" alignItems="center" className="buttons">
                     <Grid item >
                         <Button className="resetData" variant="contained" startIcon={<RotateLeftIcon />} onClick={() => this.resetData()}>Reset Data</Button>

@@ -46,7 +46,7 @@ function checkPermission(component, permissionType) {
     let isPermission = false;
 
     for (const [componentType, permissionArray] of Object.entries(getPermissions(authRole))) {
-        console.debug(componentType)
+        // console.debug(componentType)
         // componentType.localeCompare("as"); //Wrrote of removing warning
         if (getPermissions(authRole).hasOwnProperty(component)) {
             if (permissionArray.indexOf(permissionType) > -1) {
