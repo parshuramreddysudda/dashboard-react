@@ -10,6 +10,7 @@ import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import Loader from './Components/loader'
 import Forbidden from '../Components/Forbidden';
 
+
 export default class Apps extends React.Component {
 
     constructor(props) {
@@ -53,6 +54,7 @@ export default class Apps extends React.Component {
         return Promise.resolve();
     }
     resetData = () => {
+        console.log("Called me ")
         this.props.fetchApps();
         this.setState({
             snakDesc: "Apps details Reseted",
@@ -151,7 +153,9 @@ export default class Apps extends React.Component {
                             }
                         </div>
                 }
-                {this.state.read && <Grid container spacing={2} direction="row" justify="center" alignItems="center" className="buttons">
+                {
+                    this.state.read && <Grid container spacing={2} direction="row" justify="center" alignItems="center" className="buttons">
+                
                     <Grid item >
                         <Button className="resetData" variant="contained" startIcon={<RotateLeftIcon />} onClick={() => this.resetData()}>Reset Data</Button>
                     </Grid>

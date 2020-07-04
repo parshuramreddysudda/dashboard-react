@@ -5,7 +5,7 @@ import MaterialTable from 'material-table';
 import { mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 import { configure } from 'enzyme';
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import permissionHelper from '../Auth/PermissionHelper';
 import Snakbar from './Components/Snakbar'
 // import Loader from './Components/loader'
@@ -246,11 +246,16 @@ describe('Testing Apps Component', () => {
 
     test('should show resetData Button text', () => {
         const mockFetchfn = jest.fn(() => { })
+        const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
             <App
                 fetchApps={mockFetchfn}
+                resetData={mockResetfn}
             />)
         expect(wrapper.find('.resetData').prop('children')).toEqual('Reset Data');
+        wrapper.find(Button).first().simulate('click')
+        expect(mockResetfn).toHaveBeenCalled()
+        // expect(wrapper.find('.resetData').simulate());
 
 
     })
