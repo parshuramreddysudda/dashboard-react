@@ -217,7 +217,7 @@ describe('Testing Apps Component', () => {
             "type": "Contain in app purchase",
             "availableat": "Windows store"
         };
-        const newData={
+        const newData = {
             "id": "63c45084-1880-b539-0813-c742d0b90b20",
             "name": "aasd",
             "version": "beta",
@@ -233,9 +233,9 @@ describe('Testing Apps Component', () => {
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
         // console.log("Called ")
-        instance.updateDataHandler(newData,oldData).then(() => {
+        instance.updateDataHandler(newData, oldData).then(() => {
             const snakbar = wrapper.find(Snakbar)
-            console.log("Called in Promise")
+            console.log("Called in Promise ")
             expect(mockUpdatefn).toHaveBeenCalledTimes(1)
             expect(snakbar.at(0).props().desc).toBe('Apps id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully Updated')
             expect(snakbar.at(0).props().show).toBe(true)
@@ -243,6 +243,55 @@ describe('Testing Apps Component', () => {
         })
         done()
     })
+
+    test('should show resetData Button text', () => {
+        const mockFetchfn = jest.fn(() => { })
+        const wrapper = shallow(
+            <App
+                fetchApps={mockFetchfn}
+            />)
+        expect(wrapper.find('.resetData').prop('children')).toEqual('Reset Data');
+
+
+    })
+    test('should show clearData Button text', () => {
+        const mockFetchfn = jest.fn(() => { })
+        const wrapper = shallow(
+            <App
+                fetchApps={mockFetchfn}
+            />)
+        expect(wrapper.find('.clearData').prop('children')).toEqual('Clear Data');
+    })
+
+    test('should handle Material Table', () => {
+        const mockFetchfn = jest.fn(() => { })
+        const data = {
+            "id": "63c45084-1880-b539-0813-c742d0b90b20",
+            "name": "amet aute aliqua Ut",
+            "version": "beta",
+            "installed": "1965-08-29T14:18:23.7Z",
+            "type": "Contain in app purchase",
+            "availableat": "Windows store"
+        };
+        const wrapper = shallow(
+            <App
+                fetchApps={mockFetchfn}
+                apps={data}
+
+            />)
+        const mockColumns = [
+            { title: 'Id', field: 'id', editable: 'onAdd' },
+        ]
+        wrapper.setState({
+            columns: mockColumns
+        })
+        const materialTable = wrapper.find(MaterialTable);
+        expect(materialTable.at(0).props().title).toBe('App Details')
+        expect(materialTable.at(0).props().columns).toBe(mockColumns)
+        expect(materialTable.at(0).props().data).toBe(data)
+
+    })
+
 
 
 

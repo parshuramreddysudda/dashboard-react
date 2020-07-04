@@ -33,7 +33,6 @@ export default class Apps extends React.Component {
             create: false,
             update: false,
             networkError: "Network Error, Please check your network connection and try again",
-
         }
         this.snakClose = this.snakClose.bind(this)
         this.resetData = this.resetData.bind(this)
@@ -127,7 +126,8 @@ export default class Apps extends React.Component {
                 {
                     loading ?
                         <Loader /> :
-                        <div>
+                        <div className="materialTable" >
+                        
                             {this.state.read ?
 
                                 <MaterialTable
