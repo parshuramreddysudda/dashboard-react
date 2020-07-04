@@ -153,9 +153,7 @@ describe('Testing Apps Component', () => {
 
     test('should handle addDatahandler', (done) => {
         const mockFetchfn = jest.fn(() => { })
-        const mockCreatefn = jest.fn((id) => console.log(id))
-        const mockResetfn = jest.fn(() => { })
-        const mockDeletefn = jest.fn((id) =>  id)
+        const mockCreatefn = jest.fn(() => { })
         const params = {
             "id": "63c45084-1880-b539-0813-c742d0b90b20",
             "name": "amet aute aliqua Ut",
@@ -168,22 +166,84 @@ describe('Testing Apps Component', () => {
             <App
                 fetchApps={mockFetchfn}
                 createApp={mockCreatefn}
-                resetApps={mockResetfn}
-                deleteApp={mockDeletefn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
-        instance.addDatahandler().then(() => {
-            console.log("called ")
+        instance.addDatahandler(params).then(() => {
             const snakbar = wrapper.find(Snakbar)
-            expect(mockCreatefn).toHaveBeenCalledTimes(20)
+            expect(mockCreatefn).toHaveBeenCalledTimes(1)
             expect(snakbar.at(0).props().desc).toBe('Apps id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully created')
             expect(snakbar.at(0).props().show).toBe(true)
             expect(snakbar.at(0).props().snakType).toBe('success')
         })
-        console.log("Called at end")
         done()
     })
+
+    test('should handle deleteDataHandler', (done) => {
+        const mockFetchfn = jest.fn(() => { })
+        const mockDeletefn = jest.fn(() => { })
+        const params = {
+            "id": "63c45084-1880-b539-0813-c742d0b90b20",
+            "name": "amet aute aliqua Ut",
+            "version": "beta",
+            "installed": "1965-08-29T14:18:23.7Z",
+            "type": "Contain in app purchase",
+            "availableat": "Windows store"
+        };
+        const wrapper = shallow(
+            <App
+                fetchApps={mockFetchfn}
+                deleteApp={mockDeletefn}
+            />)
+        expect(mockFetchfn).toHaveBeenCalledTimes(1)
+        const instance = wrapper.instance();
+        instance.deleteDataHandler(params).then(() => {
+            const snakbar = wrapper.find(Snakbar)
+            expect(mockDeletefn).toHaveBeenCalledTimes(1)
+            expect(snakbar.at(0).props().desc).toBe('Apps id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully Deleted')
+            expect(snakbar.at(0).props().show).toBe(true)
+            expect(snakbar.at(0).props().snakType).toBe('error')
+        })
+        done()
+    })
+    test('should handle updateDataHandler', (done) => {
+        const mockFetchfn = jest.fn(() => { })
+        const mockUpdatefn = jest.fn(() => { })
+        const oldData = {
+            "id": "63c45084-1880-b539-0813-c742d0b90b20",
+            "name": "amet aute aliqua Ut",
+            "version": "beta",
+            "installed": "1965-08-29T14:18:23.7Z",
+            "type": "Contain in app purchase",
+            "availableat": "Windows store"
+        };
+        const newData={
+            "id": "63c45084-1880-b539-0813-c742d0b90b20",
+            "name": "aasd",
+            "version": "beta",
+            "installed": "1965-08-29T14:18:23.7Z",
+            "type": "Contain in app purchase",
+            "availableat": "Windows store"
+        }
+        const wrapper = shallow(
+            <App
+                fetchApps={mockFetchfn}
+                updateApp={mockUpdatefn}
+            />)
+        expect(mockFetchfn).toHaveBeenCalledTimes(1)
+        const instance = wrapper.instance();
+        // console.log("Called ")
+        instance.updateDataHandler(newData,oldData).then(() => {
+            const snakbar = wrapper.find(Snakbar)
+            console.log("Called in Promise")
+            expect(mockUpdatefn).toHaveBeenCalledTimes(1)
+            expect(snakbar.at(0).props().desc).toBe('Apps id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully Updated')
+            expect(snakbar.at(0).props().show).toBe(true)
+            expect(snakbar.at(0).props().snakType).toBe('info')
+        })
+        done()
+    })
+
 
 
 

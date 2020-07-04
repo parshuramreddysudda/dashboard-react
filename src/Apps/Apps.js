@@ -62,32 +62,47 @@ export default class Apps extends React.Component {
         })
         return Promise.resolve();
     }
-    addDatahandler = (newData) =>
-        Promise((resolve) => {
-            console.log("Called")
-            setTimeout(() => {
-                resolve();
-                this.props.createApp(newData);
-                this.setState({
-                    snakDesc: "Apps id with " + newData.id + " has been succesfully created",
-                    snakOpen: true,
-                    snakType: "success"
-                })
-            }, 400);
+    addDatahandler = (newData) => (
+        new Promise((done) => {
+            this.props.createApp(newData);
+            this.setState({
+                snakDesc: "Apps id with " + newData.id + " has been succesfully created",
+                snakOpen: true,
+                snakType: "success"
+            })
+            Promise.resolve()
+            done()
         })
+    )
 
 
-    deleteDataHandler = (newData) =>
-        new Promise((resolve) => {
-            setTimeout(() => {
-                resolve();
-                this.props.deleteApp(newData.id)
-                this.setState({ snakDesc: "Apps id with" + newData.id + " has been succesfully Deleted" })
-                this.setState({ snakType: "error" })
-                this.setState({ snakOpen: true })
-
-            }, 400);
+    deleteDataHandler = (newData) => (
+        new Promise((done) => {
+            this.props.deleteApp(newData.id)
+            this.setState({
+                snakDesc: "Apps id with " + newData.id + " has been succesfully Deleted",
+                snakType: "error",
+                snakOpen: true
+            })
+            Promise.resolve()
+            done()
         })
+    )
+    updateDataHandler = (newData, oldData) => (
+        new Promise((done) => {
+            const apps = this.props.apps
+            const data = [...apps];
+            data[data.indexOf(oldData)] = newData;
+            this.props.updateApp(newData, { ...apps, data }, newData.id)
+            this.setState({
+                snakDesc: "Apps id with " + newData.id + " has been succesfully Updated",
+                snakType: "info",
+                snakOpen: true,
+            })
+            Promise.resolve()
+            done()
+        })
+    )
 
     componentDidMount() {
         this.props.fetchApps();
@@ -129,19 +144,7 @@ export default class Apps extends React.Component {
                                     }}
                                     editable={{
                                         onRowAdd: this.state.create && this.addDatahandler,
-                                        onRowUpdate: this.state.update && ((newData, oldData) =>
-                                            new Promise((resolve) => {
-                                                setTimeout(() => {
-                                                    resolve();
-                                                    const data = [...apps];
-                                                    data[data.indexOf(oldData)] = newData;
-                                                    updateApp(newData, { ...apps, data }, newData.id)
-                                                    this.setState({ snakDesc: "Apps id with" + newData.id + " has been succesfully Updated" })
-                                                    this.setState({ snakType: "info" })
-                                                    this.setState({ snakOpen: true })
-                                                }, 1000);
-                                                console.log(error)
-                                            })),
+                                        onRowUpdate: this.state.update && this.updateDataHandler,
                                         onRowDelete: this.state.delete && this.deleteDataHandler,
                                     }}
                                 /> : <Forbidden />
