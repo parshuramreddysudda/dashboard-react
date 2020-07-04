@@ -63,20 +63,20 @@ export default class Apps extends React.Component {
         return Promise.resolve();
     }
     addDatahandler = (newData) =>
-         Promise((resolve) => {
+        Promise((resolve) => {
             console.log("Called")
             setTimeout(() => {
                 resolve();
                 this.props.createApp(newData);
-                this.setState(
-                    { snakDesc: "Apps id with " + newData.id + " has been succesfully created" },
-                    { snakOpen: true },
-                    { snakType: "success" }
-                )
+                this.setState({
+                    snakDesc: "Apps id with " + newData.id + " has been succesfully created",
+                    snakOpen: true,
+                    snakType: "success"
+                })
             }, 400);
         })
-        
-    
+
+
     deleteDataHandler = (newData) =>
         new Promise((resolve) => {
             setTimeout(() => {
