@@ -12,7 +12,7 @@ function getAllClients(){
    return API.get(`clients`)
 }
 function deleteClient(id){
-    return API.delete(`clients${id}`)
+    return API.delete(`clients/${id}`)
 }
 function getClient(id){
     return API.get(`clients/${id}`).catch(function (error) {

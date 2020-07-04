@@ -42,6 +42,7 @@ export default class Apps extends React.Component {
     }
     snakClose = () => {
         this.setState({ snakOpen: false })
+        return Promise.resolve();
     }
     clearData = () => {
         this.props.resetApps();
@@ -49,7 +50,7 @@ export default class Apps extends React.Component {
             snakDesc: "Apps details Cleared",
             snakOpen: true,
             snakType: "warning",
-        });
+        })
         return Promise.resolve();
     }
     resetData = () => {
@@ -59,17 +60,23 @@ export default class Apps extends React.Component {
             snakType: "info",
             snakOpen: true
         })
+        return Promise.resolve();
     }
     addDatahandler = (newData) =>
-        new Promise((resolve) => {
+         Promise((resolve) => {
+            console.log("Called")
             setTimeout(() => {
                 resolve();
                 this.props.createApp(newData);
-                this.setState({ snakDesc: "Apps id with" + newData.id + " has been succesfully created" })
-                this.setState({ snakType: "success" })
-                this.setState({ snakOpen: true })
+                this.setState(
+                    { snakDesc: "Apps id with " + newData.id + " has been succesfully created" },
+                    { snakOpen: true },
+                    { snakType: "success" }
+                )
             }, 400);
         })
+        
+    
     deleteDataHandler = (newData) =>
         new Promise((resolve) => {
             setTimeout(() => {
@@ -94,16 +101,14 @@ export default class Apps extends React.Component {
     render() {
         let { apps, loading, error, updateApp, } = this.props;
         return (
-
             <div>
-
                 <Snakbar id="infoSnakbar"
                     show={this.state.snakOpen}
                     desc={this.state.snakDesc}
                     snakType={this.state.snakType}
                     closeSnak={this.snakClose}
                 />
-                {error ? <h4 id="Error">{<Snakbar id="errorSnakbar" show={true} desc={this.state.networkError} snakType="warning" closeSnak={this.snakClose} />} </h4> : null}
+                {error ? <h4 className="errorClass">{<Snakbar id="errorSnakbar" show={true} desc={this.state.networkError} snakType="warning" closeSnak={this.snakClose} />} </h4> : null}
                 {
                     loading ?
                         <Loader /> :
