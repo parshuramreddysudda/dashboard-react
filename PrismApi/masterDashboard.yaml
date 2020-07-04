@@ -5,8 +5,8 @@ $include : ./ApiFiles/network.yaml
 $include : ./ApiFiles/overviewApp.yaml
 $include : ./ApiFiles/overviewCloud.yaml
 $include : ./ApiFiles/overviewDev.yaml
-# $include : ./ApiFiles/overviewClients.yaml
+$include : ./ApiFiles/overviewUsers.yaml
 $include : ./ApiFiles/role.yaml
 $include : ./ApiFiles/roles.yaml
-# $include : ./ApiFiles/clientGraph.yaml
+$include : ./ApiFiles/clientGraph.yaml
 $include : ./ApiFiles/devGraph.yaml

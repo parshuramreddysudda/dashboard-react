@@ -90,7 +90,6 @@ export default class Apps extends React.Component {
             create: permissionHelper.checkPermission("APP", "CREATE"),
             update: permissionHelper.checkPermission("APP", "UPDATE")
         });
-        console.log("Console Read", this.state.read)
     }
     render() {
         let { apps, loading, error, updateApp, } = this.props;

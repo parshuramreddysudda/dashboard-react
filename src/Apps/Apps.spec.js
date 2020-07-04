@@ -49,8 +49,8 @@ describe('Testing Apps Component', () => {
                 fetchApps={mockFetchfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
-        wrapper.setState({ error: false })
-        expect(wrapper.find('#Error').exists).toBe(false)
+        wrapper.setState({ error: true })
+        expect(wrapper.contains('#errorSnakbar')).toBe(true)
 
     })
 
