@@ -9,8 +9,8 @@ describe('Testing Auth services', () => {
 
     test('should Return CLIENT Role ', () => {
         Auth.setAuthRole().then((response) => {
-            Auth.clientRole=response;
-            expect(Auth.clientRole).toEqual(response)
+            console.log(response)
+            expect(Auth.setAuthRole.clientRole).toEqual(response)
         })
     })
 })
