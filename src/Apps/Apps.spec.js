@@ -5,6 +5,8 @@ import MaterialTable from 'material-table';
 import { mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 import { configure } from 'enzyme';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import { Grid, Button } from '@material-ui/core';
 import permissionHelper from '../Auth/PermissionHelper';
 import Snakbar from './Components/Snakbar'
@@ -244,7 +246,7 @@ describe('Testing Apps Component', () => {
         done()
     })
 
-    test('should show resetData Button text', () => {
+    test('should show resetData Button props and text', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
@@ -253,19 +255,34 @@ describe('Testing Apps Component', () => {
                 resetData={mockResetfn}
             />)
         expect(wrapper.find('.resetData').prop('children')).toEqual('Reset Data');
+        expect(wrapper.find(Button).first().prop('variant')).toBe('contained')
+        expect((wrapper.find(Button).first().prop('startIcon')).type.displayName).toBe('RotateLeftIcon')
+        expect(mockFetchfn).toHaveBeenCalledTimes(1)
         wrapper.find(Button).first().simulate('click')
-        expect(mockResetfn).toHaveBeenCalled()
+        expect(mockFetchfn).toHaveBeenCalledTimes(2)
+
+        // expect(mockResetfn).toHaveBeenCalled()
         // expect(wrapper.find('.resetData').simulate());
 
 
     })
-    test('should show clearData Button text', () => {
+    test('should show clearData Button props and text ', () => {
         const mockFetchfn = jest.fn(() => { })
+        const mockClearfn = jest.fn(() => { })
+        const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
             <App
                 fetchApps={mockFetchfn}
+                clearApps={mockClearfn}
+                resetApps={mockResetfn}
+
             />)
         expect(wrapper.find('.clearData').prop('children')).toEqual('Clear Data');
+        expect(wrapper.find(Button).last().prop('variant')).toBe('contained')
+        expect((wrapper.find(Button).last().prop('startIcon')).type.displayName).toBe('ClearAllIcon')
+        wrapper.find(Button).last().simulate('click')
+        expect(mockResetfn).toHaveBeenCalledTimes(1)
+
     })
 
     test('should handle Material Table', () => {

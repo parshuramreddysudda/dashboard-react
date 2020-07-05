@@ -54,7 +54,6 @@ export default class Apps extends React.Component {
         return Promise.resolve();
     }
     resetData = () => {
-        console.log("Called me ")
         this.props.fetchApps();
         this.setState({
             snakDesc: "Apps details Reseted",
@@ -129,7 +128,7 @@ export default class Apps extends React.Component {
                     loading ?
                         <Loader /> :
                         <div className="materialTable" >
-                        
+
                             {this.state.read ?
 
                                 <MaterialTable
@@ -155,14 +154,14 @@ export default class Apps extends React.Component {
                 }
                 {
                     this.state.read && <Grid container spacing={2} direction="row" justify="center" alignItems="center" className="buttons">
-                
-                    <Grid item >
-                        <Button className="resetData" variant="contained" startIcon={<RotateLeftIcon />} onClick={() => this.resetData()}>Reset Data</Button>
+
+                        <Grid item >
+                            <Button className="resetData" variant="contained" startIcon={<RotateLeftIcon />} onClick={() => this.resetData()}>Reset Data</Button>
+                        </Grid>
+                        <Grid item >
+                            <Button className="clearData" variant="contained" startIcon={<ClearAllIcon />} onClick={() => this.clearData()}>Clear Data</Button>
+                        </Grid>
                     </Grid>
-                    <Grid item >
-                        <Button className="clearData" variant="contained" startIcon={<ClearAllIcon />} onClick={() => this.clearData()}>Clear Data</Button>
-                    </Grid>
-                </Grid>
                 }
 
             </div>
