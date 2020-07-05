@@ -13,6 +13,7 @@ describe('Testing Snakbar Component', () => {
     test('should handle snakbar Props', () => {
 
         const mockClosefn = jest.fn(() => true)
+        const mockAlert = jest.fn(() => { console.log("Called me") })
         const props = { show: true, closeSnak: mockClosefn, snakType: 'info', desc: 'Description' }
         const wrapper = shallow(
             <SnakbarComponent
