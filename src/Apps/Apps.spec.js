@@ -5,8 +5,7 @@ import MaterialTable from 'material-table';
 import { mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 import { configure } from 'enzyme';
-import ClearAllIcon from '@material-ui/icons/ClearAll';
-import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import Forbidden from '../Components/Forbidden';
 import { Grid, Button } from '@material-ui/core';
 import permissionHelper from '../Auth/PermissionHelper';
 import Snakbar from './Components/Snakbar'
@@ -16,7 +15,7 @@ configure({ adapter: new Adapter() });
 
 describe('Testing Apps Component', () => {
 
-    test('should not load MaterialTable and grid when Permission is flase', (done) => {
+    test('should not load MaterialTable and grid and load Forbidden when Permission is flase', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
             <App
@@ -27,12 +26,14 @@ describe('Testing Apps Component', () => {
         wrapper.setState({ read: false })
         const materialTable = wrapper.find(MaterialTable);
         expect(materialTable.exists()).toBe(false);
+        const forbidden=wrapper.find(Forbidden)
+        expect(forbidden.exists()).toBe(true)
         const grid = wrapper.find(Grid);
         expect(grid.exists()).toBe(false);
         done();
     })
 
-    test('should load MaterialTable and grid when Permission is true', (done) => {
+    test('should load MaterialTable and grid and not Forbidden when Permission is true', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
             <App
@@ -42,6 +43,8 @@ describe('Testing Apps Component', () => {
         jest.spyOn(permissionHelper, 'checkPermission').mockImplementation(() => true);
         wrapper.setState({ read: true })
         const materialTable = wrapper.find(MaterialTable);
+        const forbidden=wrapper.find(Forbidden)
+        expect(forbidden.exists()).toBe(false)
         expect(materialTable.exists()).toBe(true);
         done();
     })
@@ -263,8 +266,6 @@ describe('Testing Apps Component', () => {
 
         // expect(mockResetfn).toHaveBeenCalled()
         // expect(wrapper.find('.resetData').simulate());
-
-
     })
     test('should show clearData Button props and text ', () => {
         const mockFetchfn = jest.fn(() => { })
