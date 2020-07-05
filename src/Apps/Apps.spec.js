@@ -214,14 +214,14 @@ describe('Testing Apps Component', () => {
     test('should handle updateDataHandler', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const mockUpdatefn = jest.fn(() => { })
-        const oldData = {
+        const oldData = [{
             "id": "63c45084-1880-b539-0813-c742d0b90b20",
             "name": "amet aute aliqua Ut",
             "version": "beta",
             "installed": "1965-08-29T14:18:23.7Z",
             "type": "Contain in app purchase",
             "availableat": "Windows store"
-        };
+        }];
         const newData = {
             "id": "63c45084-1880-b539-0813-c742d0b90b20",
             "name": "aasd",
@@ -234,13 +234,13 @@ describe('Testing Apps Component', () => {
             <App
                 fetchApps={mockFetchfn}
                 updateApp={mockUpdatefn}
+                apps={oldData}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
         // console.log("Called ")
         instance.updateDataHandler(newData, oldData).then(() => {
             const snakbar = wrapper.find(Snakbar)
-            console.log("Called in Promise ")
             expect(mockUpdatefn).toHaveBeenCalledTimes(1)
             expect(snakbar.at(0).props().desc).toBe('Apps id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully Updated')
             expect(snakbar.at(0).props().show).toBe(true)
@@ -263,7 +263,6 @@ describe('Testing Apps Component', () => {
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         wrapper.find(Button).first().simulate('click')
         expect(mockFetchfn).toHaveBeenCalledTimes(2)
-
         // expect(mockResetfn).toHaveBeenCalled()
         // expect(wrapper.find('.resetData').simulate());
     })
@@ -288,14 +287,15 @@ describe('Testing Apps Component', () => {
 
     test('should handle Material Table', () => {
         const mockFetchfn = jest.fn(() => { })
-        const data = {
+        const data = [{
             "id": "63c45084-1880-b539-0813-c742d0b90b20",
             "name": "amet aute aliqua Ut",
             "version": "beta",
             "installed": "1965-08-29T14:18:23.7Z",
             "type": "Contain in app purchase",
             "availableat": "Windows store"
-        };
+        }]
+        ;
         const wrapper = shallow(
             <App
                 fetchApps={mockFetchfn}

@@ -19,12 +19,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 const SnackBar=(props)=> {
-  const classes = useStyles();
-
-
+  const classes = useStyles()
   return (
     <div className={classes.root}>
-
       <Snackbar open={props.show} autoHideDuration={6000} onClose={props.closeSnak}>
         <Alert onClose={props.closeSnak} severity={props.snakType}>
           {props.desc}

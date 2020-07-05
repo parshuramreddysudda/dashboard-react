@@ -70,8 +70,8 @@ export default class Apps extends React.Component {
                 snakOpen: true,
                 snakType: "success"
             })
-            Promise.resolve()
             done()
+            return Promise.resolve()
         })
     )
 
@@ -84,8 +84,8 @@ export default class Apps extends React.Component {
                 snakType: "error",
                 snakOpen: true
             })
-            Promise.resolve()
             done()
+            return Promise.resolve()
         })
     )
     updateDataHandler = (newData, oldData) => (
@@ -99,8 +99,8 @@ export default class Apps extends React.Component {
                 snakType: "info",
                 snakOpen: true,
             })
-            Promise.resolve()
             done()
+            return Promise.resolve()
         })
     )
 
