@@ -21,9 +21,9 @@ export const updateMachinePending = () => ({
 export const updateMachineCompleted = () => ({
   type: 'UPDATE_MACHINES_COMPLETED'
 });
-export const updateMachineSuccess = (updateMachine, updateData,id) => ({
+export const updateMachineSuccess = (updateMachine, updateData, id) => ({
   type: 'UPDATE_MACHINES_SUCCESS',
-  payload: { updateMachine,updateData ,id }
+  payload: { updateMachine, updateData, id }
 
 });
 export const updateMachineError = (error) => ({
@@ -56,13 +56,13 @@ export const createMachineCompleted = () => ({
 
 export const createMachineSuccess = (params) => ({
   type: 'CREATE_MACHINES_SUCCESS',
-  payload: {params}
+  payload: { params }
 });
 export const createMachineError = (error) => ({
   type: 'CREATE_MACHINES_ERROR',
   payload: error
 });
-export const resetMachines = () => ({ 
+export const resetMachines = () => ({
   type: 'RESET_MACHINES'
 });
 export const fetchMachines = (params) => (dispatch) => {
@@ -75,14 +75,14 @@ export const fetchMachines = (params) => (dispatch) => {
     .finally(() => dispatch(fetchMachinesCompleted()));
 };
 
-export const updateMachine = (params,newData,id) => (dispatch) => {
+export const updateMachine = (params, newData, id) => (dispatch) => {
   dispatch(updateMachinePending());
   const reqParams = `${params.id}&name=${params.name}&os=${params.os}&ip=${params.ip}&mac=${params.mac}`
   return API.put(`machines/${id}?=${reqParams}`)
     .then(updateMachineResponce => {
 
       // const machines = MachinesHelper.formatMachines(updateMachineResponce);
-      dispatch(updateMachineSuccess(updateMachineResponce.data,newData.data,id));
+      dispatch(updateMachineSuccess(updateMachineResponce.data, newData.data, id));
     })
     .catch(error => dispatch(updateMachineError(error)))
     .finally(() => dispatch(updateMachineCompleted()));
@@ -94,6 +94,7 @@ export const deleteMachine = (id) => (dispatch) => {
     .then(deleteMachineResponce => {
       // const machines = MachinesHelper.formatMachines(deleteMachineResponce);
       dispatch(deleteMachineSuccess(id));
+      // done()
       return Promise.resolve(deleteMachineResponce)
     })
     .catch(error => dispatch(deleteMachineError(error)))

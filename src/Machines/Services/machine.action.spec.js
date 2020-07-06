@@ -160,17 +160,49 @@ describe('Testing Machine Component Actions ', () => {
     test('should create DELETE_MACHINE_PENDING when Creating app is started and DELETE_MACHINE_SUCCESS when Creating is done and DELETE_MACHINE_COMPLETED finally completed  ', () => {
         const initialState = {}
         const store = mockStore(initialState)
-        jest.spyOn(store, 'getState').mockImplementation(() => { })
-        const params = '63c45084-1880-b539-0813-c742d0bas90b20'
+        const params = '67d2b441-e565-b1a7-1770-19300c2ac'
         return store.dispatch(machineActions.deleteMachine(params)).then((deleteResponce) => {
-            const actions = store.getActions();
-            expect(actions[0].type).toEqual('DELETE_MACHINES_PENDING');
-            expect(actions[1].type).toEqual('DELETE_MACHINES_SUCCESS');
-            expect(actions[2].type).toEqual('DELETE_MACHINES_COMPLETED');
-            const id = actions[1].payload;
-            expect(id).toEqual(params);
-            expect(deleteResponce.status).toBe(204);
-        }).catch(() => {
+
+            try {
+                const actions = store.getActions();
+                expect(actions[0].type).toEqual('DELETE_MACHINES_PENDING');
+                expect(actions[1].type).toEqual('DELETE_MACHINES_SUCCESS');
+                const id = actions[1].payload;
+                expect(id).toEqual(params);
+                expect(deleteResponce.status).toBe(204);
+
+            }
+            finally {
+                const actions = store.getActions();
+                expect(actions[2].type).toEqual('DELETE_MACHINES_COMPLETED');
+
+            }
+        })
+    })
+    test('should create DELETE_MACHINE_PENDING when Creating app is started and DELETE_MACHINE_SUCCESS when Creating is failed and DELETE_MACHINE_COMPLETED finally completed  ', () => {
+        const initialState = {}
+        const store = mockStore(initialState)
+        const params = '67d2b441-e565-b1a7-1770-19300c2a%%%'
+        return store.dispatch(machineActions.deleteMachine(params)).then((deleteResponce) => {
+
+            try {
+                const actions = store.getActions();
+
+            } catch (error) {
+                const actions = store.getActions();
+                expect(actions[0].type).toEqual('DELETE_MACHINES_PENDING');
+                expect(actions[1].type).toEqual('DELETE_MACHINES_ERROR');
+                expect(actions[2].type).toEqual('DELETE_MACHINES_COMPLETED');
+            }
+        })
+    })
+    test('should create DELETE_MACHINE_PENDING when Creating app is started and DELETE_MACHINE_SUCCESS when Creating is failed and DELETE_MACHINE_COMPLETED finally completed  ', () => {
+        const initialState = {}
+        const store = mockStore(initialState)
+        const params = '67d2b441-e565-b1a7-1770-19300c29/asd'
+        return store.dispatch(machineActions.deleteMachine(params)).then(() => {
+
+        }).catch((e) => {
             const actions = store.getActions();
             expect(actions[0].type).toEqual('DELETE_MACHINES_PENDING');
             expect(actions[1].type).toEqual('DELETE_MACHINES_ERROR');
@@ -180,8 +212,6 @@ describe('Testing Machine Component Actions ', () => {
     test('should create UPDATE_MACHINE_PENDING when updating app is started and UPDATE_MACHINE_SUCCESS when update is done and UPDATE_MACHINE_COMPLETED finally completed  ', () => {
         const initialState = {}
         const store = mockStore(initialState)
-        // jest.spyOn(store, 'getState').mockImplementation(() => { })
-        // jest.spyOn(PermissionHelper, 'checkPermission').mockImplementation(() => true)
         const params = [
             {
                 "id": "67d2b441-e565-b1a7-1770-19300c29c9ac",
