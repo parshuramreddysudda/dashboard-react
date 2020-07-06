@@ -13,12 +13,11 @@ class AuthHelper {
     // return "CEO";
   }
   setAuthRole() {
-    return new Promise((resolve, reject) => {
-      API.get(`myrole`).then(response => {
-        this.clientRole = response.data;
-      })
+    API.get(`myrole`).then(response => {
+      this.clientRole = response.data;
     })
-}
+    return Promise.resolve();
+  }
 }
 
 export default new AuthHelper();

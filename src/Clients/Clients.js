@@ -1,8 +1,8 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import Snakbar from './Components/Snakbar';
+import Snakbar from '../Components/Snakbar';
 import { Grid, Button } from '@material-ui/core';
-import Loader from './Components/loader';
+import Loader from '../Components/loader';
 import './Clients.scss'
 import '../index.scss'
 import permissionHelper from '../Auth/PermissionHelper';

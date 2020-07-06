@@ -1,6 +1,6 @@
 import React from 'react'
 import App from './Apps'
-import Loader from './Components/loader'
+import Loader from '../Components/loader'
 import MaterialTable from 'material-table';
 import { mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
@@ -8,8 +8,8 @@ import { configure } from 'enzyme';
 import Forbidden from '../Components/Forbidden';
 import { Grid, Button } from '@material-ui/core';
 import permissionHelper from '../Auth/PermissionHelper';
-import Snakbar from './Components/Snakbar'
-// import Loader from './Components/loader'
+import Snakbar from '../Components/Snakbar'
+// import Loader from '../Components/loader'
 configure({ adapter: new Adapter() });
 
 

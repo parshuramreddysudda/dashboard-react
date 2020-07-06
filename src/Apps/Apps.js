@@ -1,15 +1,14 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import Snakbar from './Components/Snakbar';
+import Snakbar from '../Components/Snakbar';
 import { Grid, Button } from '@material-ui/core';
 import './apps.scss'
 import '../index.scss'
 import permissionHelper from '../Auth/PermissionHelper';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import Loader from './Components/loader'
+import Loader from '../Components/loader'
 import Forbidden from '../Components/Forbidden';
-
 
 export default class Apps extends React.Component {
 
@@ -38,7 +37,6 @@ export default class Apps extends React.Component {
         this.snakClose = this.snakClose.bind(this)
         this.resetData = this.resetData.bind(this)
         this.clearData = this.clearData.bind(this)
-
     }
     snakClose = () => {
         this.setState({ snakOpen: false })
@@ -74,8 +72,6 @@ export default class Apps extends React.Component {
             return Promise.resolve()
         })
     )
-
-
     deleteDataHandler = (newData) => (
         new Promise((done) => {
             this.props.deleteApp(newData.id)
@@ -103,7 +99,6 @@ export default class Apps extends React.Component {
             return Promise.resolve()
         })
     )
-
     componentDidMount() {
         this.props.fetchApps();
         this.setState({

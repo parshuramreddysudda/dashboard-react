@@ -1,8 +1,8 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import Loader from './Components/loader'
+import Loader from '../Components/loader'
 import Forbidden from '../Components/Forbidden';
-import Snakbar from './Components/Snakbar';
+import Snakbar from '../Components/Snakbar';
 import {Button, Grid} from '@material-ui/core';
 import './Network.scss'
 import permissionHelper from '../Auth/PermissionHelper';

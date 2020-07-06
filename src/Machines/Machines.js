@@ -1,13 +1,13 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import Snakbar from './Components/Snakbar';
+import Snakbar from '../Components/Snakbar';
 import { Grid, Button } from '@material-ui/core';
 import './Machines.scss'
 import '../index.scss'
 import permissionHelper from '../Auth/PermissionHelper';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import Loader from './Components/loader'
+import Loader from '../Components/loader'
 import Forbidden from '../Components/Forbidden';;
 
 export default class Machines extends React.Component {
