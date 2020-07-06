@@ -132,10 +132,10 @@ describe('Testing Machine Component Actions ', () => {
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
         const params = {
-            "id": "67d2b441-e565-b1a7-1770-19300c29c9ac",
-            "name": "quis aute minim ad",
-            "os": "type-not-found",
-            "ip": "233.222.151.112",
+            "id": "67asdd2b441-e565-b1a7-1770-19300c29c9ac",
+            "name": "qusadis aute minim ad",
+            "os": "tyasdpe-not-found",
+            "ip": "23343.222.151.112",
             "mac": "99:9I:32:Y9:6J:E7"
         }
         return store.dispatch(machineActions.createMachine(params)).then(() => {
@@ -161,7 +161,7 @@ describe('Testing Machine Component Actions ', () => {
         const initialState = {}
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
-        const params = '63c45084-1880-b539-0813-c742d0b90b20'
+        const params = '63c45084-1880-b539-0813-c742d0bas90b20'
         return store.dispatch(machineActions.deleteMachine(params)).then((deleteResponce) => {
             const actions = store.getActions();
             expect(actions[0].type).toEqual('DELETE_MACHINES_PENDING');
