@@ -118,7 +118,7 @@ describe('Testing Networks Component', () => {
             expect(snakbar.at(0).props().snakType).toBe('warning')
         })
         done();
-    })
+    }) 
 
     test('should handle resetData Function', (done) => {
         const mockFetchfn = jest.fn(() => { })
