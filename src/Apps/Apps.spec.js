@@ -26,7 +26,7 @@ describe('Testing Apps Component', () => {
         wrapper.setState({ read: false })
         const materialTable = wrapper.find(MaterialTable);
         expect(materialTable.exists()).toBe(false);
-        const forbidden=wrapper.find(Forbidden)
+        const forbidden = wrapper.find(Forbidden)
         expect(forbidden.exists()).toBe(true)
         const grid = wrapper.find(Grid);
         expect(grid.exists()).toBe(false);
@@ -43,7 +43,7 @@ describe('Testing Apps Component', () => {
         jest.spyOn(permissionHelper, 'checkPermission').mockImplementation(() => true);
         wrapper.setState({ read: true })
         const materialTable = wrapper.find(MaterialTable);
-        const forbidden=wrapper.find(Forbidden)
+        const forbidden = wrapper.find(Forbidden)
         expect(forbidden.exists()).toBe(false)
         expect(materialTable.exists()).toBe(true);
         done();
@@ -295,7 +295,7 @@ describe('Testing Apps Component', () => {
             "type": "Contain in app purchase",
             "availableat": "Windows store"
         }]
-        ;
+            ;
         const wrapper = shallow(
             <App
                 fetchApps={mockFetchfn}
@@ -312,7 +312,34 @@ describe('Testing Apps Component', () => {
         expect(materialTable.at(0).props().title).toBe('App Details')
         expect(materialTable.at(0).props().columns).toBe(mockColumns)
         expect(materialTable.at(0).props().data).toBe(data)
+    })
 
+    test('should handle Material Table onRowClick', () => {
+        const mockRowClick = jest.fn(() => { });
+        const wrapper = shallow(
+            <MaterialTable
+                onRowClick={mockRowClick}
+
+            />)
+        console.log(wrapper.find(MaterialTable).at(0).simulate('click'))
+        // wrapper.find('tr').at(0).simulate('click');
+        // console.log(wrapper.find('tr').at(0).children().simulate('click')) 
+        expect(mockRowClick).toHaveBeenCalledTimes(0)
+
+    });
+
+    test('should handle snakClose', (done) => {
+        const mockFetchfn = jest.fn(() => { })
+        const wrapper = shallow(
+            <App
+                fetchApps={mockFetchfn}
+            />)
+        expect(mockFetchfn).toHaveBeenCalledTimes(1)
+        const instance = wrapper.instance();
+        instance.snakClose().then(() => {
+            expect(wrapper.state('snakOpen')).toBe(false)
+        })
+        done()
     })
 
 
