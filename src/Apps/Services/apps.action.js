@@ -8,9 +8,9 @@ export const fetchAppsCompleted = () => ({
   type: 'FETCH_APP_COMPLETED'
 });
 
-export const fetchAppsSuccess = (devices) => ({
+export const fetchAppsSuccess = (machines) => ({
   type: 'FETCH_APP_SUCCESS',
-  payload: devices
+  payload: machines
 });
 export const fetchAppsError = (error) => ({
   type: 'FETCH_APP_ERROR',

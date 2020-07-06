@@ -7,9 +7,9 @@ export const fetchMachinesCompleted = () => ({
   type: 'FETCH_MACHINES_COMPLETED'
 });
 
-export const fetchMachinesSuccess = (devices) => ({
+export const fetchMachinesSuccess = (machines) => ({
   type: 'FETCH_MACHINES_SUCCESS',
-  payload: devices
+  payload: machines
 });
 export const fetchMachinesError = (error) => ({
   type: 'FETCH_MACHINES_ERROR',

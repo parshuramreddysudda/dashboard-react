@@ -14,11 +14,11 @@ export default class Overview extends React.Component {
             app: [],
             location: [],
             cloud: [],
-            device: [],
+            machine: [],
         }
     }
     componentDidMount() {
-        const {appData,cloudData,deviceData,locationData}=OverviewHelper;
+        const {appData,cloudData,machineData,locationData}=OverviewHelper;
         OverviewServices.getAppData().then(responce => {
             this.setState({ app: OverviewHelper.dataFormatter(responce.data,appData) });
         })
@@ -26,7 +26,7 @@ export default class Overview extends React.Component {
             this.setState({ cloud: OverviewHelper.dataFormatter(responce.data,cloudData) });
         })
         OverviewServices.getMachineData().then(responce => {
-            this.setState({ device: OverviewHelper.dataFormatter(responce.data,deviceData) });
+            this.setState({ machine: OverviewHelper.dataFormatter(responce.data,machineData) });
         })
         OverviewServices.getLocationData().then(responce => {
             this.setState({ location: OverviewHelper.dataFormatter(responce.data,locationData) });
@@ -41,7 +41,7 @@ export default class Overview extends React.Component {
                     <Grid container spacing={3}>
                         <Grid item xs={3} className="borderRight">
                             <Typography className="heading" variant="h6" component="h5" > Machines running </Typography>
-                            <Card data={this.state.device} />
+                            <Card data={this.state.machine} />
                         </Grid>
                         <Grid item xs={3} className="borderRight">
                             <Typography variant="h6" className="heading" component="h5" > Servers running </Typography>

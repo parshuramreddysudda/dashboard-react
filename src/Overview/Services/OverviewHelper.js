@@ -24,7 +24,7 @@ const appData = [
     { id: 4, name: 'Angular', icon: angular, count: 0 },
 
 ]
-const deviceData = [
+const machineData = [
     { id: 1, name: 'Android', icon: android, count: 0 },
     { id: 2, name: 'Windows', icon: windows, count: 0 },
     { id: 3, name: 'Linux', icon: linux, count: 0 },
@@ -50,7 +50,7 @@ const OverviewHelper = {
     dataFormatter,
     appData,
     cloudData,
-    deviceData,
+    machineData,
     locationData
 
 }

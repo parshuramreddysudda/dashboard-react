@@ -6,10 +6,10 @@ import {
 import Machine from './Machines';
 
 const mapStateToProps = state => ({
-  devices: state.devices.items,
-  loading: state.devices.loading,
-  updating: state.devices.updating,
-  error: state.devices.error
+  machine: state.machines.items,
+  loading: state.machines.loading,
+  updating: state.machines.updating,
+  error: state.machines.error
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

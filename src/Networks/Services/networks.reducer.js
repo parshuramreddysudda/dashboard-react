@@ -71,7 +71,7 @@ const initialState = {
         let deleteNetworkId = action.payload
         return {
           ...state,
-          items: [...state.items.filter(device => device.id !== deleteNetworkId)]
+          items: [...state.items.filter(machine => machine.id !== deleteNetworkId)]
         };
   
       case 'DELETE_NETWORK_ERROR':

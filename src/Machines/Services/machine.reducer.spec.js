@@ -1,4 +1,4 @@
-import deviceReducer from './machine.reducer';
+import machineReducer from './machine.reducer';
 
 const intialState = {
     items: [],
@@ -9,7 +9,7 @@ const intialState = {
 describe('Testing Machines Component Reducers ', () => {
     test('Should return Initial State ', () => {
 
-        expect(deviceReducer(undefined, {})).toEqual({
+        expect(machineReducer(undefined, {})).toEqual({
             items: [],
             loading: false,
             error: null,
@@ -18,7 +18,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle FETCH_MACHINES_PENDING ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'FETCH_MACHINES_PENDING'
         })).toEqual({
             items: [],
@@ -32,7 +32,7 @@ describe('Testing Machines Component Reducers ', () => {
 
     test('Should handle FETCH_MACHINES_COMPLETED ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'FETCH_MACHINES_COMPLETED'
         })).toEqual({
             items: [],
@@ -43,7 +43,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle FETCH_MACHINES_SUCCESS ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'FETCH_MACHINES_SUCCESS',
             payload: ['Data']
         })).toEqual({
@@ -55,7 +55,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle FETCH_MACHINES_ERROR ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'FETCH_MACHINES_ERROR',
             payload: 'Error'
         })).toEqual({
@@ -67,7 +67,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle RESET_MACHINES ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'RESET_MACHINES'
         })).toEqual({
             items: [],
@@ -78,7 +78,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle UPDATE_MACHINES_PENDING ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'UPDATE_MACHINES_PENDING'
         })).toEqual({
             items: [],
@@ -89,7 +89,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle UPDATE_MACHINES_COMPLETED ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'UPDATE_MACHINES_COMPLETED'
         })).toEqual({
             items: [],
@@ -100,7 +100,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle UPDATE_MACHINES_ERROR ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'UPDATE_MACHINES_ERROR',
             payload: ["Error Data"]
         })).toEqual({
@@ -112,7 +112,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle UPDATE_MACHINES_SUCCESS ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'UPDATE_MACHINES_SUCCESS',
             payload: {
                 updateData:"Update State"
@@ -127,7 +127,7 @@ describe('Testing Machines Component Reducers ', () => {
 
     test('Should handle DELETE_MACHINES_PENDING ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'DELETE_MACHINES_PENDING',
         })).toEqual({
             items: [],
@@ -138,7 +138,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle DELETE_MACHINES_COMPLETED ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'DELETE_MACHINES_COMPLETED',
         })).toEqual({
             items: [],
@@ -171,7 +171,7 @@ describe('Testing Machines Component Reducers ', () => {
             updating: false
         }
 
-        expect(deviceReducer(deleteState, {
+        expect(machineReducer(deleteState, {
             type: 'DELETE_MACHINES_SUCCESS',
             payload: '2'
         })).toEqual({
@@ -194,7 +194,7 @@ describe('Testing Machines Component Reducers ', () => {
 
     test('Should handle DELETE_MACHINES_ERROR ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'DELETE_MACHINES_ERROR',
             payload: 'Error'
         })).toEqual({
@@ -206,7 +206,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle CREATE_MACHINES_PENDING ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'CREATE_MACHINES_PENDING'
         })).toEqual({
             items: [],
@@ -217,7 +217,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle CREATE_MACHINES_COMPLETED ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'CREATE_MACHINES_COMPLETED'
         })).toEqual({
             items: [],
@@ -250,7 +250,7 @@ describe('Testing Machines Component Reducers ', () => {
             state: 'registered'
         }
 
-        expect(deviceReducer(createState, {
+        expect(machineReducer(createState, {
             type: 'CREATE_MACHINES_SUCCESS',
             payload: {
                 params: newData
@@ -279,7 +279,7 @@ describe('Testing Machines Component Reducers ', () => {
     })
     test('Should handle CREATE_MACHINES_ERROR ', () => {
 
-        expect(deviceReducer(intialState, {
+        expect(machineReducer(intialState, {
             type: 'CREATE_MACHINES_ERROR',
             payload: 'Data'
         })).toEqual({

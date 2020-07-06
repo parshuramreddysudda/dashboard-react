@@ -16,7 +16,7 @@ function getLocationData() {
     return API.get(`overview/locations`)
 }
 function getMachineData() {
-    return API.get(`overview/devices`)
+    return API.get(`overview/machines`)
 }
 function getCloudData() {
     return API.get(`overview/cloud`)

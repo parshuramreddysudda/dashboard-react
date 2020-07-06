@@ -148,14 +148,14 @@ describe('Testing Apps Component Actions ', () => {
 
     })
     test('should handle FETCH_APP_SUCCESS', () => {
-        const devices = [
+        const machines = [
             { id: '1' },
             { name: 'Machine1' }
         ]
 
-        expect(AppAction.fetchAppsSuccess(devices)).toEqual({
+        expect(AppAction.fetchAppsSuccess(machines)).toEqual({
             type: "FETCH_APP_SUCCESS",
-            payload: devices
+            payload: machines
         })
 
     })
