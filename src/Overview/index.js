@@ -18,18 +18,18 @@ export default class Overview extends React.Component {
         }
     }
     componentDidMount() {
-        const {appData,cloudData,machineData,locationData}=OverviewHelper;
+        const { appData, cloudData, machineData, locationData } = OverviewHelper;
         OverviewServices.getAppData().then(responce => {
-            this.setState({ app: OverviewHelper.dataFormatter(responce.data,appData) });
+            this.setState({ app: OverviewHelper.dataFormatter(responce.data, appData) });
         })
         OverviewServices.getCloudData().then(responce => {
-            this.setState({ cloud: OverviewHelper.dataFormatter(responce.data,cloudData) });
+            this.setState({ cloud: OverviewHelper.dataFormatter(responce.data, cloudData) });
         })
         OverviewServices.getMachineData().then(responce => {
-            this.setState({ machine: OverviewHelper.dataFormatter(responce.data,machineData) });
+            this.setState({ machine: OverviewHelper.dataFormatter(responce.data, machineData) });
         })
         OverviewServices.getLocationData().then(responce => {
-            this.setState({ location: OverviewHelper.dataFormatter(responce.data,locationData) });
+            this.setState({ location: OverviewHelper.dataFormatter(responce.data, locationData) });
         })
     }
 

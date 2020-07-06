@@ -26,6 +26,4 @@ describe('Testing Card Component', () => {
         expect(wrapper.find(Typography).last().props().children[0]).toBe('Count is ')
         expect(wrapper.find(Typography).last().props().children[1]).toBe(344)
     })
-
-
 })
