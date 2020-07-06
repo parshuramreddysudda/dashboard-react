@@ -61,6 +61,23 @@ describe('Testing Apps Component Actions ', () => {
             expect(app).toHaveProperty('type');
             expect(app).toHaveProperty('availableat');
 
+        })
+    })
+    test('should create CREATE_APP_PENDING when Creating app is started and CREATE_APP_ERROR when Creating is failed and CREATE_APP_COMPLETED finally completed  ', () => {
+        const initialState = {}
+        const store = mockStore(initialState)
+        jest.spyOn(store, 'getState').mockImplementation(() => { })
+        const params = {
+            "id": "63c45084-1880-b539-0813-c742d0b90b20",
+            "name": "amet aute aliqua Ut",
+            "version": "beta",
+            "installed": "1965-08-29T14:18:23.7Z",
+            "type": "Contain in app purchase",
+            "availableat": "Windows store"
+        };
+        return store.dispatch(AppAction.createApp()).then(() => {
+            //TO DO When request is sucessfull
+
         }).catch(() => {
             const actions = store.getActions();
             expect(actions[0].type).toEqual('CREATE_APP_PENDING');
