@@ -17,7 +17,7 @@ export default class Clients extends React.Component {
         this.state = {
             clients: [],
             columns: [
-                { title: 'Id', field: 'id',editable:'onAdd' },
+                { title: 'Id', field: 'id', editable: 'onAdd' },
                 { title: 'Name', field: 'name' },
                 { title: 'State', field: 'state' },
                 { title: 'Created', field: 'created' },
@@ -42,59 +42,83 @@ export default class Clients extends React.Component {
     }
     snakClose = () => {
         this.setState({ snakOpen: false })
+        return Promise.resolve();
     }
     clearData = () => {
         this.props.resetClients();
-        this.setState({ snakDesc: "Clients details Cleared" })
-        this.setState({ snakType: "warning" })
-        this.setState({ snakOpen: true })
+        this.setState({
+            snakDesc: "Clients details Cleared",
+            snakType: "warning",
+            snakOpen: true
+        })
+        return Promise.resolve();
     }
     resetData = () => {
         this.props.fetchClients();
-        this.setState({ snakDesc: "Clients details Reseted" })
-        this.setState({ snakType: "info" })
-        this.setState({ snakOpen: true })
+        this.setState({
+            snakDesc: "Clients details Reseted",
+            snakType: "info",
+            snakOpen: true
+        })
+        return Promise.resolve();
     }
 
     addDataHandler = (newData) =>
-        new Promise((resolve) => {
-            setTimeout(() => {
-                resolve();
-                this.props.createClient(newData);
-                this.setState({ snakDesc: "Clients id with" + newData.id + " has been succesfully created" })
-                this.setState({ snakType: "success" })
-                this.setState({ snakOpen: true })
-            }, 400);
+        new Promise((done) => {
+            this.props.createClient(newData);
+            this.setState({
+                snakDesc: "Clients id with " + newData.id + " has been succesfully created",
+                snakType: "success",
+                snakOpen: true
+            })
+            done()
+            return Promise.resolve();
         })
     deleteDataHandler = (newData) =>
-        new Promise((resolve) => {
-            setTimeout(() => {
-                resolve();
-                this.props.deleteClient(newData.id)
-                this.setState({ snakDesc: "Clients id with" + newData.id + " has been succesfully Deleted" })
-                this.setState({ snakType: "error" })
-                this.setState({ snakOpen: true })
-
-            }, 400);
+        new Promise((done) => {
+            this.props.deleteClient(newData.id)
+            this.setState({
+                snakDesc: "Clients id with " + newData.id + " has been succesfully Deleted",
+                snakType: "error",
+                snakOpen: true
+            })
+            done()
+            return Promise.resolve();
         })
+    updateDataHandler = ((newData, oldData) =>
+        new Promise((done) => {
+            const clients=this.props.clients
+            const data = [...clients];
+            data[data.indexOf(oldData)] = newData;
+            this.props.updateClient(newData, { ...clients, data }, newData.id)
+            this.setState({
+                snakDesc: "Clients id with " + newData.id + " has been succesfully Updated",
+                snakType: "info",
+                snakOpen: true
+            })
+            done()
+            return Promise.resolve();
+        }))
 
     componentDidMount() {
 
         this.props.fetchClients();
-        this.setState({ read: permissionHelper.checkPermission("CLIENTS", "READ") });
-        this.setState({ delete: permissionHelper.checkPermission("CLIENTS", "DELETE") });
-        this.setState({ create: permissionHelper.checkPermission("CLIENTS", "CREATE") });
-        this.setState({ update: permissionHelper.checkPermission("CLIENTS", "UPDATE") });
+        this.setState({
+            read: permissionHelper.checkPermission("CLIENTS", "READ"),
+            delete: permissionHelper.checkPermission("CLIENTS", "DELETE"),
+            create: permissionHelper.checkPermission("CLIENTS", "CREATE"),
+            update: permissionHelper.checkPermission("CLIENTS", "UPDATE")
+        });
     }
     render() {
-        let { clients, loading, error, updateClient } = this.props;
+        let { clients, loading, error } = this.props;
         return (
 
             <>
-                {error && <h4>{<Snakbar show={true} desc={this.state.networkError} snakType="warning" closeSnak={this.snakClose} />} </h4>}
+                {error && <h4 className="errorClass">{<Snakbar show={true} desc={this.state.networkError} snakType="warning" closeSnak={this.snakClose} />} </h4>}
                 {loading ?
                     <Loader /> :
-                    <div>
+                    <div className="materialTable">
                         {this.state.read ?
                             <MaterialTable
                                 title="Clients Details"
@@ -103,7 +127,7 @@ export default class Clients extends React.Component {
                                 onRowClick={((evt, selectedRow) => this.setState({ selectedRow }))}
                                 options={{
                                     exportButton: true,
-                                    isLoading:true,
+                                    isLoading: true,
                                     // filtering:true,
                                     rowStyle: rowData => ({
                                         backgroundColor: (this.state.selectedRow && this.state.selectedRow.tableData.id === rowData.tableData.id) ? '#EEE' : '#FFF'
@@ -111,18 +135,7 @@ export default class Clients extends React.Component {
                                 }}
                                 editable={{
                                     onRowAdd: this.state.create && this.addDataHandler,
-                                    onRowUpdate: this.state.update && ((newData, oldData) =>
-                                        new Promise((resolve) => {
-                                            setTimeout(() => {
-                                                resolve();
-                                                const data = [...clients];
-                                                data[data.indexOf(oldData)] = newData;
-                                                updateClient(newData, { ...clients, data }, newData.id)
-                                                this.setState({ snakDesc: "Clients id with" + newData.id + " has been succesfully Updated" })
-                                                this.setState({ snakType: "info" })
-                                                this.setState({ snakOpen: true })
-                                            }, 400);
-                                        })),
+                                    onRowUpdate: this.state.update && this.updateDataHandler,
                                     onRowDelete: this.state.delete && this.deleteDataHandler,
                                 }}
                             /> : <Forbidden />
@@ -138,7 +151,13 @@ export default class Clients extends React.Component {
                     </Grid>
                 </Grid>
                 }
-                <Snakbar show={this.state.snakOpen} desc={this.state.snakDesc} snakType={this.state.snakType} closeSnak={this.snakClose} />
+                <Snakbar
+                    show={this.state.snakOpen}
+                    desc={this.state.snakDesc}
+                    snakType={this.state.snakType}
+                    closeSnak={this.snakClose}
+
+                />
             </>
         )
     }

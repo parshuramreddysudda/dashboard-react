@@ -109,7 +109,7 @@ export default class Apps extends React.Component {
         });
     }
     render() {
-        let { apps, loading, error, updateApp, } = this.props;
+        let { apps, loading, error } = this.props;
         return (
             <div>
                 <Snakbar id="infoSnakbar"
