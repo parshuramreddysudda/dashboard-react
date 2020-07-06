@@ -103,6 +103,7 @@ export const deleteClient = (id) => (dispatch) => {
 
       // const machines = MachinesHelper.formatMachines(deleteClientResponce);
       dispatch(deleteClientSuccess(id));
+      return Promise.resolve(deleteClientResponce)
     })
     .catch(error => dispatch(deleteClientError(error)))
     .finally(() => dispatch(deleteClientCompleted()));
