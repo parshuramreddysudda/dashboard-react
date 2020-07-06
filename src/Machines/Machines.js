@@ -65,7 +65,7 @@ export default class Machines extends React.Component {
         new Promise((done) => {
             this.props.deleteMachine(newData.id)
             this.setState({
-                snakDesc: "Machine id with" + newData.id + " has been succesfully Deleted",
+                snakDesc: "Machine id with " + newData.id + " has been succesfully Deleted",
                 snakType: "error",
                 snakOpen: true
             })
@@ -77,7 +77,7 @@ export default class Machines extends React.Component {
         new Promise((done) => {
             this.props.createMachine(newData);
             this.setState({
-                snakDesc: "Machine id with" + newData.id + " has been succesfully created",
+                snakDesc: "Machine id with " + newData.id + " has been succesfully created",
                 snakType: "success",
                 snakOpen: true
             })
@@ -87,41 +87,36 @@ export default class Machines extends React.Component {
     )
     updateDataHandler = (newData, oldData) => (
         new Promise((done) => {
-            const machine=this.props.machine;
+            const machine = this.props.machine;
             const data = [...machine];
             data[data.indexOf(oldData)] = newData;
             this.props.updateMachine(newData, { ...machine, data }, newData.id)
-            this.setState({ snakDesc: "Machine id with" + newData.id + " has been succesfully Updated" })
+            this.setState({ snakDesc: "Machine id with " + newData.id + " has been succesfully Updated" })
             this.setState({ snakType: "info" })
             this.setState({ snakOpen: true })
             done()
             return Promise.resolve()
         })
     )
-
     componentDidMount() {
         this.props.fetchMachines();
-        this.setState({
-            read: permissionHelper.checkPermission("MACHINES", "READ"),
-            delete: permissionHelper.checkPermission("MACHINES", "DELETE"),
-            create: permissionHelper.checkPermission("MACHINES", "CREATE"),
-            update: permissionHelper.checkPermission("MACHINES", "UPDATE")
-        });
+        this.setState({ read: permissionHelper.checkPermission("MACHINES", "READ") });
+        this.setState({ delete: permissionHelper.checkPermission("MACHINES", "DELETE") });
+        this.setState({ create: permissionHelper.checkPermission("MACHINES", "CREATE") });
+        this.setState({ update: permissionHelper.checkPermission("MACHINES", "UPDATE") });
     }
     render() {
-        let { machine, loading, error, updateMachine } = this.props;
-        console.log(machine)
+        let { machine, loading, error } = this.props;
         return (
-
             <div>
-                {error ? <h4 className="errorClass" >{<Snakbar show={true} desc={this.state.networkError} snakType="warning" closeSnak={this.snakClose} />} </h4> : null}
+                {error ? <h4 className="errorClass">{<Snakbar show={true} desc={this.state.networkError} snakType="warning" closeSnak={this.snakClose} />} </h4> : null}
                 {loading ?
                     <Loader /> :
-                    <div className="materialTable">
+                    <div>
                         {this.state.read ?
 
                             <MaterialTable
-                                title="Machine Details"
+                                title="Machines Details"
                                 columns={this.state.columns}
                                 data={machine}
                                 onRowClick={((evt, selectedRow) => this.setState({ selectedRow }))}
@@ -143,27 +138,14 @@ export default class Machines extends React.Component {
                 }
                 {this.state.read && <Grid container spacing={2} direction="row" justify="center" alignItems="center" className="buttons">
                     <Grid item >
-                        <Button
-                            className="resetData"
-                            variant="contained"
-                            startIcon={<RotateLeftIcon />}
-                            onClick={() => this.resetData()}
-                        >
-                            Reset Data
-                        </Button>
+                        <Button className="resetData" variant="contained" startIcon={<RotateLeftIcon />} onClick={() => this.resetData()}>Reset Data</Button>
                     </Grid>
                     <Grid item >
                         <Button className="clearData" variant="contained" startIcon={<ClearAllIcon />} onClick={() => this.clearData()}>Clear Data</Button>
                     </Grid>
                 </Grid>
                 }
-                <Snakbar id="infoSnakbar"
-                    show={this.state.snakOpen}
-                    desc={this.state.snakDesc}
-                    snakType={this.state.snakType}
-                    closeSnak={this.snakClose}
-
-                />
+                <Snakbar show={this.state.snakOpen} desc={this.state.snakDesc} snakType={this.state.snakType} closeSnak={this.snakClose} />
             </div>
         )
     }

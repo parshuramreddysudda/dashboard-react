@@ -1,5 +1,5 @@
 import React from 'react'
-import Maachines from './Machines'
+import Machines from './Machines'
 import Loader from '../Components/loader'
 import MaterialTable from 'material-table';
 import { mount, shallow } from 'enzyme'
@@ -18,7 +18,7 @@ describe('Testing Machine Component', () => {
     test('should not load MaterialTable and grid and load Forbidden when Permission is flase', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
@@ -36,7 +36,7 @@ describe('Testing Machine Component', () => {
     test('should load MaterialTable and grid and not Forbidden when Permission is true', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
@@ -52,7 +52,7 @@ describe('Testing Machine Component', () => {
     test('should show Error component when errorProps is true', () => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
                 error={true}
             />)
@@ -63,7 +63,7 @@ describe('Testing Machine Component', () => {
     test('should not show Error component when errorProps is fasle', () => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
                 error={false}
             />)
@@ -74,7 +74,7 @@ describe('Testing Machine Component', () => {
     test('should show Loader component when loaderProps is true', () => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
                 loading={true}
             />)
@@ -86,7 +86,7 @@ describe('Testing Machine Component', () => {
     test('should not show Loader component when loaderProps is false', () => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
                 loading={false}
             />)
@@ -99,10 +99,10 @@ describe('Testing Machine Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
-                fetchApps={mockFetchfn}
+            <Machines
+                fetchMachines={mockFetchfn}
                 loading={true}
-                resetApps={mockResetfn}
+                resetMachines={mockResetfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         jest.spyOn(permissionHelper, 'checkPermission').mockImplementation(() => true);
@@ -124,10 +124,10 @@ describe('Testing Machine Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
-                fetchApps={mockFetchfn}
+            <Machines
+                fetchMachines={mockFetchfn}
                 loading={true}
-                resetApps={mockResetfn}
+                resetMachines={mockResetfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         jest.spyOn(permissionHelper, 'checkPermission').mockImplementation(() => true);
@@ -145,8 +145,8 @@ describe('Testing Machine Component', () => {
     test('should handle snakClose', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
-                fetchApps={mockFetchfn}
+            <Machines
+                fetchMachines={mockFetchfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
@@ -160,24 +160,23 @@ describe('Testing Machine Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockCreatefn = jest.fn(() => { })
         const params = {
-            "id": "63c45084-1880-b539-0813-c742d0b90b20",
-            "name": "amet aute aliqua Ut",
-            "version": "beta",
-            "installed": "1965-08-29T14:18:23.7Z",
-            "type": "Contain in app purchase",
-            "availableat": "Windows store"
-        };
+            "id": "67d2b441-e565-b1a7-1770-19300c29c9ac",
+            "name": "quis aute minim ad",
+            "os": "type-not-found",
+            "ip": "233.222.151.112",
+            "mac": "99:9I:32:Y9:6J:E7"
+        }
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
                 createMachine={mockCreatefn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
-        instance.addDatahandler(params).then(() => {
+        instance.addDataHandler(params).then(() => {
             const snakbar = wrapper.find(Snakbar)
             expect(mockCreatefn).toHaveBeenCalledTimes(1)
-            expect(snakbar.at(0).props().desc).toBe('Machine id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully created')
+            expect(snakbar.at(0).props().desc).toBe('Machine id with 67d2b441-e565-b1a7-1770-19300c29c9ac has been succesfully created')
             expect(snakbar.at(0).props().show).toBe(true)
             expect(snakbar.at(0).props().snakType).toBe('success')
         })
@@ -188,15 +187,14 @@ describe('Testing Machine Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockDeletefn = jest.fn(() => { })
         const params = {
-            "id": "63c45084-1880-b539-0813-c742d0b90b20",
-            "name": "amet aute aliqua Ut",
-            "version": "beta",
-            "installed": "1965-08-29T14:18:23.7Z",
-            "type": "Contain in app purchase",
-            "availableat": "Windows store"
+            "id": "67d2b441-e565-b1a7-1770-19300c29c9ac",
+            "name": "quis aute minim ad",
+            "os": "type-not-found",
+            "ip": "233.222.151.112",
+            "mac": "99:9I:32:Y9:6J:E7"
         };
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
                 deleteMachine={mockDeletefn}
             />)
@@ -205,7 +203,7 @@ describe('Testing Machine Component', () => {
         instance.deleteDataHandler(params).then(() => {
             const snakbar = wrapper.find(Snakbar)
             expect(mockDeletefn).toHaveBeenCalledTimes(1)
-            expect(snakbar.at(0).props().desc).toBe('Machine id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully Deleted')
+            expect(snakbar.at(0).props().desc).toBe('Machine id with 67d2b441-e565-b1a7-1770-19300c29c9ac has been succesfully Deleted')
             expect(snakbar.at(0).props().show).toBe(true)
             expect(snakbar.at(0).props().snakType).toBe('error')
         })
@@ -215,26 +213,24 @@ describe('Testing Machine Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockUpdatefn = jest.fn(() => { })
         const oldData = [{
-            "id": "63c45084-1880-b539-0813-c742d0b90b20",
-            "name": "amet aute aliqua Ut",
-            "version": "beta",
-            "installed": "1965-08-29T14:18:23.7Z",
-            "type": "Contain in app purchase",
-            "availableat": "Windows store"
+            "id": "67d2b441-e565-b1a7-1770-19300c29c9ac",
+            "name": "quis aute minim ad",
+            "os": "type-not-found",
+            "ip": "233.222.151.112",
+            "mac": "99:9I:32:Y9:6J:E7"
         }];
         const newData = {
-            "id": "63c45084-1880-b539-0813-c742d0b90b20",
-            "name": "aasd",
-            "version": "beta",
-            "installed": "1965-08-29T14:18:23.7Z",
-            "type": "Contain in app purchase",
-            "availableat": "Windows store"
+            "id": "67d2b441-e565-b1a7-1770-19300c29c9ac",
+            "name": "Namesdd",
+            "os": "type-not-found",
+            "ip": "233.222.151.112",
+            "mac": "99:9I:32:Y9:6J:E7"
         }
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
                 updateMachine={mockUpdatefn}
-                apps={oldData}
+                machine={oldData}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
@@ -242,7 +238,7 @@ describe('Testing Machine Component', () => {
         instance.updateDataHandler(newData, oldData).then(() => {
             const snakbar = wrapper.find(Snakbar)
             expect(mockUpdatefn).toHaveBeenCalledTimes(1)
-            expect(snakbar.at(0).props().desc).toBe('Machine id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully Updated')
+            expect(snakbar.at(0).props().desc).toBe('Machine id with 67d2b441-e565-b1a7-1770-19300c29c9ac has been succesfully Updated')
             expect(snakbar.at(0).props().show).toBe(true)
             expect(snakbar.at(0).props().snakType).toBe('info')
         })
@@ -253,7 +249,7 @@ describe('Testing Machine Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
                 resetData={mockResetfn}
             />)
@@ -271,7 +267,7 @@ describe('Testing Machine Component', () => {
         const mockClearfn = jest.fn(() => { })
         const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
                 clearMachines={mockClearfn}
                 resetMachines={mockResetfn}
@@ -288,18 +284,17 @@ describe('Testing Machine Component', () => {
     test('should handle Material Table', () => {
         const mockFetchfn = jest.fn(() => { })
         const data = [{
-            "id": "63c45084-1880-b539-0813-c742d0b90b20",
-            "name": "amet aute aliqua Ut",
-            "version": "beta",
-            "installed": "1965-08-29T14:18:23.7Z",
-            "type": "Contain in app purchase",
-            "availableat": "Windows store"
+            "id": "67d2b441-e565-b1a7-1770-19300c29c9ac",
+            "name": "quis aute minim ad",
+            "os": "type-not-found",
+            "ip": "233.222.151.112",
+            "mac": "99:9I:32:Y9:6J:E7"
         }]
             ;
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
-                apps={data}
+                machine={data}
 
             />)
         const mockColumns = [
@@ -309,7 +304,7 @@ describe('Testing Machine Component', () => {
             columns: mockColumns
         })
         const materialTable = wrapper.find(MaterialTable);
-        expect(materialTable.at(0).props().title).toBe('Maachines Details')
+        expect(materialTable.at(0).props().title).toBe('Machines Details')
         expect(materialTable.at(0).props().columns).toBe(mockColumns)
         expect(materialTable.at(0).props().data).toBe(data)
     })
@@ -321,7 +316,7 @@ describe('Testing Machine Component', () => {
                 onRowClick={mockRowClick}
 
             />)
-        console.log(wrapper.find(MaterialTable).at(0).simulate('click'))
+        // console.log(wrapper.find(MaterialTable).at(0).simulate('click'))
         // wrapper.find('tr').at(0).simulate('click');
         // console.log(wrapper.find('tr').at(0).children().simulate('click')) 
         expect(mockRowClick).toHaveBeenCalledTimes(0)
@@ -331,7 +326,7 @@ describe('Testing Machine Component', () => {
     test('should handle snakClose', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <Maachines
+            <Machines
                 fetchMachines={mockFetchfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
@@ -355,8 +350,8 @@ describe('Testing Machine Component', () => {
     //     const mockUpdatefn = jest.fn(() => { });
     //     const mockDeletefn = jest.fn(() => { });
     //     const wrapper = shallow(
-    //         <Maachines
-    //             apps={[]}
+    //         <Machines
+    //             Machines={[]}
     //             loading={true}
     //             updating={false}
     //             error={false}

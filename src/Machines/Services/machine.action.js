@@ -65,13 +65,10 @@ export const createMachineError = (error) => ({
 export const resetMachines = () => ({ 
   type: 'RESET_MACHINES'
 });
-
 export const fetchMachines = (params) => (dispatch) => {
-
   dispatch(fetchMachinesPending());
   return API.get('machines', { params: params })
     .then(fetchMachinesResponce => {
-
       dispatch(fetchMachinesSuccess(fetchMachinesResponce.data));
     })
     .catch(error => dispatch(fetchMachinesError(error)))
@@ -79,7 +76,6 @@ export const fetchMachines = (params) => (dispatch) => {
 };
 
 export const updateMachine = (params,newData,id) => (dispatch) => {
-
   dispatch(updateMachinePending());
   const reqParams = `${params.id}&name=${params.name}&os=${params.os}&ip=${params.ip}&mac=${params.mac}`
   return API.put(`machines/${id}?=${reqParams}`)
@@ -104,7 +100,6 @@ export const deleteMachine = (id) => (dispatch) => {
     .finally(() => dispatch(deleteMachineCompleted()));
 };
 
-
 export const createMachine = (params) => (dispatch) => {
   dispatch(createMachinePending());
   const reqParams = `id=${params.id}&name=${params.name}&state=${params.state}&created=${params.created}&updated=${params.updated}&type=${params.type}`
@@ -116,4 +111,3 @@ export const createMachine = (params) => (dispatch) => {
     .catch(error => dispatch(createMachineError(error)))
     .finally(() => dispatch(createMachineCompleted()));
 };
-

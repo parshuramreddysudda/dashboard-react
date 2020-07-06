@@ -28,8 +28,14 @@ describe('Testing Apps Component Actions ', () => {
                 expect(app).toHaveProperty('availableat');
             });
 
+        }).catch(() => {
+            const actions = store.getActions();
+            expect(actions[0].type).toEqual('FETCH_APP_PENDING');
+            expect(actions[1].type).toEqual('FETCH_APP_ERROR');
+            expect(actions[2].type).toEqual('FETCH_APP_COMPLETED');
         })
     })
+    
     test('should create CREATE_APP_PENDING when Creating app is started and CREATE_APP_SUCCESS when Creating is done and CREATE_APP_COMPLETED finally completed  ', () => {
         const initialState = {}
         const store = mockStore(initialState)
@@ -55,6 +61,11 @@ describe('Testing Apps Component Actions ', () => {
             expect(app).toHaveProperty('type');
             expect(app).toHaveProperty('availableat');
 
+        }).catch(() => {
+            const actions = store.getActions();
+            expect(actions[0].type).toEqual('CREATE_APP_PENDING');
+            expect(actions[1].type).toEqual('CREATE_APP_ERROR');
+            expect(actions[2].type).toEqual('CREATE_APP_COMPLETED');
         })
     })
     test('should create DELETE_APP_PENDING when Creating app is started and DELETE_APP_SUCCESS when Creating is done and DELETE_APP_COMPLETED finally completed  ', () => {
@@ -70,6 +81,11 @@ describe('Testing Apps Component Actions ', () => {
             const id = actions[1].payload;
             expect(id).toEqual(params);
             expect(deleteResponce.status).toBe(204);
+        }).catch(() => {
+            const actions = store.getActions();
+            expect(actions[0].type).toEqual('DELETE_APP_PENDING');
+            expect(actions[1].type).toEqual('DELETE_APP_ERROR');
+            expect(actions[2].type).toEqual('DELETE_APP_COMPLETED');
         })
     })
     test('should create UPDATE_APP_PENDING when updating app is started and UPDATE_APP_SUCCESS when update is done and UPDATE_APP_COMPLETED finally completed  ', () => {
@@ -130,6 +146,11 @@ describe('Testing Apps Component Actions ', () => {
             expect(app).toHaveProperty('availableat');
             const state=store.getState()
             // });
+        }).catch(() => {
+            const actions = store.getActions();
+            expect(actions[0].type).toEqual('UPDATE_APP_PENDING');
+            expect(actions[1].type).toEqual('UPDATE_APP_ERROR');
+            expect(actions[2].type).toEqual('UPDATE_APP_COMPLETED');
         })
     })
 

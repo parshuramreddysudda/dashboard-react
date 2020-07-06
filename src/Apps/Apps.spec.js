@@ -321,7 +321,7 @@ describe('Testing Apps Component', () => {
                 onRowClick={mockRowClick}
 
             />)
-        console.log(wrapper.find(MaterialTable).at(0).simulate('click'))
+        // console.log(wrapper.find(MaterialTable).at(0).simulate('click'))
         // wrapper.find('tr').at(0).simulate('click');
         // console.log(wrapper.find('tr').at(0).children().simulate('click')) 
         expect(mockRowClick).toHaveBeenCalledTimes(0)

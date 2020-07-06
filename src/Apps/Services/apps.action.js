@@ -97,7 +97,6 @@ export const updateApp = (params,newData,id) => (dispatch) => {
 
 export const deleteApp = (id) => (dispatch,getState) => {
   const state=getState();
-  console.log(state," This is State")
   dispatch(deleteAppPending());
   return API.delete(`Apps/${id}`)
     .then(deleteAppResponce => {
