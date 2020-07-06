@@ -13,10 +13,10 @@ class AuthHelper {
     // return "CEO";
   }
   setAuthRole() {
-    // console.log("Data Fetching")
-    return API.get(`myrole`).then(response => {
+    API.get(`myrole`).then(response => {
       this.clientRole = response.data;
     })
+    return Promise.resolve();
   }
 }
 

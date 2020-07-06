@@ -431,12 +431,98 @@ components:
           type: integer
           minimum: 1
           maximum: 1000
+    Noida:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Noida
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    California:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - California
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    India:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - India
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    NewYork:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - NewYork
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Client:
+      type: object
+      properties:
+        Locations:
+          type: array
+          items:
+            - $ref: '#/components/schemas/Noida'
+            - $ref: '#/components/schemas/California'
+            - $ref: '#/components/schemas/India'
+            - $ref: '#/components/schemas/NewYork'
+        total:
+          type: integer
+          minimum: 1
+          maximum: 1000
     role:
       type: object
       properties:
         name:
           enum:
             - Administrator
+    Reg:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Registered
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    unReg:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - UnRegistered
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Graphtypes:
+      type: object
+      properties:
+        Clients:
+          type: array
+          items:
+            - $ref: '#/components/schemas/Reg'
+            - $ref: '#/components/schemas/unReg'
+        total:
+          type: integer
+          minimum: 1
+          maximum: 1000
     iOS:
       type: object
       properties:
@@ -784,7 +870,7 @@ paths:
       responses:
         '204':
           description: network deleted successfully
-  /api/overview/application:
+  /api/overview/app:
     get:
       summary: Your GET endpoint
       tags: []
@@ -817,6 +903,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Machinetypes'
+  /api/overview/locations:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
   /api/role:
     get:
       summary: Your GET endpoint
@@ -840,6 +937,17 @@ paths:
                 type: string
                 enum:
                   - ADMIN
+  /api/overview/clientgraph:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Graphtypes'
   /api/overview/devgraph:
     get:
       summary: Your GET endpoint
@@ -852,6 +960,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/DevGraph'
 servers:
+  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000'
   - url: 'http://localhost:3000'
   - url: 'http://localhost:3000'
   - url: 'http://localhost:3000'

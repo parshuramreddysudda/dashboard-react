@@ -9,11 +9,12 @@ const useStyles = makeStyles((theme) => ({
     left: "calc(50% - 20px)",
     top:"50%",
   },
-}));
+}
+));
 
 export default function CircularIndeterminate() {
   const classes = useStyles();
-
+  
   return (
     <div className={classes.root}>
       <CircularProgress color="secondary" />

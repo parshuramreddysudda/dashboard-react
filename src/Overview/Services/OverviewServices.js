@@ -1,7 +1,6 @@
 import API from '../../MainServices/AxiosInstance'
 
 const OverviewServices = {
-
     getAppData,
     getLocationData,
     getMachineData,
