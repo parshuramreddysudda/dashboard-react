@@ -95,8 +95,7 @@ export const updateApp = (params,newData,id) => (dispatch) => {
     .finally(() => dispatch(updateAppCompleted()));
 };
 
-export const deleteApp = (id) => (dispatch,getState) => {
-  const state=getState();
+export const deleteApp = (id) => (dispatch) => {
   dispatch(deleteAppPending());
   return API.delete(`Apps/${id}`)
     .then(deleteAppResponce => {
