@@ -61,7 +61,7 @@ describe('Testing Clients Component Actions ', () => {
             "state": "deleted",
             "created": "2009-02-09T10:53:07.39Z",
             "updated": "1988-06-03T19:40:09.248Z",
-            "type": "mollit in"
+            "type": "mollit in" 
         };
         return store.dispatch(clientActions.createClient(params)).then(() => {
             const actions = store.getActions();

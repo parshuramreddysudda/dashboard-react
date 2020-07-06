@@ -158,30 +158,24 @@ describe('Testing Network Component Actions ', () => {
                 "destroy": "2601-26-16T04:27:03.499Z"
             }
         ]
-        const id = '6be7b591-fc4f-3eca-7128-3a52c30366e2'
+        const id = '0a2d01fd-ddb4-5472-5d3c-925911d234d1'
         return store.dispatch(networkActions.updateNetwork(params, newData, id)).then(() => {
             const actions = store.getActions();
             // console.log(actions)
             expect(actions[0].type).toEqual('UPDATE_NETWORK_PENDING');
             expect(actions[1].type).toEqual('UPDATE_NETWORK_SUCCESS');
             expect(actions[2].type).toEqual('UPDATE_NETWORK_COMPLETED');
-            const network = actions[1].payload.updateApp;
+            const network = actions[1].payload.updateNetwork;
             // network.forEach(network => {
             // console.log(network)
             expect(network).toHaveProperty('id');
             expect(network).toHaveProperty('name');
             expect(network).toHaveProperty('started');
             expect(network).toHaveProperty('destroy');
-            const state = store.getState()
             // });
-        }).catch(() => {
-            const actions = store.getActions();
-            expect(actions[0].type).toEqual('UPDATE_NETWORK_PENDING');
-            expect(actions[1].type).toEqual('UPDATE_NETWORK_ERROR');
-            expect(actions[2].type).toEqual('UPDATE_NETWORK_COMPLETED');
         })
     })
-
+ 
     test('should create UPDATE_NETWORK_PENDING when updating network is started and UPDATE_NETWORK_ERROR when update is failed and UPDATE_NETWORK_COMPLETED finally completed  ', () => {
         const initialState = {}
         const store = mockStore(initialState)
