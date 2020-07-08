@@ -33,12 +33,12 @@ describe('Testing Overview Component', () => {
       return data
     })
 
-    // wrapper.setState({
-    //   machine: OverviewHelper.dataFormatter(),
-    //   app: OverviewHelper.dataFormatter(),
-    //   cloud: OverviewHelper.dataFormatter(),
-    //   location: OverviewHelper.dataFormatter()
-    // })
+    wrapper.setState({
+      machine: OverviewHelper.dataFormatter(),
+      app: OverviewHelper.dataFormatter(),
+      cloud: OverviewHelper.dataFormatter(),
+      location: OverviewHelper.dataFormatter()
+    })
     OverviewServices.getMachineData().then((done) => {
       wrapper.setState({ machine: OverviewHelper.dataFormatter() }, () => {
         expect(wrapper.update().state('machine')).toBe(data);
@@ -119,6 +119,13 @@ describe('Testing Overview Component', () => {
     jest.spyOn(OverviewHelper, 'dataFormatter').mockImplementation(() => {
       return data
     })
+    wrapper.setState({
+      machine: OverviewHelper.dataFormatter(),
+      app: OverviewHelper.dataFormatter(),
+      cloud: OverviewHelper.dataFormatter(),
+      location: OverviewHelper.dataFormatter()
+    })
+    
     OverviewServices.getLocationData().then((done) => {
       wrapper.setState({ location: OverviewHelper.dataFormatter() }, () => {
         expect(wrapper.update().state('location')).toBe(data);
