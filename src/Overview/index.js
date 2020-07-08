@@ -18,41 +18,49 @@ export default class Overview extends React.Component {
         }
     }
     componentDidMount() {
+
         const { appData, cloudData, machineData, locationData } = OverviewHelper;
-        OverviewServices.getAppData().then(responce => {
-            this.setState({ app: OverviewHelper.dataFormatter(responce.data, appData) });
+        OverviewServices.getAppData().then((responce) => {
+            this.setState({
+                app: OverviewHelper.dataFormatter(responce.data, appData)
+            })
         })
         OverviewServices.getCloudData().then(responce => {
-            this.setState({ cloud: OverviewHelper.dataFormatter(responce.data, cloudData) });
+            this.setState({
+                cloud: OverviewHelper.dataFormatter(responce.data, cloudData)
+            });
         })
         OverviewServices.getMachineData().then(responce => {
-            this.setState({ machine: OverviewHelper.dataFormatter(responce.data, machineData) });
+            this.setState({
+                machine: OverviewHelper.dataFormatter(responce.data, machineData)
+            });
         })
         OverviewServices.getLocationData().then(responce => {
-            this.setState({ location: OverviewHelper.dataFormatter(responce.data, locationData) });
+            this.setState({
+                location: OverviewHelper.dataFormatter(responce.data, locationData)
+            });
         })
     }
 
     render() {
         return (
-
             <div className="topMargin">
                 <Paper >
                     <Grid container spacing={3}>
-                        <Grid item xs={3} className="borderRight">
-                            <Typography className="heading" variant="h6" component="h5" > Machines running </Typography>
+                        <Grid item xs={3} className="borderRight" >
+                            <Typography className="heading" variant="h6"  component="h5" id="machines" > Machines running </Typography>
                             <Card data={this.state.machine} />
                         </Grid>
                         <Grid item xs={3} className="borderRight">
-                            <Typography variant="h6" className="heading" component="h5" > Servers running </Typography>
+                            <Typography variant="h6" className="heading" component="h5" id="servers"> Servers running </Typography>
                             <Card data={this.state.cloud} />
                         </Grid>
                         <Grid item xs={3} className="borderRight">
-                            <Typography variant="h6" component="h5" className="heading" > Frameworks running </Typography>
+                            <Typography variant="h6" component="h5" className="heading" id="framework"> Frameworks running </Typography>
                             <Card data={this.state.app} />
                         </Grid>
                         <Grid item xs={3}>
-                            <Typography variant="h6" className="heading" component="h5" > Works running </Typography>
+                            <Typography variant="h6" className="heading" component="h5" id="work"> Works running </Typography>
                             <Card data={this.state.location} />
                         </Grid>
                     </Grid>
