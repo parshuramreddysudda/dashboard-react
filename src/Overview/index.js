@@ -48,7 +48,7 @@ export default class Overview extends React.Component {
                 <Paper >
                     <Grid container spacing={3}>
                         <Grid item xs={3} className="borderRight" >
-                            <Typography className="heading" variant="h6"  component="h5" id="machines" > Machines running </Typography>
+                            <Typography className="heading" variant="h6" component="h5" id="machines" > Machines running </Typography>
                             <Card data={this.state.machine} />
                         </Grid>
                         <Grid item xs={3} className="borderRight">
