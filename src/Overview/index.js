@@ -34,7 +34,6 @@ export default class Overview extends React.Component {
             this.setState({
                 machine: OverviewHelper.dataFormatter(responce.data, machineData)
             });
-            return Promise.resolve()
         })
         OverviewServices.getLocationData().then(responce => {
             this.setState({

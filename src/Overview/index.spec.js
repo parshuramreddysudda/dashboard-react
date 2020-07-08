@@ -10,9 +10,76 @@ import { mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('Testing Overview Component', () => {
 
-  test('should handle machine state', () => {
+  test('should handle Machine state', () => {
+
+    const wrapper = mount(<Overview />)
+    const setStateSpy = jest.spyOn(Overview.prototype, 'setState');
+    const data =
+      [
+        { id: 1, name: 'Android', icon: 'android', count: 64 },
+        { id: 2, name: 'Windows', icon: 'windows', count: 68 },
+      ]
+    jest.spyOn(OverviewServices, 'getMachineData').mockImplementation(() => {
+      return Promise.resolve()
+    })
+
+    jest.spyOn(OverviewHelper, 'dataFormatter').mockImplementation(() => {
+      return data
+    })
+
+    // wrapper.setState({
+    //   machine: OverviewHelper.dataFormatter(),
+    //   app: OverviewHelper.dataFormatter(),
+    //   cloud: OverviewHelper.dataFormatter(),
+    //   location: OverviewHelper.dataFormatter()
+    // })
+    OverviewServices.getMachineData().then((done) => {
+      wrapper.setState({ machine: OverviewHelper.dataFormatter() }, () => {
+        expect(wrapper.update().state('machine')).toBe(data);
+      });
+      expect(setStateSpy).toHaveBeenCalled();
+    })
+
+  })
+
+  test('should handle Cloud state', () => {
+
+    const wrapper = mount(<Overview />)
+    const setStateSpy = jest.spyOn(Overview.prototype, 'setState');
+    const data =
+      [
+        { id: 1, name: 'AWS', icon: 'amazon', count: 94 },
+        { id: 2, name: 'Azure', icon: 'azure', count: 68 },
+      ]
+    jest.spyOn(OverviewServices, 'getCloudData').mockImplementation(() => {
+      return Promise.resolve()
+    })
+
+    jest.spyOn(OverviewHelper, 'dataFormatter').mockImplementation(() => {
+      return data
+    })
+    wrapper.setState({
+      machine: OverviewHelper.dataFormatter(),
+      app: OverviewHelper.dataFormatter(),
+      cloud: OverviewHelper.dataFormatter(),
+      location: OverviewHelper.dataFormatter()
+    })
+    OverviewServices.getCloudData().then((done) => {
+      wrapper.setState({ cloud: OverviewHelper.dataFormatter() }, () => {
+        expect(wrapper.update().state('cloud')).toBe(data);
+      });
+      expect(setStateSpy).toHaveBeenCalled();
+      done()
+    })
+  })
+
+  test('should handle App state', () => {
 
     const wrapper = mount(<Overview />)
     const setStateSpy = jest.spyOn(Overview.prototype, 'setState');
@@ -28,15 +95,36 @@ describe('Testing Overview Component', () => {
     jest.spyOn(OverviewHelper, 'dataFormatter').mockImplementation(() => {
       return data
     })
-    OverviewServices.getMachineData().then((done) => {
-      wrapper.setState({ machine: OverviewHelper.dataFormatter() }, () => {
-        expect(wrapper.update().state('machine')).toBe(data);
+    OverviewServices.getAppData().then((done) => {
+      wrapper.setState({ app: OverviewHelper.dataFormatter() }, () => {
+        expect(wrapper.update().state('app')).toBe(data);
       });
       expect(setStateSpy).toHaveBeenCalled();
-      done()
+    })
+  })
+
+  test('should handle Location state', () => {
+
+    const wrapper = mount(<Overview />)
+    const setStateSpy = jest.spyOn(Overview.prototype, 'setState');
+    const data =
+      [
+        { id: 1, name: 'React', icon: 'react.png', count: 25 },
+        { id: 2, name: 'Vue', icon: 'vue.png', count: 36 }
+      ]
+    jest.spyOn(OverviewServices, 'getLocationData').mockImplementation(() => {
+      return Promise.resolve()
     })
 
-
+    jest.spyOn(OverviewHelper, 'dataFormatter').mockImplementation(() => {
+      return data
+    })
+    OverviewServices.getLocationData().then((done) => {
+      wrapper.setState({ location: OverviewHelper.dataFormatter() }, () => {
+        expect(wrapper.update().state('location')).toBe(data);
+      });
+      expect(setStateSpy).toHaveBeenCalled();
+    })
   })
 
 
