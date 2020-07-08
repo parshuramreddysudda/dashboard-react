@@ -12,6 +12,36 @@ configure({ adapter: new Adapter() });
 
 describe('Testing Overview Component', () => {
 
+  test('should handle machine state', () => {
+
+    const wrapper = mount(<Overview />)
+    const setStateSpy = jest.spyOn(Overview.prototype, 'setState');
+    const data =
+      [
+        { id: 1, name: 'React', icon: 'react.png', count: 25 },
+        { id: 2, name: 'Vue', icon: 'vue.png', count: 36 }
+      ]
+    jest.spyOn(OverviewServices, 'getAppData').mockImplementation(() => {
+      return Promise.resolve()
+    })
+
+    jest.spyOn(OverviewHelper, 'dataFormatter').mockImplementation(() => {
+      return data
+    })
+    OverviewServices.getMachineData().then((done) => {
+      wrapper.setState({ machine: OverviewHelper.dataFormatter() }, () => {
+        expect(wrapper.update().state('machine')).toBe(data);
+      });
+      expect(setStateSpy).toHaveBeenCalled();
+      done()
+    })
+
+
+  })
+
+
+
+
   test('should load all data  with all state ', () => {
     const wrapper = mount(<Overview />);
     const instance = wrapper.instance();
@@ -23,49 +53,9 @@ describe('Testing Overview Component', () => {
     jest.spyOn(OverviewServices, 'getAppData').mockImplementation(() => {
       return Promise.resolve()
     })
+
     jest.spyOn(OverviewHelper, 'dataFormatter').mockImplementation(() => {
       return data
-    })
-    
-    OverviewServices.getAppData().then((done) => {
-      return Promise.resolve()
-    })
-
-
-    jest.spyOn(OverviewServices, 'getCloudData').mockImplementation(() => {
-      return Promise.resolve()
-    })
-    jest.spyOn(OverviewHelper, 'dataFormatter').mockImplementation(() => {
-      return data
-    })
-    
-    OverviewServices.getCloudData().then((done) => {
-      return Promise.resolve()
-    })
-
-
-    jest.spyOn(OverviewServices, 'getMachineData').mockImplementation(() => {
-      return Promise.resolve()
-    })
-    jest.spyOn(OverviewHelper, 'dataFormatter').mockImplementation(() => {
-      return data
-    })
-    
-    OverviewServices.getMachineData().then((done) => {
-      return Promise.resolve()
-    })
-
-
-    
-    jest.spyOn(OverviewServices, 'getLocationData').mockImplementation(() => {
-      return Promise.resolve()
-    })
-    jest.spyOn(OverviewHelper, 'dataFormatter').mockImplementation(() => {
-      return data
-    })
-    
-    OverviewServices.getLocationData().then((done) => {
-      return Promise.resolve()
     })
 
     wrapper.setState({
@@ -74,6 +64,7 @@ describe('Testing Overview Component', () => {
       cloud: OverviewHelper.dataFormatter(),
       location: OverviewHelper.dataFormatter()
     })
+
     expect(wrapper.find(Card).at(0).props().data[0]).toStrictEqual(data[0])
     expect(wrapper.find(Card).at(1).props().data[1]).toStrictEqual(data[1])
     expect(wrapper.find(Card).at(2).props().data[0]).toStrictEqual(data[0])
@@ -85,7 +76,8 @@ describe('Testing Overview Component', () => {
     expect(wrapper.find('#framework').at(0).props('children').children).toBe(' Frameworks running ')
     expect(wrapper.find('#work').at(0).props('children').children).toBe(' Works running ')
   })
-  
+
+
 
 
 })
