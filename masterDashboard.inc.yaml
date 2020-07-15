@@ -936,7 +936,7 @@ paths:
               schema:
                 type: string
                 enum:
-                  - ADMIN
+                  - CEO
   /api/overview/clientgraph:
     get:
       summary: Your GET endpoint

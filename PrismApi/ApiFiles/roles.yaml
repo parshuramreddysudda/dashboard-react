@@ -16,7 +16,7 @@ paths:
               schema:
                 type: string
                 enum: 
-                  - "ADMIN"
+                  # - "ADMIN"
                   # - "CLIENT"
                   # - "READONLY"
-                  # - "CEO"
+                  - "CEO"

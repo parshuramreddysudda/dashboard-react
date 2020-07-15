@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import react from '../src/assets/images/react.png'
@@ -10,20 +10,30 @@ import Access from './Components/Access'
 import Overview from './Overview'
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import AuthHelper from './Auth/AuthHelper';
+import permissionHelper from './Auth/PermissionHelper';
 
 const useStyles = makeStyles({
   root: {
     flex: 1
   },
 });
-
+console.log("role is ", AuthHelper.setAuthRole())
 function App() {
   const classes = useStyles();
+  var isPermission = false;
+  
+  useEffect(() => {
+    AuthHelper.setAuthRole();
+    isPermission = permissionHelper.checkPermission("APP", "READ");
+    console.log("Auth permissionis ", isPermission)
+  });
 
   return (
+
     <Router>
       <div className={classes.root}>
-        <Navbar className="navBar "  bg="light" expand="lg">
+        <Navbar className="navBar " bg="light" expand="lg">
           <Navbar.Brand>
             <Link to="/dashboard"><img
               alt=""
@@ -39,24 +49,24 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto ">
               <Nav className="navLink"><Link className="link" to="/dashboard">Dashboard</Link></Nav>
-              <Nav className="navLink"><Link className="link" to="/access">4D Access</Link></Nav>
+              {isPermission && <Nav className="navLink"><Link className="link" to="/access">4D Access</Link></Nav>}
               <Nav className="navLink"><Link className="link" to="/overview">Overview</Link></Nav>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-          {/* <Redirect exact from="/" to="dashboard" /> */}
-          <Route exact  path="/">
-            <Dashboard />
-          </Route>
-          <Route exact  path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route exact path="/access">
-            <Access />
-          </Route>
-          <Route exact path="/overview">
-            <Overview />
-          </Route>
+        {/* <Redirect exact from="/" to="dashboard" /> */}
+        <Route exact path="/">
+          <Dashboard />
+        </Route>
+        <Route exact path="/dashboard">
+          <Dashboard />
+        </Route>
+        <Route exact path="/access">
+          <Access />
+        </Route>
+        <Route exact path="/overview">
+          <Overview />
+        </Route>
       </div>
     </Router>
   );
