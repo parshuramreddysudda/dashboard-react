@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 console.log("role is ", AuthHelper.setAuthRole())
 function App() {
   const classes = useStyles();
-  var isPermission = false;
+  var isPermission = true;
   
   useEffect(() => {
     AuthHelper.setAuthRole();
