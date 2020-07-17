@@ -33,14 +33,14 @@ function App() {
 
     <Router>
       <div className={classes.root}>
-        <Navbar className="navBar " bg="light" expand="lg">
+        <Navbar className="navBar" id="navbar" bg="light" expand="lg">
           <Navbar.Brand>
             <Link to="/dashboard"><img
               alt=""
               src={react}
               width="30"
               height="30"
-              className="d-inline-block align-top "
+              className="d-inline-block align-top home-link"
             />{' '}
             React Redux
             </Link>
@@ -48,9 +48,9 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto ">
-              <Nav className="navLink"><Link className="link" to="/dashboard">Dashboard</Link></Nav>
-              {isPermission && <Nav className="navLink"><Link className="link" to="/access">4D Access</Link></Nav>}
-              <Nav className="navLink"><Link className="link" to="/overview">Overview</Link></Nav>
+              <Nav className="navLink"><Link className="link home-link" to="/dashboard">Dashboard</Link></Nav>
+              {isPermission && <Nav className="navLink"><Link className="link home-link" to="/access">4D Access</Link></Nav>}
+              <Nav className="navLink"><Link className="link home-link" to="/overview">Overview</Link></Nav>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -72,4 +72,4 @@ function App() {
   );
 
 }
-export default App
+export default App;
