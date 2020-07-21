@@ -4,7 +4,7 @@ import './index.scss'
 import { Provider } from 'react-redux';
 import store from './store';
 import App from './App';
-import AuthHelper from  './Auth/AuthHelper'
+import AuthHelper from './Auth/AuthHelper'
 
 window.store = store;
 (() => {
@@ -13,7 +13,5 @@ window.store = store;
 })();
 
 ReactDOM.render(<Provider store={store}>
-
-  <App/>
-
+  <App />
 </Provider>, document.getElementById('root'));
