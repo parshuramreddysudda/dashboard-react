@@ -6,7 +6,10 @@
 
 .topMargin {
     margin-top: 10px;
-    ;
+
+    .dashboardCharts {
+        margin-top: 2em;
+    }
 }
 
 #chart {
