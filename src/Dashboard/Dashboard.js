@@ -22,13 +22,13 @@ export default class Machine extends React.Component {
                         <OverviewAmchart />
                     </Paper>
                     <Grid className="dashboardCharts" container spacing={3}>
-                        <Grid item xs={12} sm={12}>
+                        <Grid item xs={12} sm={4}>
                             <Paper><BarChart/> </Paper>
                         </Grid>
-                        <Grid item xs={12} sm={12}>
+                        <Grid item xs={12} sm={4}>
                             <Paper >xs=6 sm=3</Paper>
                         </Grid>
-                        <Grid item xs={12} sm={12}>
+                        <Grid item xs={12} sm={4}>
                             <Paper >xs=6 sm=3</Paper>
                         </Grid>
                     </Grid>
