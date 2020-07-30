@@ -47,7 +47,7 @@ components:
     Machinetypes:
       type: object
       properties:
-        devices:
+        machines:
           type: array
           items:
             - $ref: '#/components/schemas/Windows'
@@ -61,7 +61,7 @@ components:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /api/overview/devices:
+  /api/overview/machines:
     get:
       summary: Your GET endpoint
       tags: []

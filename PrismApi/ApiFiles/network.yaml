@@ -48,11 +48,11 @@
           started: 
             type: "string"
             format: "date-time"
-            description: "UTC RFC 3339 timestamp of when device is created"
+            description: "UTC RFC 3339 timestamp of when machine is created"
           destroy: 
             type: "string"
             format: "date-time"
-            description: "UTC RFC 3339 timestamp of when device is created"
+            description: "UTC RFC 3339 timestamp of when machine is created"
 
       networkCollectionEntity: 
         type: "array"

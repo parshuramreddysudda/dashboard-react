@@ -17,7 +17,7 @@ export default class Machines extends React.Component {
         this.state = {
             machines: [],
             columns: [
-                { title: 'Id', field: 'id', editable:'onAdd'  },
+                { title: 'Id', field: 'id', editable: 'onAdd' },
                 { title: 'Name', field: 'name' },
                 { title: 'Operating System', field: 'os' },
                 { title: 'IP Adress', field: 'ip' },
@@ -41,63 +41,88 @@ export default class Machines extends React.Component {
     }
     snakClose = () => {
         this.setState({ snakOpen: false })
+        return Promise.resolve();
     }
     clearData = () => {
         this.props.resetMachines();
-        this.setState({ snakDesc: "Machine details Cleared" })
-        this.setState({ snakType: "warning" })
-        this.setState({ snakOpen: true })
+        this.setState({
+            snakDesc: "Machine details Cleared",
+            snakType: "warning",
+            snakOpen: true
+        })
+        return Promise.resolve();
     }
     resetData = () => {
         this.props.fetchMachines();
-        this.setState({ snakDesc: "Machine details Reseted" })
-        this.setState({ snakType: "info" })
-        this.setState({ snakOpen: true })
+        this.setState({
+            snakDesc: "Machine details Reseted",
+            snakType: "info",
+            snakOpen: true
+        })
+        return Promise.resolve();
     }
-    deleteDataHandler = (newData) =>
-        new Promise((resolve) => {
-            setTimeout(() => {
-                resolve();
-                this.props.deleteMachine(newData.id)
-                this.setState({ snakDesc: "Machine id with" + newData.id + " has been succesfully Deleted" })
-                this.setState({ snakType: "error" })
-                this.setState({ snakOpen: true })
-
-            }, 400);
+    deleteDataHandler = (newData) => (
+        new Promise((done) => {
+            this.props.deleteMachine(newData.id)
+            this.setState({
+                snakDesc: "Machine id with " + newData.id + " has been succesfully Deleted",
+                snakType: "error",
+                snakOpen: true
+            })
+            done()
+            return Promise.resolve()
         })
-    addDataHandler = (newData) =>
-        new Promise((resolve) => {
-            setTimeout(() => {
-                resolve();
-                this.props.createMachine(newData);
-                this.setState({ snakDesc: "Machine id with" + newData.id + " has been succesfully created" })
-                this.setState({ snakType: "success" })
-                this.setState({ snakOpen: true })
-            }, 400);
+    )
+    addDataHandler = (newData) => (
+        new Promise((done) => {
+            this.props.createMachine(newData);
+            this.setState({
+                snakDesc: "Machine id with " + newData.id + " has been succesfully created",
+                snakType: "success",
+                snakOpen: true
+            })
+            done()
+            return Promise.resolve();
         })
-
+    )
+    updateDataHandler = (newData, oldData) => (
+        new Promise((done) => {
+            const machine = this.props.machine;
+            const data = [...machine];
+            data[data.indexOf(oldData)] = newData;
+            this.props.updateMachine(newData, { ...machine, data }, newData.id)
+            this.setState({
+                snakDesc: "Machine id with " + newData.id + " has been succesfully Updated",
+                snakType: "info",
+                snakOpen: true
+            })
+            done()
+            return Promise.resolve()
+        })
+    )
     componentDidMount() {
         this.props.fetchMachines();
-        this.setState({ read: permissionHelper.checkPermission("MACHINES", "READ") });
-        this.setState({ delete: permissionHelper.checkPermission("MACHINES", "DELETE") });
-        this.setState({ create: permissionHelper.checkPermission("MACHINES", "CREATE") });
-        this.setState({ update: permissionHelper.checkPermission("MACHINES", "UPDATE") });
+        this.setState({
+            read: permissionHelper.checkPermission("MACHINES", "READ"),
+            delete: permissionHelper.checkPermission("MACHINES", "DELETE"),
+            create: permissionHelper.checkPermission("MACHINES", "CREATE"),
+            update: permissionHelper.checkPermission("MACHINES", "UPDATE")
+        });
     }
     render() {
-        let { devices, loading, error, updateMachine } = this.props;
+        let { machine, loading, error } = this.props;
         return (
-
             <div>
-                {error ? <h4>{<Snakbar show={true} desc={this.state.networkError} snakType="warning" closeSnak={this.snakClose} />} </h4> : null}
+                {error ? <h4 className="errorClass">{<Snakbar show={true} desc={this.state.networkError} snakType="warning" closeSnak={this.snakClose} />} </h4> : null}
                 {loading ?
                     <Loader /> :
                     <div>
                         {this.state.read ?
 
                             <MaterialTable
-                                title="Machine Details"
+                                title="Machines Details"
                                 columns={this.state.columns}
-                                data={devices}
+                                data={machine}
                                 onRowClick={((evt, selectedRow) => this.setState({ selectedRow }))}
                                 options={{
                                     exportButton: true,
@@ -108,21 +133,10 @@ export default class Machines extends React.Component {
                                 }}
                                 editable={{
                                     onRowAdd: this.state.create && this.addDataHandler,
-                                    onRowUpdate: this.state.update && ((newData, oldData) =>
-                                        new Promise((resolve) => {
-                                            setTimeout(() => {
-                                                resolve();
-                                                const data = [...devices];
-                                                data[data.indexOf(oldData)] = newData;
-                                                updateMachine(newData, { ...devices, data }, newData.id)
-                                                this.setState({ snakDesc: "Machine id with" + newData.id + " has been succesfully Updated" })
-                                                this.setState({ snakType: "info" })
-                                                this.setState({ snakOpen: true })
-                                            }, 400);
-                                        })),
+                                    onRowUpdate: this.state.update && this.updateDataHandler,
                                     onRowDelete: this.state.delete && this.deleteDataHandler,
                                 }}
-                            /> : <Forbidden/>
+                            /> : <Forbidden />
                         }
                     </div>
                 }

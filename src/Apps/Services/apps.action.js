@@ -8,9 +8,9 @@ export const fetchAppsCompleted = () => ({
   type: 'FETCH_APP_COMPLETED'
 });
 
-export const fetchAppsSuccess = (devices) => ({
+export const fetchAppsSuccess = (machines) => ({
   type: 'FETCH_APP_SUCCESS',
-  payload: devices
+  payload: machines
 });
 export const fetchAppsError = (error) => ({
   type: 'FETCH_APP_ERROR',
@@ -95,9 +95,7 @@ export const updateApp = (params,newData,id) => (dispatch) => {
     .finally(() => dispatch(updateAppCompleted()));
 };
 
-export const deleteApp = (id) => (dispatch,getState) => {
-  const state=getState();
-  console.log(state," This is State")
+export const deleteApp = (id) => (dispatch) => {
   dispatch(deleteAppPending());
   return API.delete(`Apps/${id}`)
     .then(deleteAppResponce => {

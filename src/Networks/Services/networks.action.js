@@ -99,6 +99,7 @@ export const deleteNetwork = (id) => (dispatch) => {
 
       // const network = NetworksHelper.formatNetworks(deleteNetworkResponce);
       dispatch(deleteNetworkSuccess(id));
+      return Promise.resolve(deleteNetworkResponce)
     })
     .catch(error => dispatch(deleteNetworkError(error)))
     .finally(() => dispatch(deleteNetworkCompleted()));

@@ -5,7 +5,7 @@ const initialState = {
     updating:false
   }
   
-  const deviceReducer = (state = initialState, action) => {
+  const machineReducer = (state = initialState, action) => {
     switch (action.type) {
   
       case 'FETCH_MACHINES_PENDING':
@@ -71,7 +71,7 @@ const initialState = {
         let deleteMachineId = action.payload
         return {
           ...state,
-          items: [...state.items.filter(device => device.id !== deleteMachineId)]
+          items: [...state.items.filter(machine => machine.id !== deleteMachineId)]
         };
   
       case 'DELETE_MACHINES_ERROR':
@@ -107,4 +107,4 @@ const initialState = {
     }
   
   }
-  export default deviceReducer;
+  export default machineReducer;

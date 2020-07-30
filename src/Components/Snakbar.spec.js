@@ -8,7 +8,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Alert from './Snakbar';
 configure({ adapter: new Adapter() });
 
-describe('Testing Snakbar Component', () => {
+describe('Testing Snacwkbar Component', () => {
 
     test('should handle snakbar Props', () => {
 

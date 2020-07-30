@@ -51,17 +51,18 @@
             type: "string"
             description: "Machine state"
             enum: 
-              - "unregistered"
-              - "registered"
-              - "deleted"
+              - "Developers"
+              - "Designers"
+              - "Managers"
+              - "Analysts"
           created: 
             type: "string"
             format: "date-time"
-            description: "UTC RFC 3339 timestamp of when device is created"
+            description: "UTC RFC 3339 timestamp of when machine is created"
           updated: 
             type: "string"
             format: "date-time"
-            description: "UTC RFC 3339 timestamp of when device is updated"
+            description: "UTC RFC 3339 timestamp of when machine is updated"
           type: 
             type: "string"
             description: "Machine type"

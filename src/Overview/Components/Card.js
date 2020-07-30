@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function CardComponent(props) {
   const classes = useStyles();
-  const data = props.data;
+  const data=props.data
 
   return (
     <div>
@@ -53,7 +53,6 @@ export default function CardComponent(props) {
                 </div>
               </Card>
             </Grid>
-
           ))
         }
       </Grid>

@@ -7,9 +7,9 @@ export const fetchMachinesCompleted = () => ({
   type: 'FETCH_MACHINES_COMPLETED'
 });
 
-export const fetchMachinesSuccess = (devices) => ({
+export const fetchMachinesSuccess = (machines) => ({
   type: 'FETCH_MACHINES_SUCCESS',
-  payload: devices
+  payload: machines
 });
 export const fetchMachinesError = (error) => ({
   type: 'FETCH_MACHINES_ERROR',
@@ -21,9 +21,9 @@ export const updateMachinePending = () => ({
 export const updateMachineCompleted = () => ({
   type: 'UPDATE_MACHINES_COMPLETED'
 });
-export const updateMachineSuccess = (updateMachine, updateData,id) => ({
+export const updateMachineSuccess = (updateMachine, updateData, id) => ({
   type: 'UPDATE_MACHINES_SUCCESS',
-  payload: { updateMachine,updateData ,id }
+  payload: { updateMachine, updateData, id }
 
 });
 export const updateMachineError = (error) => ({
@@ -56,37 +56,33 @@ export const createMachineCompleted = () => ({
 
 export const createMachineSuccess = (params) => ({
   type: 'CREATE_MACHINES_SUCCESS',
-  payload: {params}
+  payload: { params }
 });
 export const createMachineError = (error) => ({
   type: 'CREATE_MACHINES_ERROR',
   payload: error
 });
-export const resetMachines = () => ({ 
+export const resetMachines = () => ({
   type: 'RESET_MACHINES'
 });
-
 export const fetchMachines = (params) => (dispatch) => {
-
   dispatch(fetchMachinesPending());
   return API.get('machines', { params: params })
     .then(fetchMachinesResponce => {
-
       dispatch(fetchMachinesSuccess(fetchMachinesResponce.data));
     })
     .catch(error => dispatch(fetchMachinesError(error)))
     .finally(() => dispatch(fetchMachinesCompleted()));
 };
 
-export const updateMachine = (params,newData,id) => (dispatch) => {
-
+export const updateMachine = (params, newData, id) => (dispatch) => {
   dispatch(updateMachinePending());
   const reqParams = `${params.id}&name=${params.name}&os=${params.os}&ip=${params.ip}&mac=${params.mac}`
   return API.put(`machines/${id}?=${reqParams}`)
     .then(updateMachineResponce => {
 
       // const machines = MachinesHelper.formatMachines(updateMachineResponce);
-      dispatch(updateMachineSuccess(updateMachineResponce.data,newData.data,id));
+      dispatch(updateMachineSuccess(updateMachineResponce.data, newData.data, id));
     })
     .catch(error => dispatch(updateMachineError(error)))
     .finally(() => dispatch(updateMachineCompleted()));
@@ -98,12 +94,12 @@ export const deleteMachine = (id) => (dispatch) => {
     .then(deleteMachineResponce => {
       // const machines = MachinesHelper.formatMachines(deleteMachineResponce);
       dispatch(deleteMachineSuccess(id));
+      // done()
       return Promise.resolve(deleteMachineResponce)
     })
     .catch(error => dispatch(deleteMachineError(error)))
     .finally(() => dispatch(deleteMachineCompleted()));
 };
-
 
 export const createMachine = (params) => (dispatch) => {
   dispatch(createMachinePending());
@@ -116,4 +112,3 @@ export const createMachine = (params) => (dispatch) => {
     .catch(error => dispatch(createMachineError(error)))
     .finally(() => dispatch(createMachineCompleted()));
 };
-

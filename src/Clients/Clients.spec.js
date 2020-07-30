@@ -1,5 +1,5 @@
 import React from 'react'
-import App from './Apps'
+import Client from './Clients'
 import Loader from '../Components/loader'
 import MaterialTable from 'material-table';
 import { mount, shallow } from 'enzyme'
@@ -13,13 +13,13 @@ import Snakbar from '../Components/Snakbar'
 configure({ adapter: new Adapter() });
 
 
-describe('Testing Apps Component', () => {
+describe('Testing Clients Component', () => {
 
     test('should not load MaterialTable and grid and load Forbidden when Permission is flase', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         jest.spyOn(permissionHelper, 'checkPermission').mockImplementation(() => false);
@@ -36,8 +36,8 @@ describe('Testing Apps Component', () => {
     test('should load MaterialTable and grid and not Forbidden when Permission is true', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         jest.spyOn(permissionHelper, 'checkPermission').mockImplementation(() => true);
@@ -52,8 +52,8 @@ describe('Testing Apps Component', () => {
     test('should show Error component when errorProps is true', () => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
                 error={true}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
@@ -63,8 +63,8 @@ describe('Testing Apps Component', () => {
     test('should not show Error component when errorProps is fasle', () => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
                 error={false}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
@@ -74,8 +74,8 @@ describe('Testing Apps Component', () => {
     test('should show Loader component when loaderProps is true', () => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
                 loading={true}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
@@ -86,8 +86,8 @@ describe('Testing Apps Component', () => {
     test('should not show Loader component when loaderProps is false', () => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
                 loading={false}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
@@ -99,10 +99,10 @@ describe('Testing Apps Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
                 loading={true}
-                resetApps={mockResetfn}
+                resetClients={mockResetfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         jest.spyOn(permissionHelper, 'checkPermission').mockImplementation(() => true);
@@ -112,7 +112,7 @@ describe('Testing Apps Component', () => {
             expect(mockResetfn).toHaveBeenCalledTimes(1)
             const snakbar = wrapper.find(Snakbar)
             // expect(snakbar.props(0).)
-            expect(snakbar.at(0).props().desc).toBe('Apps details Cleared')
+            expect(snakbar.at(0).props().desc).toBe('Clients details Cleared')
             expect(snakbar.at(0).props().show).toBe(true)
             // console.log(snakbar.at(0).props().desc)
             expect(snakbar.at(0).props().snakType).toBe('warning')
@@ -124,10 +124,10 @@ describe('Testing Apps Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
                 loading={true}
-                resetApps={mockResetfn}
+                resetClients={mockResetfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         jest.spyOn(permissionHelper, 'checkPermission').mockImplementation(() => true);
@@ -136,7 +136,7 @@ describe('Testing Apps Component', () => {
         instance.resetData().then(() => {
             expect(mockFetchfn).toHaveBeenCalledTimes(2)
             const snakbar = wrapper.find(Snakbar)
-            expect(snakbar.at(0).props().desc).toBe('Apps details Reseted')
+            expect(snakbar.at(0).props().desc).toBe('Clients details Reseted')
             expect(snakbar.at(0).props().show).toBe(true)
             expect(snakbar.at(0).props().snakType).toBe('info')
         })
@@ -145,8 +145,8 @@ describe('Testing Apps Component', () => {
     test('should handle snakClose', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
@@ -159,25 +159,25 @@ describe('Testing Apps Component', () => {
     test('should handle addDatahandler', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const mockCreatefn = jest.fn(() => { })
-        const params = {
-            "id": "63c45084-1880-b539-0813-c742d0b90b20",
-            "name": "amet aute aliqua Ut",
-            "version": "beta",
-            "installed": "1965-08-29T14:18:23.7Z",
-            "type": "Contain in app purchase",
-            "availableat": "Windows store"
+        const params ={
+            "id": "51f19c93-361e-5e38-f0c4-342fe51f2770",
+            "name": "esse veniam in dolore ut",
+            "state": "deleted",
+            "created": "2009-02-09T10:53:07.39Z",
+            "updated": "1988-06-03T19:40:09.248Z",
+            "type": "mollit in"
         };
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
-                createApp={mockCreatefn}
+            <Client
+                fetchClients={mockFetchfn}
+                createClient={mockCreatefn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
-        instance.addDatahandler(params).then(() => {
+        instance.addDataHandler(params).then(() => {
             const snakbar = wrapper.find(Snakbar)
             expect(mockCreatefn).toHaveBeenCalledTimes(1)
-            expect(snakbar.at(0).props().desc).toBe('Apps id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully created')
+            expect(snakbar.at(0).props().desc).toBe('Clients id with 51f19c93-361e-5e38-f0c4-342fe51f2770 has been succesfully created')
             expect(snakbar.at(0).props().show).toBe(true)
             expect(snakbar.at(0).props().snakType).toBe('success')
         })
@@ -188,24 +188,24 @@ describe('Testing Apps Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockDeletefn = jest.fn(() => { })
         const params = {
-            "id": "63c45084-1880-b539-0813-c742d0b90b20",
-            "name": "amet aute aliqua Ut",
-            "version": "beta",
-            "installed": "1965-08-29T14:18:23.7Z",
-            "type": "Contain in app purchase",
-            "availableat": "Windows store"
+            "id": "51f19c93-361e-5e38-f0c4-342fe51f2770",
+            "name": "esse veniam in dolore ut",
+            "state": "deleted",
+            "created": "2009-02-09T10:53:07.39Z",
+            "updated": "1988-06-03T19:40:09.248Z",
+            "type": "mollit in"
         };
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
-                deleteApp={mockDeletefn}
+            <Client
+                fetchClients={mockFetchfn}
+                deleteClient={mockDeletefn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
         instance.deleteDataHandler(params).then(() => {
             const snakbar = wrapper.find(Snakbar)
             expect(mockDeletefn).toHaveBeenCalledTimes(1)
-            expect(snakbar.at(0).props().desc).toBe('Apps id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully Deleted')
+            expect(snakbar.at(0).props().desc).toBe('Clients id with 51f19c93-361e-5e38-f0c4-342fe51f2770 has been succesfully Deleted')
             expect(snakbar.at(0).props().show).toBe(true)
             expect(snakbar.at(0).props().snakType).toBe('error')
         })
@@ -215,26 +215,26 @@ describe('Testing Apps Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockUpdatefn = jest.fn(() => { })
         const oldData = [{
-            "id": "63c45084-1880-b539-0813-c742d0b90b20",
-            "name": "amet aute aliqua Ut",
-            "version": "beta",
-            "installed": "1965-08-29T14:18:23.7Z",
-            "type": "Contain in app purchase",
-            "availableat": "Windows store"
+            "id": "51f19c93-361e-5e38-f0c4-342fe51f2770",
+            "name": "esse veniam in dolore ut",
+            "state": "deleted",
+            "created": "2009-02-09T10:53:07.39Z",
+            "updated": "1988-06-03T19:40:09.248Z",
+            "type": "mollit in"
         }];
         const newData = {
-            "id": "63c45084-1880-b539-0813-c742d0b90b20",
-            "name": "aasd",
-            "version": "beta",
-            "installed": "1965-08-29T14:18:23.7Z",
-            "type": "Contain in app purchase",
-            "availableat": "Windows store"
+            "id": "51f19c93-361e-5e38-f0c4-342fe51f2770",
+            "name": "esse veniam in dolore ut",
+            "state": "deleted",
+            "created": "2009-02-09T10:53:07.39Z",
+            "updated": "1988-06-03T19:40:09.248Z",
+            "type": "mollit in"
         }
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
-                updateApp={mockUpdatefn}
-                apps={oldData}
+            <Client
+                fetchClients={mockFetchfn}
+                updateClient={mockUpdatefn}
+                clients={oldData}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
@@ -242,7 +242,7 @@ describe('Testing Apps Component', () => {
         instance.updateDataHandler(newData, oldData).then(() => {
             const snakbar = wrapper.find(Snakbar)
             expect(mockUpdatefn).toHaveBeenCalledTimes(1)
-            expect(snakbar.at(0).props().desc).toBe('Apps id with 63c45084-1880-b539-0813-c742d0b90b20 has been succesfully Updated')
+            expect(snakbar.at(0).props().desc).toBe('Clients id with 51f19c93-361e-5e38-f0c4-342fe51f2770 has been succesfully Updated')
             expect(snakbar.at(0).props().show).toBe(true)
             expect(snakbar.at(0).props().snakType).toBe('info')
         })
@@ -253,8 +253,8 @@ describe('Testing Apps Component', () => {
         const mockFetchfn = jest.fn(() => { })
         const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
                 resetData={mockResetfn}
             />)
         expect(wrapper.find('.resetData').prop('children')).toEqual('Reset Data');
@@ -271,10 +271,10 @@ describe('Testing Apps Component', () => {
         const mockClearfn = jest.fn(() => { })
         const mockResetfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
-                clearApps={mockClearfn}
-                resetApps={mockResetfn}
+            <Client
+                fetchClients={mockFetchfn}
+                clearClients={mockClearfn}
+                resetClients={mockResetfn}
 
             />)
         expect(wrapper.find('.clearData').prop('children')).toEqual('Clear Data');
@@ -282,24 +282,25 @@ describe('Testing Apps Component', () => {
         expect((wrapper.find(Button).last().prop('startIcon')).type.displayName).toBe('ClearAllIcon')
         wrapper.find(Button).last().simulate('click')
         expect(mockResetfn).toHaveBeenCalledTimes(1)
+        
 
     })
 
     test('should handle Material Table', () => {
         const mockFetchfn = jest.fn(() => { })
         const data = [{
-            "id": "63c45084-1880-b539-0813-c742d0b90b20",
-            "name": "amet aute aliqua Ut",
-            "version": "beta",
-            "installed": "1965-08-29T14:18:23.7Z",
-            "type": "Contain in app purchase",
-            "availableat": "Windows store"
+            "id": "51f19c93-361e-5e38-f0c4-342fe51f2770",
+            "name": "esse veniam in dolore ut",
+            "state": "deleted",
+            "created": "2009-02-09T10:53:07.39Z",
+            "updated": "1988-06-03T19:40:09.248Z",
+            "type": "mollit in"
         }]
             ;
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
-                apps={data}
+            <Client
+                fetchClients={mockFetchfn}
+                clients={data}
 
             />)
         const mockColumns = [
@@ -309,7 +310,7 @@ describe('Testing Apps Component', () => {
             columns: mockColumns
         })
         const materialTable = wrapper.find(MaterialTable);
-        expect(materialTable.at(0).props().title).toBe('App Details')
+        expect(materialTable.at(0).props().title).toBe('Clients Details')
         expect(materialTable.at(0).props().columns).toBe(mockColumns)
         expect(materialTable.at(0).props().data).toBe(data)
     })
@@ -331,8 +332,8 @@ describe('Testing Apps Component', () => {
     test('should handle snakClose', (done) => {
         const mockFetchfn = jest.fn(() => { })
         const wrapper = shallow(
-            <App
-                fetchApps={mockFetchfn}
+            <Client
+                fetchClients={mockFetchfn}
             />)
         expect(mockFetchfn).toHaveBeenCalledTimes(1)
         const instance = wrapper.instance();
@@ -342,11 +343,6 @@ describe('Testing Apps Component', () => {
         done()
     })
 
-
-
-
-
-
     // test('should have been called ', (done) => {
 
     //     const mockFetchfn = jest.fn(() => []);
@@ -355,16 +351,16 @@ describe('Testing Apps Component', () => {
     //     const mockUpdatefn = jest.fn(() => { });
     //     const mockDeletefn = jest.fn(() => { });
     //     const wrapper = shallow(
-    //         <App
-    //             apps={[]}
+    //         <Client
+    //             Clients={[]}
     //             loading={true}
     //             updating={false}
     //             error={false}
-    //             fetchApps={mockFetchfn}
-    //             createApp={mockCreatefn}
-    //             resetApps={mockResetfn}
-    //             updateApp={mockUpdatefn}
-    //             deleteApp={mockDeletefn}
+    //             fetchClients={mockFetchfn}
+    //             createClient={mockCreatefn}
+    //             resetClients={mockResetfn}
+    //             updateClient={mockUpdatefn}
+    //             deleteClient={mockDeletefn}
 
     //         />
     //     )

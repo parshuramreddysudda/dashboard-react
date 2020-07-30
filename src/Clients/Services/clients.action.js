@@ -8,9 +8,9 @@ export const fetchClientsCompleted = () => ({
   type: 'FETCH_CLIENTS_COMPLETED'
 });
 
-export const fetchClientsSuccess = (devices) => ({
+export const fetchClientsSuccess = (machines) => ({
   type: 'FETCH_CLIENTS_SUCCESS',
-  payload: devices
+  payload: machines
 });
 export const fetchClientsError = (error) => ({
   type: 'FETCH_CLIENTS_ERROR',
@@ -103,6 +103,7 @@ export const deleteClient = (id) => (dispatch) => {
 
       // const machines = MachinesHelper.formatMachines(deleteClientResponce);
       dispatch(deleteClientSuccess(id));
+      return Promise.resolve(deleteClientResponce)
     })
     .catch(error => dispatch(deleteClientError(error)))
     .finally(() => dispatch(deleteClientCompleted()));
