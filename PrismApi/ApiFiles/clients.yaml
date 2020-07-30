@@ -51,9 +51,10 @@
             type: "string"
             description: "Machine state"
             enum: 
-              - "unregistered"
-              - "registered"
-              - "deleted"
+              - "Developers"
+              - "Designers"
+              - "Managers"
+              - "Analysts"
           created: 
             type: "string"
             format: "date-time"
