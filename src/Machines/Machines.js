@@ -91,19 +91,23 @@ export default class Machines extends React.Component {
             const data = [...machine];
             data[data.indexOf(oldData)] = newData;
             this.props.updateMachine(newData, { ...machine, data }, newData.id)
-            this.setState({ snakDesc: "Machine id with " + newData.id + " has been succesfully Updated" })
-            this.setState({ snakType: "info" })
-            this.setState({ snakOpen: true })
+            this.setState({
+                snakDesc: "Machine id with " + newData.id + " has been succesfully Updated",
+                snakType: "info",
+                snakOpen: true
+            })
             done()
             return Promise.resolve()
         })
     )
     componentDidMount() {
         this.props.fetchMachines();
-        this.setState({ read: permissionHelper.checkPermission("MACHINES", "READ") });
-        this.setState({ delete: permissionHelper.checkPermission("MACHINES", "DELETE") });
-        this.setState({ create: permissionHelper.checkPermission("MACHINES", "CREATE") });
-        this.setState({ update: permissionHelper.checkPermission("MACHINES", "UPDATE") });
+        this.setState({
+            read: permissionHelper.checkPermission("MACHINES", "READ"),
+            delete: permissionHelper.checkPermission("MACHINES", "DELETE"),
+            create: permissionHelper.checkPermission("MACHINES", "CREATE"),
+            update: permissionHelper.checkPermission("MACHINES", "UPDATE")
+        });
     }
     render() {
         let { machine, loading, error } = this.props;

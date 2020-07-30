@@ -28,6 +28,10 @@ components:
       type: object
       properties:
         Clients:
+          type: integer
+          minimum: 1
+          maximum: 1000
+        State:
           type: array
           items:
             - $ref: '#/components/schemas/Reg'
