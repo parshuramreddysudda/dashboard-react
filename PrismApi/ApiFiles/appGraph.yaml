@@ -4,56 +4,56 @@ info:
   version: '1.0'
 components:
   schemas:
-    Dev:
+    Beta:
       type: object
       properties:
         name:
           type: string
           enum:
-            - Developers
+            - Beta
         value:
            example: 38
            pattern: "^[1-9][1-9]$"
-    Designer:
+    Alpha:
       type: object
       properties:
         name:
           type: string
           enum:
-            - Designer
+            - Alpha
         value:
            example: 38
            pattern: "^[1-9][1-9]$" 
-    Manager:
+    Full:
       type: object
       properties:
          name:
            type: string
            enum:
-             - Manager
+             - Full
          value:
             example: 38
             pattern: "^[1-9][1-9]$" 
-    Analysts:
+    Early:
       type: object
       properties:
          name:
            type: string
            enum:
-             - Analyst
+             - Early
          value:
             example: 38
             pattern: "^[1-9][1-9]$" 
-    Clients:
+    ApplicationGraph:
       type: object
       properties:   
-        State:
+        Version:
           type: array
           items:
-            - $ref: '#/components/schemas/Dev'
-            - $ref: '#/components/schemas/Designer'
-            - $ref: '#/components/schemas/Manager'
-            - $ref: '#/components/schemas/Analysts'
+            - $ref: '#/components/schemas/Beta'
+            - $ref: '#/components/schemas/Alpha'
+            - $ref: '#/components/schemas/Full'
+            - $ref: '#/components/schemas/Early'
         total:
           type: integer
           minimum: 1
@@ -61,7 +61,7 @@ components:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /api/overview/clientgraph:
+  /api/overview/appGraph:
     get: 
       summary: Your GET endpoint
       tags: []
@@ -71,4 +71,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Clients'
+                $ref: '#/components/schemas/ApplicationGraph'

@@ -56,9 +56,10 @@ components:
           type: string
           description: Machine state
           enum:
-            - unregistered
-            - registered
-            - deleted
+            - Developer
+            - Designer
+            - Manager
+            - Analyst
         created:
           type: string
           format: date-time
@@ -381,7 +382,6 @@ components:
           type: string
           enum:
             - Windows
-            - Windows
         value:
           example: 38
           pattern: '^[1-9][1-9]$'
@@ -391,6 +391,7 @@ components:
         name:
           type: string
           enum:
+            - Mac
             - Mac
         value:
           example: 38
@@ -491,34 +492,110 @@ components:
         name:
           enum:
             - Administrator
-    Reg:
+    Dev:
       type: object
       properties:
         name:
           type: string
           enum:
-            - Registered
+            - Developers
         value:
           example: 38
           pattern: '^[1-9][1-9]$'
-    unReg:
+    Designer:
       type: object
       properties:
         name:
           type: string
           enum:
-            - UnRegistered
+            - Designer
         value:
           example: 38
           pattern: '^[1-9][1-9]$'
-    Graphtypes:
+    Manager:
       type: object
       properties:
-        Clients:
+        name:
+          type: string
+          enum:
+            - Manager
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Analysts:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Analyst
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Clients:
+      type: object
+      properties:
+        State:
           type: array
           items:
-            - $ref: '#/components/schemas/Reg'
-            - $ref: '#/components/schemas/unReg'
+            - $ref: '#/components/schemas/Dev'
+            - $ref: '#/components/schemas/Designer'
+            - $ref: '#/components/schemas/Manager'
+            - $ref: '#/components/schemas/Analysts'
+        total:
+          type: integer
+          minimum: 1
+          maximum: 1000
+    Beta:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Beta
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Alpha:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Alpha
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Full:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Full
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    Early:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - Early
+        value:
+          example: 38
+          pattern: '^[1-9][1-9]$'
+    ApplicationGraph:
+      type: object
+      properties:
+        Version:
+          type: array
+          items:
+            - $ref: '#/components/schemas/Beta'
+            - $ref: '#/components/schemas/Alpha'
+            - $ref: '#/components/schemas/Full'
+            - $ref: '#/components/schemas/Early'
         total:
           type: integer
           minimum: 1
@@ -533,16 +610,20 @@ components:
         value:
           example: 38
           pattern: '^[1-9][1-9]$'
-    DevGraph:
+    machineGraph:
       type: object
       properties:
-        app:
+        Devices:
           type: array
           items:
             - $ref: '#/components/schemas/iOS'
-            - $ref: '#/components/schemas/Windows'
-            - $ref: '#/components/schemas/Android'
             - $ref: '#/components/schemas/Linux'
+            - $ref: '#/components/schemas/Mac'
+            - $ref: '#/components/schemas/Android'
+        total:
+          type: integer
+          minimum: 1
+          maximum: 1000
 paths:
   /api/clients:
     get:
@@ -947,8 +1028,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Graphtypes'
-  /api/overview/devgraph:
+                $ref: '#/components/schemas/Clients'
+  /api/overview/appGraph:
     get:
       summary: Your GET endpoint
       tags: []
@@ -958,7 +1039,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DevGraph'
+                $ref: '#/components/schemas/ApplicationGraph'
+  /api/overview/macGraph:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/machineGraph'
 servers:
   - url: 'http://localhost:3000'
   - url: 'http://localhost:3000'
@@ -968,4 +1060,4 @@ servers:
   - url: 'http://localhost:3000'
   - url: 'http://localhost:3000'
   - url: 'http://localhost:3000'
-  - url: 'http://192.168.0.6:3000'
+  - url: 'http://localhost:3000'

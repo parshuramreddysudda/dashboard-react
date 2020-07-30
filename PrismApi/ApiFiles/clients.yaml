@@ -51,10 +51,10 @@
             type: "string"
             description: "Machine state"
             enum: 
-              - "Developers"
-              - "Designers"
-              - "Managers"
-              - "Analysts"
+              - "Developer"
+              - "Designer"
+              - "Manager"
+              - "Analyst"
           created: 
             type: "string"
             format: "date-time"
