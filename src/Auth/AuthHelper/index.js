@@ -8,7 +8,7 @@ class AuthHelper {
 
   }
   getAuthRole() {
-    console.log("Get Clients Role: ",this.clientRole)
+    // console.log("Get Clients Role: ",this.clientRole)
     return this.clientRole;
     // return "CEO";
   }
@@ -16,7 +16,7 @@ class AuthHelper {
     API.get(`myrole`).then(response => {
       this.clientRole = response.data;
     })
-    console.log("Auth role is",this.clientRole)
+    // console.log("Auth role is",this.clientRole)
     return Promise.resolve();
   }
 }

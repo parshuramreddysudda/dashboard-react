@@ -5,7 +5,7 @@ import './dashboard.scss'
 import OverviewAmchart from './Charts/OverviewChart'
 import AuthHelper from '../Auth/AuthHelper'
 import Container from '@material-ui/core/Container';
-import BarChart from './Charts/BarChart'
+import ClientBarChart from './Charts/ClientBarChart'
 
 export default class Machine extends React.Component {
 
@@ -23,7 +23,7 @@ export default class Machine extends React.Component {
                     </Paper>
                     <Grid className="dashboardCharts" container spacing={3}>
                         <Grid item xs={12} sm={4}>
-                            <Paper><BarChart/> </Paper>
+                            <Paper><ClientBarChart/> </Paper>
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <Paper >xs=6 sm=3</Paper>

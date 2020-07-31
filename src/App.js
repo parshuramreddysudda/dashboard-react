@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     flex: 1
   },
 });
-console.log("role is ", AuthHelper.setAuthRole())
+// console.log("role is ", AuthHelper.setAuthRole())
 function App() {
   const classes = useStyles();
   var isPermission = true;
@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     AuthHelper.setAuthRole();
     isPermission = permissionHelper.checkPermission("APP", "READ");
-    console.log("Auth permissionis ", isPermission)
+    // console.log("Auth permissionis ", isPermission)
   });
 
   return (
