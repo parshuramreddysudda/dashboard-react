@@ -7,11 +7,42 @@ import axiosServices from '../Services/axiosServices'
 
 class Barcharts extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            data: [],
+            sum: 0
+        }
     }
 
     componentDidMount() {
-        this.runAmCharts();
+        axiosServices.getClientBarcharts().then((responce) => {
+
+            let data = Object.values(responce.data)[0];
+            let sum = 0;
+            data.map((item) => {
+                sum += parseInt(item.value);
+            })
+            this.setState({ sum: sum });
+            
+            let chartData = [{
+                "params": data[0].name,
+                "values": parseInt(data[0].value),
+            }, {
+                "params": data[1].name,
+                "values": parseInt(data[1].value),
+            }, {
+                "params": data[2].name,
+                "values": parseInt(data[2].value),
+            },
+            {
+                "params": data[3].name,
+                "values": parseInt(data[3].value),
+            }
+            ];
+
+            this.setState({ data: chartData }, () => { this.runAmCharts(); });
+            console.log(this.state.data)
+        })
     }
 
     componentWillUnmount() {
@@ -20,9 +51,6 @@ class Barcharts extends Component {
         }
     }
     runAmCharts = () => {
-        axiosServices.getClientBarcharts().then((responce) => {
-            console.log(responce.data)
-        })
         am4core.useTheme(am4themes_animated);
         // am4core.useTheme(am4themes_kelly);
 
@@ -30,21 +58,8 @@ class Barcharts extends Component {
         var chart = am4core.create("barChart", am4charts.XYChart);
 
         // Add data
-        chart.data = [{
-            "params": "Czech Republic",
-            "values": 300,
-        }, {
-            "params": "Ireland",
-            "values": 150,
-        }, {
-            "params": "Germany",
-            "values": 75,
-        },
-        {
-            "params": "Gersdfmany",
-            "values": 75,
-        }
-        ];
+        chart.data = this.state.data
+        console.log(chart.data)
 
         // Create axes
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -65,7 +80,7 @@ class Barcharts extends Component {
         series.dataFields.valueY = "values";
         series.dataFields.categoryX = "params";
         series.name = "Total Clients Details are 45";
-        series.tooltipText = "{name}: [bold]{valueY}/600[/]";
+        series.tooltipText = "{name}: [bold]{valueY}/"+this.state.sum+"[/]";
 
         // Second series
 
@@ -79,7 +94,7 @@ class Barcharts extends Component {
         return (
             <div>
 
-                <h5 className='text-center' style={{ color: 'rgb(128, 145, 171)', paddingTop: '0.8em' }}>Heading goes here= </h5>
+                <h5 className='text-center' style={{ color: 'rgb(128, 145, 171)', paddingTop: '0.8em' }}>Clients Data </h5>
                 <div id='barChart' style={{ height: '50vh' }}></div>
             </div>
         )
