@@ -19,29 +19,16 @@ class Barcharts extends Component {
 
             let data = Object.values(responce.data)[0];
             let sum = 0;
+            let chartData = []
             data.map((item) => {
+                chartData.push({
+                    "params": item.name,
+                    "values": item.value
+                })
                 sum += parseInt(item.value);
             })
-            this.setState({ sum: sum });
-            
-            let chartData = [{
-                "params": data[0].name,
-                "values": parseInt(data[0].value),
-            }, {
-                "params": data[1].name,
-                "values": parseInt(data[1].value),
-            }, {
-                "params": data[2].name,
-                "values": parseInt(data[2].value),
-            },
-            {
-                "params": data[3].name,
-                "values": parseInt(data[3].value),
-            }
-            ];
-
+            this.setState({ sum });
             this.setState({ data: chartData }, () => { this.runAmCharts(); });
-            console.log(this.state.data)
         })
     }
 
@@ -56,15 +43,12 @@ class Barcharts extends Component {
 
         // Create chart instance
         var chart = am4core.create("barChart", am4charts.XYChart);
-
         // Add data
         chart.data = this.state.data
-        console.log(chart.data)
-
         // Create axes
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
         categoryAxis.dataFields.category = "params";
-        categoryAxis.title.text = "Clients";
+        categoryAxis.title.text = "Total Clients are [bold]"+this.state.sum+"[bold]";
 
         // First value axis
         var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -79,8 +63,8 @@ class Barcharts extends Component {
         var series = chart.series.push(new am4charts.ColumnSeries());
         series.dataFields.valueY = "values";
         series.dataFields.categoryX = "params";
-        series.name = "Total Clients Details are 45";
-        series.tooltipText = "{name}: [bold]{valueY}/"+this.state.sum+"[/]";
+        series.name = "Total no of working ";
+        series.tooltipText = "{name}: [bold]{categoryX}s are [bold]{valueY}[/]";
 
         // Second series
 

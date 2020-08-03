@@ -498,7 +498,7 @@ components:
         name:
           type: string
           enum:
-            - Developers
+            - Developer
         value:
           example: 38
           pattern: '^[1-9][1-9]$'
