@@ -5,7 +5,7 @@ import './dashboard.scss'
 import OverviewAmchart from './Charts/OverviewChart'
 import AuthHelper from '../Auth/AuthHelper'
 import Container from '@material-ui/core/Container';
-import ClientBarChart from './Charts/ClientBarChart'
+import BarChart from './Charts/BarChart'
 
 export default class Machine extends React.Component {
 
@@ -13,7 +13,7 @@ export default class Machine extends React.Component {
         super(props)
         AuthHelper.setAuthRole();
     }
-
+ 
     render() {
         return (
             <div className="topMargin">
@@ -23,13 +23,13 @@ export default class Machine extends React.Component {
                     </Paper>
                     <Grid className="dashboardCharts" container spacing={3}>
                         <Grid item xs={12} sm={4}>
-                            <Paper><ClientBarChart/> </Paper>
+                            <Paper><BarChart graphType={"Clients"} /> </Paper>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <Paper >xs=6 sm=3</Paper>
+                            <Paper ><BarChart graphType={"Applications"} /></Paper>
                         </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Paper >xs=6 sm=3</Paper>
+                        <Grid item xs={12} sm={4}> 
+                            <Paper><BarChart graphType={"Machines"}/></Paper>
                         </Grid>
                     </Grid>
                 </Container>
