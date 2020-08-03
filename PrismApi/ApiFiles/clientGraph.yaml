@@ -61,7 +61,7 @@ components:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /api/overview/clientGraph:
+  /api/overview/clientsGraph:
     get: 
       summary: Your GET endpoint
       tags: []

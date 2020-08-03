@@ -1018,7 +1018,7 @@ paths:
                 type: string
                 enum:
                   - ADMIN
-  /api/overview/clientGraph:
+  /api/overview/clientsGraph:
     get:
       summary: Your GET endpoint
       tags: []
@@ -1029,7 +1029,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Clients'
-  /api/overview/appGraph:
+  /api/overview/applicationsGraph:
     get:
       summary: Your GET endpoint
       tags: []
@@ -1040,7 +1040,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApplicationGraph'
-  /api/overview/macGraph:
+  /api/overview/machinesGraph:
     get:
       summary: Your GET endpoint
       tags: []
