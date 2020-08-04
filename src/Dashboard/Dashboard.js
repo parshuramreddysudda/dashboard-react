@@ -13,7 +13,7 @@ export default class Machine extends React.Component {
         super(props)
         AuthHelper.setAuthRole();
     }
- 
+
     render() {
         return (
             <div className="topMargin">
@@ -23,13 +23,25 @@ export default class Machine extends React.Component {
                     </Paper>
                     <Grid className="dashboardCharts" container spacing={3}>
                         <Grid item xs={12} sm={4}>
-                            <Paper><BarChart graphType={"Clients"} /> </Paper>
+                            <Paper>
+                                <BarChart
+                                    graphType={"Clients"}
+                                />
+                            </Paper>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <Paper ><BarChart graphType={"Applications"} /></Paper>
+                            <Paper >
+                                <BarChart
+                                    graphType={"Applications"}
+                                />
+                            </Paper>
                         </Grid>
-                        <Grid item xs={12} sm={4}> 
-                            <Paper><BarChart graphType={"Machines"}/></Paper>
+                        <Grid item xs={12} sm={4}>
+                            <Paper>
+                                <BarChart
+                                    graphType={"Machines"}
+                                />
+                            </Paper>
                         </Grid>
                     </Grid>
                 </Container>
