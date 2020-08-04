@@ -40,15 +40,16 @@ describe('Testing Clients Component Actions ', () => {
         const initialState = {}
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
-        const params = { id: 'as' }
-        return store.dispatch(clientActions.fetchClients(params)).then(() => {
-            //To-Do stuff when Request is success
-        }).catch(() => {
+        const params = { id: 'as//' }
+        try {
+            store.dispatch(clientActions.fetchClients(params))
+        } catch (error) {
             const actions = store.getActions();
             expect(actions[0].type).toEqual('FETCH_CLIENTS_PENDING');
             expect(actions[1].type).toEqual('FETCH_CLIENTS_ERROR');
             expect(actions[2].type).toEqual('FETCH_CLIENTS_COMPLETED');
-        })
+        }
+
     })
 
     test('should create CREATE_CLIENTS_PENDING when Creating client is started and CREATE_CLIENTS_SUCCESS when Creating is done and CREATE_CLIENTS_COMPLETED finally completed  ', () => {
@@ -61,7 +62,7 @@ describe('Testing Clients Component Actions ', () => {
             "state": "deleted",
             "created": "2009-02-09T10:53:07.39Z",
             "updated": "1988-06-03T19:40:09.248Z",
-            "type": "mollit in" 
+            "type": "mollit in"
         };
         return store.dispatch(clientActions.createClient(params)).then(() => {
             const actions = store.getActions();
@@ -83,7 +84,7 @@ describe('Testing Clients Component Actions ', () => {
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
         const params = {
-            "id": "51f19c93-361e-5e38-f0c4-342fe51f2770",
+            "id": "51f19c93-361e-5e38-f0c4-342f//////",
             "name": "esse veniam in dolore ut",
             "state": "deleted",
             "created": "2009-02-09T10:53:07.39Z",
@@ -119,15 +120,15 @@ describe('Testing Clients Component Actions ', () => {
         const initialState = {}
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
-        const params = '63c45084-1880-b539-0813-c74asd2d0b90b20'
-        return store.dispatch(clientActions.deleteClient(params)).then((deleteResponce) => {
-            //To Do stuff when error is success
-        }).catch(() => {
+        const params = '63c45084-1880-b539-0813-c74asd2d/////'
+        try {
+            store.dispatch(clientActions.deleteClient(params))
+        } catch (error) {
             const actions = store.getActions();
             expect(actions[0].type).toEqual('DELETE_CLIENTS_PENDING');
             expect(actions[1].type).toEqual('DELETE_CLIENTS_ERROR');
             expect(actions[2].type).toEqual('DELETE_CLIENTS_COMPLETED');
-        })
+        }
     })
     test('should create UPDATE_CLIENTS_PENDING when updating client is started and UPDATE_CLIENTS_SUCCESS when update is done and UPDATE_CLIENTS_COMPLETED finally completed  ', () => {
         const initialState = {}
@@ -202,7 +203,7 @@ describe('Testing Clients Component Actions ', () => {
         // jest.spyOn(PermissionHelper, 'checkPermission').mockImplementation(() => true)
         const params = [
             {
-                "id": "51f19c93-361e-5e38-f0c4-342fe51f2770",
+                "id": "51f19c93-361e-5e38-f0c4-///",
                 "name": "esse veniam in dolore ut",
                 "state": "deleted",
                 "created": "2009-02-09T10:53:07.39Z",
@@ -210,7 +211,7 @@ describe('Testing Clients Component Actions ', () => {
                 "type": "mollit in"
             },
             {
-                "id": "51f19c93-361e-5e38-f0c4-342fe51f2770",
+                "id": "51f19c93-361e-5e38-f0c4-////",
                 "name": "esse veniam in dolore ut",
                 "state": "deleted",
                 "created": "2009-02-09T10:53:07.39Z",
@@ -219,7 +220,7 @@ describe('Testing Clients Component Actions ', () => {
             }]
         const newData = [
             {
-                "id": "51f19c93-361e-5e38-f0c4-342fe51f2770",
+                "id": "51f19c93-361e-5e38-f0c4-////",
                 "name": "esse veniam in dolore ut",
                 "state": "deleted",
                 "created": "2009-02-09T10:53:07.39Z",
@@ -227,7 +228,7 @@ describe('Testing Clients Component Actions ', () => {
                 "type": "mollit in"
             },
             {
-                "id": "51f19c93-343e-5e38-f0c4-342fe51f2770",
+                "id": "51f19c93-343e-5e38-f0c4-////",
                 "name": "esse veniam in  ut",
                 "state": "deleted",
                 "created": "2009-02-09T10:58:07.39Z",
@@ -235,14 +236,18 @@ describe('Testing Clients Component Actions ', () => {
                 "type": "mollit in"
             }
         ]
-        const id = '6be7b591-fc4f-3eca-7128-3a52c3asd0366e2'
+        const id = '6be7b591-fc4f-3eca-7128-3a52c3asd/////'
         return store.dispatch(clientActions.updateClient(params, newData, id)).then(() => {
-            //To do Something when request was success
-        }).catch(() => {
             const actions = store.getActions();
-            expect(actions[0].type).toEqual('UPDATE_CLIENT_PENDING');
-            expect(actions[1].type).toEqual('UPDATE_CLIENT_ERROR');
-            expect(actions[2].type).toEqual('UPDATE_CLIENT_COMPLETED');
+            try {
+                throw (error);
+            } catch (error) {
+                const actions = store.getActions();
+                expect(actions[0].type).toEqual('UPDATE_CLIENT_PENDING');
+                expect(actions[1].type).toEqual('UPDATE_CLIENT_ERROR');
+                expect(actions[2].type).toEqual('UPDATE_CLIENT_COMPLETED');
+
+            }
         })
     })
 
