@@ -1,4 +1,4 @@
-import axios from 'axios'
+import API from '../../MainServices/AxiosInstance'
 
 const services = {
     getBarcharts,
@@ -6,9 +6,8 @@ const services = {
 
 function getBarcharts(type) {
  
-    return axios.get('http://127.0.0.1:4010/api/overview/'+type.toLowerCase()+'Graph');
+    return API.get('overview/'+type.toLowerCase()+'Graph');
 
 }
-
 
 export default services;

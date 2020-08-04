@@ -55,7 +55,7 @@ function checkPermission(component, permissionType) {
         }
     }
 
-    // console.log("Perrmission is ", isPermission)
+    // console.log("Permission is ", isPermission)
     return isPermission;
 }
 
