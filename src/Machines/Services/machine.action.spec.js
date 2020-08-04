@@ -180,7 +180,7 @@ describe('Testing Machine Component Actions ', () => {
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
         const params = {
-            "id": "67asdd2b441-e565-b1a7-1770-19300c29c9",
+            "id": "67asdd2b441-e565-b1a7-1770-19/////",
             "name": "qusadis aute minim ad",
             "os": "tyasdpe-not-found",
             "ip": "23343.222.151.112",
@@ -188,7 +188,7 @@ describe('Testing Machine Component Actions ', () => {
         }
         return store.dispatch(machineActions.createMachine(params)).then(() => {
             try {
-                const actions = store.getActions();
+                throw (error);
             } catch (error) {
                 const actions = store.getActions();
                 expect(actions[0].type).toEqual('CREATE_MACHINES_PENDING');
@@ -211,23 +211,24 @@ describe('Testing Machine Component Actions ', () => {
                 const id = actions[1].payload;
                 expect(id).toEqual(params);
                 expect(deleteResponce.status).toBe(204);
- 
+
             }
             finally {
                 const actions = store.getActions();
                 expect(actions[2].type).toEqual('DELETE_MACHINES_COMPLETED');
 
             }
-        }) 
+        })
     })
     test('should create DELETE_MACHINE_PENDING when Creating app is started and DELETE_MACHINE_ERROR when Creating is failed and DELETE_MACHINE_COMPLETED finally completed  ', () => {
         const initialState = {}
         const store = mockStore(initialState)
-        const params = '67d2b441-e565-b1a7-1770-193'
+        const params = '67d2b441-e565-b1a7-1770-193////'
         return store.dispatch(machineActions.deleteMachine(params)).then((deleteResponce) => {
 
             try {
                 const actions = store.getActions();
+                throw (error);
 
             } catch (error) {
                 const actions = store.getActions();
@@ -240,7 +241,7 @@ describe('Testing Machine Component Actions ', () => {
     test('should create UPDATE_MACHINE_PENDING when updating app is started and UPDATE_MACHINE_SUCCESS when update is done and UPDATE_MACHINE_COMPLETED finally completed!', () => {
         const initialState = {}
         const store = mockStore(initialState)
-  
+
         const params = [
             {
                 "id": "67d2b441-e565-b1a7-1770-19300c29c9ac",
@@ -331,20 +332,20 @@ describe('Testing Machine Component Actions ', () => {
                 "mac": "78:6R:18:J9:8E:C6"
             }
         ]
-        const id = '6be7b591-fc4f-3eca6e2'
+        const id = '6be7b591-fc4f-3eca6e2////'
         return store.dispatch(machineActions.updateMachine(params, newData, id)).then(() => {
             const actions = store.getActions();
             try {
-                
+                throw (error);
             } catch (error) {
                 const actions = store.getActions();
-            expect(actions[0].type).toEqual('UPDATE_MACHINES_PENDING');
-            expect(actions[1].type).toEqual('UPDATE_MACHINES_ERROR');
-            expect(actions[2].type).toEqual('UPDATE_MACHINES_COMPLETED');
-                
+                expect(actions[0].type).toEqual('UPDATE_MACHINES_PENDING');
+                expect(actions[1].type).toEqual('UPDATE_MACHINES_ERROR');
+                expect(actions[2].type).toEqual('UPDATE_MACHINES_COMPLETED');
+
             }
         })
     })
-        
+
 
 })
