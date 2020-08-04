@@ -38,19 +38,18 @@ describe('Testing Network Component Actions ', () => {
         const initialState = {}
         const store = mockStore(initialState)
         const params = { id: 'as//////' }
-     
-            try {
-                store.dispatch(networkActions.fetchNetworks(params))
-                const actions = store.getActions();
-                // throw(error)
-            } catch (error) {
-                console.log("error")
-                const actions = store.getActions();
-                expect(actions[0].type).toEqual('FETCH_NETWORK_PENDING');
-                expect(actions[1].type).toEqual('FETCH_NETWORK_ERROR');
-                expect(actions[2].type).toEqual('FETCH_NETWORK_COMPLETED');
-            }
-        
+
+        try {
+            store.dispatch(networkActions.fetchNetworks(params))
+            const actions = store.getActions();
+        } catch (error) {
+            console.log("error")
+            const actions = store.getActions();
+            expect(actions[0].type).toEqual('FETCH_NETWORK_PENDING');
+            expect(actions[1].type).toEqual('FETCH_NETWORK_ERROR');
+            expect(actions[2].type).toEqual('FETCH_NETWORK_COMPLETED');
+        }
+
     })
 
     test('should create CREATE_NETWORK_PENDING when Creating network is started and CREATE_NETWORK_SUCCESS when Creating is done and CREATE_NETWORK_COMPLETED finally completed  ', () => {
@@ -82,21 +81,19 @@ describe('Testing Network Component Actions ', () => {
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
         const params = {
-            "id": "0a2d01fd-ddb4-5472-5d3c-925911d234d1",
+            "id": "0a2d01fd-ddb4-5472-5d3////",
             "name": "mollit",
             "started": "1967-10-05T14:09:39.262Z",
             "destroy": "2001-06-16T04:27:03.499Z"
         }
-            ;
-        return store.dispatch(networkActions.createNetwork(params)).then(() => {
-            //TO DO When request is sucessfull
-
-        }).catch(() => {
+        try {
+            store.dispatch(networkActions.createNetwork(params))
+        } catch (error) {
             const actions = store.getActions();
             expect(actions[0].type).toEqual('CREATE_NETWORK_PENDING');
             expect(actions[1].type).toEqual('CREATE_NETWORK_ERROR');
             expect(actions[2].type).toEqual('CREATE_NETWORK_COMPLETED');
-        })
+        }
     })
     test('should create DELETE_NETWORK_PENDING when Creating network is started and DELETE_NETWORK_SUCCESS when Creating is failed and DELETE_NETWORK_COMPLETED finally completed  ', () => {
         const initialState = {}
@@ -117,7 +114,7 @@ describe('Testing Network Component Actions ', () => {
         const initialState = {}
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
-        const params = '63c45084-1880-b539-0813-c74asd2d0b90b20'
+        const params = '63c45084-1880-b539-08////////'
         return store.dispatch(networkActions.deleteNetwork(params)).then((deleteResponce) => {
             //To Do stuff when error is success
         }).catch(() => {
@@ -179,7 +176,7 @@ describe('Testing Network Component Actions ', () => {
             // });
         })
     })
- 
+
     test('should create UPDATE_NETWORK_PENDING when updating network is started and UPDATE_NETWORK_ERROR when update is failed and UPDATE_NETWORK_COMPLETED finally completed  ', () => {
         const initialState = {}
         const store = mockStore(initialState)
@@ -187,21 +184,21 @@ describe('Testing Network Component Actions ', () => {
         // jest.spyOn(PermissionHelper, 'checkPermission').mockImplementation(() => true)
         const params = [
             {
-                "id": "0a2d01fd-ddb4-5472-5d3c-925911d234d1",
+                "id": "0a2d01fd-ddb4-5472-5d3c-925//",
                 "name": "mollit",
                 "started": "1967-10-05T14:09:39.262Z",
                 "destroy": "2001-06-16T04:27:03.499Z"
             }
             ,
             {
-                "id": "0a2d01fd-mhb4-5472-5d3c-925911d234d1",
+                "id": "0a2d01fd-mhb4-5472-5d3c-925///",
                 "name": "mollasdit",
                 "started": "1267-16-05T14:09:39.262Z",
                 "destroy": "2601-26-16T04:27:03.499Z"
             }]
         const newData = [
             {
-                "id": "0a2d01fd-ddb4-5472-5d3c-925911d234d1",
+                "id": "0a2d01fd-ddb4-5472-5d3c-925911///1",
                 "name": "mollit",
                 "started": "1967-10-05T14:09:39.262Z",
                 "destroy": "2001-06-16T04:27:03.499Z"
@@ -214,17 +211,20 @@ describe('Testing Network Component Actions ', () => {
                 "destroy": "2601-26-16T04:27:03.499Z"
             }
         ]
-        const id = '6be7b591-fc4f-3eca-7128-3a52c3asd0366e2'
+        const id = '6be7b591-fc4f-3eca-7128-3a5/////';
         return store.dispatch(networkActions.updateNetwork(params, newData, id)).then(() => {
-            //To do Something when request was success
-        }).catch(() => {
             const actions = store.getActions();
-            expect(actions[0].type).toEqual('UPDATE_NETWORK_PENDING');
-            expect(actions[1].type).toEqual('UPDATE_NETWORK_ERROR');
-            expect(actions[2].type).toEqual('UPDATE_NETWORK_COMPLETED');
+            try {
+                throw (error);
+            } catch (error) {
+                const actions = store.getActions();
+                expect(actions[0].type).toEqual('UPDATE_NETWORK_PENDING');
+                expect(actions[1].type).toEqual('UPDATE_NETWORK_ERROR');
+                expect(actions[2].type).toEqual('UPDATE_NETWORK_COMPLETED');
+
+            }
         })
     })
-
 
     test('should handle FETCH_NETWORK_PENDING', () => {
 

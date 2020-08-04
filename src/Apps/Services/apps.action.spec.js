@@ -40,15 +40,16 @@ describe('Testing Apps Component Actions ', () => {
         const initialState = {}
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
-        const params = { id: 'as' }
-        return store.dispatch(AppAction.fetchApps(params)).then(() => {
-            //To-Do stuff when Request is success
-        }).catch(() => {
+        const params = { id: 'as' };
+        try {
+            store.dispatch(AppAction.fetchApps(params));
+
+        } catch (error) {
             const actions = store.getActions();
             expect(actions[0].type).toEqual('FETCH_APP_PENDING');
             expect(actions[1].type).toEqual('FETCH_APP_ERROR');
             expect(actions[2].type).toEqual('FETCH_APP_COMPLETED');
-        })
+        }
     })
 
     test('should create CREATE_APP_PENDING when Creating app is started and CREATE_APP_SUCCESS when Creating is done and CREATE_APP_COMPLETED finally completed  ', () => {
@@ -89,17 +90,16 @@ describe('Testing Apps Component Actions ', () => {
             "type": "Contain in app purchase",
             "availableat": "Windows store"
         };
-        return store.dispatch(AppAction.createApp(params)).then(() => {
-            try {
-                const actions = store.getActions();
-                throw (error)
-            } catch (error) {
-                const actions = store.getActions();
-                expect(actions[0].type).toEqual('CREATE_APP_PENDING');
-                expect(actions[1].type).toEqual('CREATE_APP_ERROR');
-                expect(actions[2].type).toEqual('CREATE_APP_COMPLETED');
-            }
-        })
+
+        try {
+            const actions = store.getActions();
+            store.dispatch(AppAction.createApp(params))
+        } catch (error) {
+            const actions = store.getActions();
+            expect(actions[0].type).toEqual('CREATE_APP_PENDING');
+            expect(actions[1].type).toEqual('CREATE_APP_ERROR');
+            expect(actions[2].type).toEqual('CREATE_APP_COMPLETED');
+        }
     })
     test('should create DELETE_APP_PENDING when Creating app is started and DELETE_APP_SUCCESS when Creating is failed and DELETE_APP_COMPLETED finally completed  ', () => {
         const initialState = {}
@@ -121,17 +121,17 @@ describe('Testing Apps Component Actions ', () => {
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
         const params = '63c45084-1880-b539-0/////////'
-        return store.dispatch(AppAction.deleteApp(params)).then((deleteResponce) => {
-            try {
-                const actions = store.getActions();
-                throw (error);
-            } catch (error) {
-                const actions = store.getActions();
-                expect(actions[0].type).toEqual('DELETE_APP_PENDING');
-                expect(actions[1].type).toEqual('DELETE_APP_ERROR');
-                expect(actions[2].type).toEqual('DELETE_APP_COMPLETED');
-            }
-        })
+
+        try {
+            const actions = store.getActions();
+            store.dispatch(AppAction.deleteApp(params))
+        } catch (error) {
+            const actions = store.getActions();
+            expect(actions[0].type).toEqual('DELETE_APP_PENDING');
+            expect(actions[1].type).toEqual('DELETE_APP_ERROR');
+            expect(actions[2].type).toEqual('DELETE_APP_COMPLETED');
+        }
+
     })
     test('should create UPDATE_APP_PENDING when updating app is started and UPDATE_APP_SUCCESS when update is done and UPDATE_APP_COMPLETED finally completed  ', () => {
         const initialState = {}
