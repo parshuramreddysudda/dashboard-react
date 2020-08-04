@@ -37,16 +37,20 @@ describe('Testing Network Component Actions ', () => {
     test('should create FETCH_NETWORK_PENDING when fetching network is started and FETCH_NETWORK_ERROR when fetching is failed and FETCH_NETWORK_COMPLETED finally completed  ', () => {
         const initialState = {}
         const store = mockStore(initialState)
-        jest.spyOn(store, 'getState').mockImplementation(() => { })
-        const params = { id: 'as' }
-        return store.dispatch(networkActions.fetchNetworks(params)).then(() => {
-            //To-Do stuff when Request is success
-        }).catch(() => {
-            const actions = store.getActions();
-            expect(actions[0].type).toEqual('FETCH_NETWORK_PENDING');
-            expect(actions[1].type).toEqual('FETCH_NETWORK_ERROR');
-            expect(actions[2].type).toEqual('FETCH_NETWORK_COMPLETED');
-        })
+        const params = { id: 'as//////' }
+     
+            try {
+                store.dispatch(networkActions.fetchNetworks(params))
+                const actions = store.getActions();
+                // throw(error)
+            } catch (error) {
+                console.log("error")
+                const actions = store.getActions();
+                expect(actions[0].type).toEqual('FETCH_NETWORK_PENDING');
+                expect(actions[1].type).toEqual('FETCH_NETWORK_ERROR');
+                expect(actions[2].type).toEqual('FETCH_NETWORK_COMPLETED');
+            }
+        
     })
 
     test('should create CREATE_NETWORK_PENDING when Creating network is started and CREATE_NETWORK_SUCCESS when Creating is done and CREATE_NETWORK_COMPLETED finally completed  ', () => {

@@ -67,7 +67,7 @@ export const resetMachines = () => ({
 });
 export const fetchMachines = (params) => (dispatch) => {
   dispatch(fetchMachinesPending());
-  return API.get('machines', { params: params })
+  return API.get('machines',params)
     .then(fetchMachinesResponce => {
       dispatch(fetchMachinesSuccess(fetchMachinesResponce.data));
     })
