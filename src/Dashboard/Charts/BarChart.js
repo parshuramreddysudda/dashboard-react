@@ -80,7 +80,7 @@ class Barcharts extends Component {
                 <h5 className='text-center' style={{ color: 'rgb(128, 145, 171)', paddingTop: '0.8em' }}>{this.props.graphType} Data </h5>
                 {this.state.data.length ?
                     <div id={this.props.graphType + "Chart"} style={{ height: '50vh' }}></div> :
-                    <h5 className="chartError">Could No load Chart Data</h5>
+                    <h5 className="chartError"> Something went wrong, <br/>We Couldn't load Chart Data</h5>
                 }
             </div>
         )
