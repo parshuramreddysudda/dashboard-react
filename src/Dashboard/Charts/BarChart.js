@@ -13,9 +13,7 @@ class Barcharts extends Component {
             sum: 0
         }
     }
-
     componentDidMount() {
-
         axiosServices.getBarcharts(this.props.graphType).then((response) => {
             let data = Object.values(response.data)[0];
             let sum = 0;
@@ -31,7 +29,6 @@ class Barcharts extends Component {
             this.setState({ data: chartData }, () => { this.runAmCharts(); });
         })
     }
-
     componentWillUnmount() {
         if (this.chart) {
             this.chart.dispose();

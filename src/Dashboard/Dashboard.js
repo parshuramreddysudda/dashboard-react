@@ -13,7 +13,6 @@ export default class Machine extends React.Component {
         super(props)
         AuthHelper.setAuthRole();
     }
-
     render() {
         return (
             <div className="topMargin">
