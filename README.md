@@ -36,7 +36,8 @@ React project would be running on port ```3000``` and our Prism would be working
  6. Jest and Enzyme(Unit Testing,Component Testing, Contract testing)
  7. RBAC(Role Based Access Control)
   
- ## Prism Mock Server 
+ Prism Mock Server 
+ =============
 
 Prism is an  HTTP mock server that can mimic your API’s behavior as if you already built it. In this project Mock HTTP servers are generated from your OpenAPI v3 documents. I have  used Yaml configuration files to serve prism. You can check the files in  PrismFiles folder from Project Dir.
 
@@ -65,7 +66,11 @@ Navigate to role.yaml file which is located at [Here](https://github.com/parshur
 | Executive          | Read      | Read     | Read & Update & Create |  
 | READONLY      | Read      | Read     | Read                   |
 
- ##  React + Redux
+<br>
+
+
+React + Redux
+=============
 React (also known as React.js or ReactJS) is an open-source, front end, JavaScript library for building user interfaces or UI components. we are using React 16.13.1 in this project. 
 
 ### Getting started and Creating an App in React
@@ -96,7 +101,8 @@ _`npm init <initializer>` is available in npm 6+_
 yarn create react-app my-app
 you can create React project using below commands and follow up
 ```
-##  Redux
+Redux
+=============
 Redux is a predictable state container for JavaScript apps.
 (Not to be confused with a WordPress framework – [Redux Framework](https://reduxframework.com/))
 
@@ -114,7 +120,8 @@ For more details, please see [the Installation docs page](https://redux.js.org/i
 
 Checkout the basic usage or example  [here](https://redux.js.org/basics/example).
 
-## Material UI
+Material UI
+=============
 In a nutshell, Material-UI is an open-source project that features React components that implement Google's Material Design. It helps for faster and easier web development by making us of already builded React Components.
 
 ### Installation
@@ -150,7 +157,8 @@ Yes, it's really all you need to get started as you can see in this live and int
 
 [![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/4j7m47vlm4)
  
- ## Amcharts 
+ Amcharts 
+=============
 
  Amcharts are the JavaScript / HTML5 charts and maps data-viz libraries for web sites and applications. They are the most advanced javascript  dataviz.
 
@@ -171,5 +179,127 @@ yarn add @amcharts/amcharts4
 ```
 For more information check out the demos by Amcharts [Here](https://www.amcharts.com/demos/)
 
+ Jest 
+=============
+
+Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
+
+## Installation and  Getting Started
+
+<!-- copied from Getting Started docs, links updated to point to Jest website -->
+
+Install Jest using [`yarn`](https://yarnpkg.com/en/package/jest):
+
+```bash
+yarn add --dev jest
+```
+
+Or [`npm`](https://www.npmjs.com/):
+
+```bash
+npm install --save-dev jest
+```
+
+Note: Jest documentation uses `yarn` commands, but `npm` will also work. You can compare `yarn` and `npm` commands in the [yarn docs, here](https://yarnpkg.com/en/docs/migrating-from-npm#toc-cli-commands-comparison).
+
+Let's get started by writing a test for a hypothetical function that adds two numbers. First, create a `sum.js` file:
+
+```javascript
+function sum(a, b) {
+  return a + b;
+}
+module.exports = sum;
+```
+
+Then, create a file named `sum.test.js`. This will contain our actual test:
+
+```javascript
+const sum = require('./sum');
+
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+```
+
+Add the following section to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "test": "jest"
+  }
+}
+```
+
+Finally, run `yarn test` or `npm run test` and Jest will print this message:
+
+```bash
+PASS  ./sum.test.js
+✓ adds 1 + 2 to equal 3 (5ms)
+```
+
+**You just successfully wrote your first test using Jest!**
 
 
+Enzyme 
+=============
+
+Enzyme is a JavaScript Testing utility for React that makes it easier to test your React Components' output.
+You can also manipulate, traverse, and in some ways simulate runtime given the output.
+### Installation
+
+To get started with enzyme, you can simply install it via npm. You will need to install enzyme
+along with an Adapter corresponding to the version of react (or other UI Component library) you
+are using. For instance, if you are using enzyme with React 16, you can run:
+
+```bash
+npm i --save-dev enzyme enzyme-adapter-react-16
+```
+## Basic Usage
+
+## Shallow Rendering
+
+```jsx
+import React from 'react';
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
+import sinon from 'sinon';
+
+import MyComponent from './MyComponent';
+import Foo from './Foo';
+
+describe('<MyComponent />', () => {
+  it('renders three <Foo /> components', () => {
+    const wrapper = shallow(<MyComponent />);
+    expect(wrapper.find(Foo)).to.have.lengthOf(3);
+  });
+
+  it('renders an `.icon-star`', () => {
+    const wrapper = shallow(<MyComponent />);
+    expect(wrapper.find('.icon-star')).to.have.lengthOf(1);
+  });
+
+  it('renders children when passed in', () => {
+    const wrapper = shallow((
+      <MyComponent>
+        <div className="unique" />
+      </MyComponent>
+    ));
+    expect(wrapper.contains(<div className="unique" />)).to.equal(true);
+  });
+
+  it('simulates click events', () => {
+    const onButtonClick = sinon.spy();
+    const wrapper = shallow(<Foo onButtonClick={onButtonClick} />);
+    wrapper.find('button').simulate('click');
+    expect(onButtonClick).to.have.property('callCount', 1);
+  });
+});
+
+```
+
+Read the full [API Documentation](https://github.com/enzymejs/enzyme/blob/master/docs/api/shallow.md)
+
+RBAC
+====
+RBAC Stands for Role Based Access control. Its a type of authorization by which we can restrict the user to visit the pages which require authorization.
