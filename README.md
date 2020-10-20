@@ -303,3 +303,5 @@ Read the full [API Documentation](https://github.com/enzymejs/enzyme/blob/master
 RBAC
 ====
 RBAC Stands for Role Based Access control. Its a type of authorization by which we can restrict the user to visit the pages which require authorization.
+
+Look out the table above for the detailed Permissions for each user.
