@@ -28,7 +28,6 @@ function getPermissions(role) {
             return {
                 "DASHBOARD": ["READ"]
             }
-
         default:
             return {
                 "MACHINES": ["READ", "DELETE", "UPDATE", "CREATE"],
