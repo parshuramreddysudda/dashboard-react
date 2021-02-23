@@ -32,7 +32,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.0",
-    "xmldom": "^0.2.1"
+    "xmldom": "^0.2.1",
+    "yamlinc": "^0.1.10"
   },
   "scripts": {
     "start": "react-scripts start",
