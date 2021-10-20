@@ -128,35 +128,6 @@ In a nutshell, Material-UI is an open-source project that features React compone
 
 Material-UI is available as an [npm package](https://www.npmjs.com/package/@material-ui/core).
 
-**[Stable channel v4](https://material-ui.com/)**
-
-```sh
-// with npm
-npm install @material-ui/core
-
-// with yarn
-yarn add @material-ui/core
-```
-## Usage
-
-Here is a quick example to get you started, **it's all you need**:
-
-```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
-
-function App() {
-  return <Button variant="contained">Hello World</Button>;
-}
-
-ReactDOM.render(<App />, document.querySelector('#app'));
-```
-
-Yes, it's really all you need to get started as you can see in this live and interactive demo:
-
-[![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/4j7m47vlm4)
- 
  Amcharts 
 =============
 
@@ -200,105 +171,12 @@ Or [`npm`](https://www.npmjs.com/):
 npm install --save-dev jest
 ```
 
-Note: Jest documentation uses `yarn` commands, but `npm` will also work. You can compare `yarn` and `npm` commands in the [yarn docs, here](https://yarnpkg.com/en/docs/migrating-from-npm#toc-cli-commands-comparison).
-
-Let's get started by writing a test for a hypothetical function that adds two numbers. First, create a `sum.js` file:
-
-```javascript
-function sum(a, b) {
-  return a + b;
-}
-module.exports = sum;
-```
-
-Then, create a file named `sum.test.js`. This will contain our actual test:
-
-```javascript
-const sum = require('./sum');
-
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
-});
-```
-
-Add the following section to your `package.json`:
-
-```json
-{
-  "scripts": {
-    "test": "jest"
-  }
-}
-```
-
-Finally, run `yarn test` or `npm run test` and Jest will print this message:
-
-```bash
-PASS  ./sum.test.js
-✓ adds 1 + 2 to equal 3 (5ms)
-```
-
-**You just successfully wrote your first test using Jest!**
-
-
 Enzyme 
 =============
 
 Enzyme is a JavaScript Testing utility for React that makes it easier to test your React Components' output.
 You can also manipulate, traverse, and in some ways simulate runtime given the output.
 ### Installation
-
-To get started with enzyme, you can simply install it via npm. You will need to install enzyme
-along with an Adapter corresponding to the version of react (or other UI Component library) you
-are using. For instance, if you are using enzyme with React 16, you can run:
-
-```bash
-npm i --save-dev enzyme enzyme-adapter-react-16
-```
-## Basic Usage
-
-## Shallow Rendering
-
-```jsx
-import React from 'react';
-import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import sinon from 'sinon';
-
-import MyComponent from './MyComponent';
-import Foo from './Foo';
-
-describe('<MyComponent />', () => {
-  it('renders three <Foo /> components', () => {
-    const wrapper = shallow(<MyComponent />);
-    expect(wrapper.find(Foo)).to.have.lengthOf(3);
-  });
-
-  it('renders an `.icon-star`', () => {
-    const wrapper = shallow(<MyComponent />);
-    expect(wrapper.find('.icon-star')).to.have.lengthOf(1);
-  });
-
-  it('renders children when passed in', () => {
-    const wrapper = shallow((
-      <MyComponent>
-        <div className="unique" />
-      </MyComponent>
-    ));
-    expect(wrapper.contains(<div className="unique" />)).to.equal(true);
-  });
-
-  it('simulates click events', () => {
-    const onButtonClick = sinon.spy();
-    const wrapper = shallow(<Foo onButtonClick={onButtonClick} />);
-    wrapper.find('button').simulate('click');
-    expect(onButtonClick).to.have.property('callCount', 1);
-  });
-});
-
-```
-
-Read the full [API Documentation](https://github.com/enzymejs/enzyme/blob/master/docs/api/shallow.md)
 
 RBAC
 ====
