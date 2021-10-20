@@ -5,16 +5,16 @@ import { createMemoryHistory } from 'history'
 import App from './App'
 
 describe('Testing App Component', () => {
-    const renderWithRouter = (component) => {
-        const history = createMemoryHistory()
-        return {
-            ...render(
-                <Router history={history}>
-                    {component}
-                </Router>
-            )
-        }
-    }
+    // const renderWithRouter = (component) => {
+    //     const history = createMemoryHistory()
+    //     return {
+    //         ...render(
+    //             <Router history={history}>
+    //                 {component}
+    //             </Router>
+    //         )
+    //     }
+    // }
     test('should handle render Home Dashboard', () => {
         const { container, getByTestId } = renderWithRouter(<App />) 
         const navbar = getByTestId('navbar')

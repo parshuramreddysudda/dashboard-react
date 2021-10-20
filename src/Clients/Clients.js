@@ -35,7 +35,7 @@ export default class Clients extends React.Component {
             networkError: "Network Error, Please check your network connection and try again",
 
         }
-        this.snakClose = this.snakClose.bind(this)
+        // this.snakClose = this.snakClose.bind(this)
         this.resetData = this.resetData.bind(this)
         this.clearData = this.clearData.bind(this)
 
@@ -101,7 +101,6 @@ export default class Clients extends React.Component {
         }))
 
     componentDidMount() {
-
         this.props.fetchClients();
         this.setState({
             read: permissionHelper.checkPermission("CLIENTS", "READ"),
@@ -156,7 +155,6 @@ export default class Clients extends React.Component {
                     desc={this.state.snakDesc}
                     snakType={this.state.snakType}
                     closeSnak={this.snakClose}
-
                 />
             </>
         )

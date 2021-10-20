@@ -29,13 +29,13 @@ class Gauge extends Component {
 
         chart.data = [
             {
-                name: "Core",
+                name: "Main Server",
                 children: [
                     {
-                        name: "First",
+                        name: "Applications",
                         children: [
-                            { name: "A1", value: 100 },
-                            { name: "A2", value: 60 }
+                            { name: "App1", value: 100 },
+                            { name: "App2", value: 60 }
                         ]
                     },
                     {
@@ -138,7 +138,7 @@ class Gauge extends Component {
         return (
             <div>
 
-                <h5 className='text-center' style={{ color: 'rgb(128, 145, 171)', paddingTop: '0.8em' }}>Heading goes here= </h5>
+                <h5 className='text-center' style={{ color: 'rgb(128, 145, 171)', paddingTop: '0.8em' }}>The complete analysis of company </h5>
                 <div id='overviewChart' style={{ height: '50vh' }}></div>
 
 

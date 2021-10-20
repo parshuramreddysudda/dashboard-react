@@ -74,7 +74,6 @@ export default class Networks extends React.Component {
         })
     deleteDataHandler = (newData) =>
         new Promise((done) => {
-
             this.props.deleteNetwork(newData.id)
             this.setState({
                 snakDesc: "Network id with " + newData.id + " has been succesfully Deleted",
@@ -155,7 +154,6 @@ export default class Networks extends React.Component {
                     desc={this.state.snakDesc}
                     snakType={this.state.snakType}
                     closeSnak={this.snakClose}
-
                 />
             </div>
         )

@@ -40,17 +40,18 @@ describe('Testing Apps Component Actions ', () => {
         const initialState = {}
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
-        const params = {id:'as'}
-        return store.dispatch(AppAction.fetchApps(params)).then(() => {
-        //To-Do stuff when Request is success
-        }).catch(() => {
+        const params = { id: 'as' };
+        try {
+            store.dispatch(AppAction.fetchApps(params));
+
+        } catch (error) {
             const actions = store.getActions();
             expect(actions[0].type).toEqual('FETCH_APP_PENDING');
             expect(actions[1].type).toEqual('FETCH_APP_ERROR');
             expect(actions[2].type).toEqual('FETCH_APP_COMPLETED');
-        })
+        }
     })
-    
+
     test('should create CREATE_APP_PENDING when Creating app is started and CREATE_APP_SUCCESS when Creating is done and CREATE_APP_COMPLETED finally completed  ', () => {
         const initialState = {}
         const store = mockStore(initialState)
@@ -79,26 +80,26 @@ describe('Testing Apps Component Actions ', () => {
         })
     })
     test('should create CREATE_APP_PENDING when Creating app is started and CREATE_APP_ERROR when Creating is failed and CREATE_APP_COMPLETED finally completed  ', () => {
-        const initialState = {} 
+        const initialState = {}
         const store = mockStore(initialState)
-        jest.spyOn(store, 'getState').mockImplementation(() => { })
         const params = {
-            "id": "63c45084-1880-b539-0813-c742dasd0b90b20",
+            "id": "63c45084-1880-b539-0813-c742dasd///////",
             "name": "amet aute aliqua Ut",
             "version": "beta",
             "installed": "1965-08-29T14:18:23.7Z",
             "type": "Contain in app purchase",
             "availableat": "Windows store"
         };
-        return store.dispatch(AppAction.createApp(params)).then(() => {
-            //TO DO When request is sucessfull
 
-        }).catch(() => {
+        try {
+            const actions = store.getActions();
+            store.dispatch(AppAction.createApp(params))
+        } catch (error) {
             const actions = store.getActions();
             expect(actions[0].type).toEqual('CREATE_APP_PENDING');
             expect(actions[1].type).toEqual('CREATE_APP_ERROR');
             expect(actions[2].type).toEqual('CREATE_APP_COMPLETED');
-        })
+        }
     })
     test('should create DELETE_APP_PENDING when Creating app is started and DELETE_APP_SUCCESS when Creating is failed and DELETE_APP_COMPLETED finally completed  ', () => {
         const initialState = {}
@@ -115,19 +116,22 @@ describe('Testing Apps Component Actions ', () => {
             expect(deleteResponce.status).toBe(204);
         })
     })
-    test('should create DELETE_APP_PENDING when Creating app is started and DELETE_APP_ERROR when Creating is done and DELETE_APP_COMPLETED finally completed  ', () => {
+    test('should create DELETE_APP_PENDING when Deleting app is started and DELETE_APP_ERROR when Creating is done and DELETE_APP_COMPLETED finally completed  ', () => {
         const initialState = {}
         const store = mockStore(initialState)
         jest.spyOn(store, 'getState').mockImplementation(() => { })
-        const params = '63c45084-1880-b539-0813-c74asd2d0b90b20'
-        return store.dispatch(AppAction.deleteApp(params)).then((deleteResponce) => {
-           //To Do stuff when error is success
-        }).catch(() => {
+        const params = '63c45084-1880-b539-0/////////'
+
+        try {
+            const actions = store.getActions();
+            store.dispatch(AppAction.deleteApp(params))
+        } catch (error) {
             const actions = store.getActions();
             expect(actions[0].type).toEqual('DELETE_APP_PENDING');
             expect(actions[1].type).toEqual('DELETE_APP_ERROR');
             expect(actions[2].type).toEqual('DELETE_APP_COMPLETED');
-        })
+        }
+
     })
     test('should create UPDATE_APP_PENDING when updating app is started and UPDATE_APP_SUCCESS when update is done and UPDATE_APP_COMPLETED finally completed  ', () => {
         const initialState = {}
@@ -185,7 +189,7 @@ describe('Testing Apps Component Actions ', () => {
             expect(app).toHaveProperty('installed');
             expect(app).toHaveProperty('type');
             expect(app).toHaveProperty('availableat');
-            const state=store.getState()
+            const state = store.getState()
             // });
         }).catch(() => {
             const actions = store.getActions();
@@ -202,7 +206,7 @@ describe('Testing Apps Component Actions ', () => {
         // jest.spyOn(PermissionHelper, 'checkPermission').mockImplementation(() => true)
         const params = [
             {
-                "id": "6be7b591-fc4f-3eca-7128-3a52asdasdc30366e2",
+                "id": "6be7b591-f/////////////2",
                 "name": "fugiat dolore culpa occaecat consect",
                 "version": "released",
                 "installed": "1977-04-05T13:28:04.577Z",
@@ -210,7 +214,7 @@ describe('Testing Apps Component Actions ', () => {
                 "availableat": "App store"
             },
             {
-                "id": "6c0b8248-ba99-11dd-6a0f-8764c06334db",
+                "id": "6c0b8248-ba99-11d////////",
                 "name": "dolore est",
                 "version": "released",
                 "installed": "1967-05-21T21:53:00.513Z",
@@ -219,7 +223,7 @@ describe('Testing Apps Component Actions ', () => {
             }]
         const newData = [
             {
-                "id": "6be7b591-fc4f-3eca-71asdasd28-3a52c30366e2",
+                "id": "6be7b591-fc4f-3eca-71asd/////////",
                 "name": "Updated Data",
                 "version": "released",
                 "installed": "1977-04-05T13:28:04.577Z",
@@ -227,7 +231,7 @@ describe('Testing Apps Component Actions ', () => {
                 "availableat": "App store"
             },
             {
-                "id": "6c0b8248-ba99-11dd-6a0f-8764c06334db",
+                "id": "6c0b8248-ba99-11dd-6/////////",
                 "name": "dolore est",
                 "version": "released",
                 "installed": "1967-05-21T21:53:00.513Z",
@@ -235,14 +239,16 @@ describe('Testing Apps Component Actions ', () => {
                 "availableat": "Mac store"
             }
         ]
-        const id = '6be7b591-fc4f-3eca-7128-3a52c3asd0366e2'
+        const id = '6be7b591-fc4f-3eca-7128-3a5/////////'
         return store.dispatch(AppAction.updateApp(params, newData, id)).then(() => {
-         //To do Something when request was success
-        }).catch(() => {
-            const actions = store.getActions();
-            expect(actions[0].type).toEqual('UPDATE_APP_PENDING');
-            expect(actions[1].type).toEqual('UPDATE_APP_ERROR');
-            expect(actions[2].type).toEqual('UPDATE_APP_COMPLETED');
+            try {
+                throw (error)
+            } catch (error) {
+                const actions = store.getActions();
+                expect(actions[0].type).toEqual('UPDATE_APP_PENDING');
+                expect(actions[1].type).toEqual('UPDATE_APP_ERROR');
+                expect(actions[2].type).toEqual('UPDATE_APP_COMPLETED');
+            }
         })
     })
 

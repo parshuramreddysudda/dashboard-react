@@ -1,5 +1,5 @@
 import permissionHelper from './index'
-import { jssPreset } from '@material-ui/core'
+// import { jssPreset } from '@material-ui/core'
 import AuthHelper from '../AuthHelper'
 
 describe('Testing PermissionHelper Component', () => {
@@ -39,16 +39,16 @@ describe('Testing PermissionHelper Component', () => {
             }
             expect(permissionHelper.getPermissions(undefined)).toEqual(expectedResult)
         })
-
+  
 
     })
     describe('Testing checkPermission Component', () => {
 
         test('should handle CLIENT Check Permissions', () => {
             jest.spyOn(AuthHelper,'getAuthRole').mockImplementation(()=>'CLIENT')
-
             expect(permissionHelper.checkPermission("MACHINES", "READ")).toEqual(true)
-            expect(permissionHelper.checkPermission("MACHINESS", "READ")).toEqual(false)
+            expect(permissionHelper.checkPermission("MACHINES", "DELETE")).toEqual(false)
+            
         })
 
         test('should handle CLIENT Check Permissions', () => {
