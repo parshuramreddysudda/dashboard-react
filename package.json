@@ -14,9 +14,12 @@
     "@xstyled/system": "^1.17.1",
     "axios": "^0.19.0",
     "bootstrap": "^4.5.0",
+    "concurrently": "^8.0.1",
+    "coverage": "^0.4.1",
     "json": "^9.0.6",
     "material-table": "^1.57.2",
     "node-sass": "^4.12.0",
+    "prism": "^4.1.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
@@ -42,7 +45,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors",
     "eject": "react-scripts eject",
-    "prism": "yamlinc PrismApi/masterDashboard.yaml && prism mock masterDashboard.inc.yaml --dynamic"
+    "prism": "yamlinc PrismApi/masterDashboard.yaml && prism mock masterDashboard.inc.yaml --dynamic",
+    "start-app": "concurrently \"npm start\" \"npm run prism\""
   },
   "transform": {
     "\\.js$": "<rootDir>/node_modules/babel-jest"

@@ -83,7 +83,7 @@ export default class Networks extends React.Component {
             done()
             return Promise.resolve();
         })
-    updateDataHandler = (newData, oldData) =>(
+    updateDataHandler = (newData, oldData) => (
         new Promise((done) => {
             const network = this.props.network
             const data = [...network];
