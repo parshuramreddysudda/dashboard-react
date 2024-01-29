@@ -5,6 +5,11 @@
 ### React + Redux codebase containing  (CRUD, RABC, Open Api V3, Amcharts etc) that adheres to the -- Link to be Updated --- spec and API.
 
 <div align="center">
+  <img src="React-Dashboards.gif" alt="Dashboard Gif File">
+</div>
+
+
+<div align="center">
 
 This is React project is based on [CRUD Model](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)  built with Redux, Prism , 
 Material Design, amcharts and is equipped with RBAC.
