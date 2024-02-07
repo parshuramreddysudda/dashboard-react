@@ -5,10 +5,7 @@
 ### React + Redux codebase containing  (CRUD, RABC, Open Api V3, Amcharts etc) that 🌐 Hosted at: [https://dashboard-react-dun.vercel.app/].
 
 <div align="center">
-  <video controls width="100%" style="max-width: 600px;">
-    <!-- <source src="React-Dashboard.mov" type="video/mp4"> -->
     <img src="React-Dashboard.gif" alt="Dashboard Gif File" width="100%">
-  </video>
 </div>
 
 
