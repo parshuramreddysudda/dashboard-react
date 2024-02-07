@@ -6,7 +6,7 @@
 
 <div align="center">
   <video controls width="100%" style="max-width: 600px;">
-    <source src="React-Dashboard.mov" type="video/mp4">
+    <!-- <source src="React-Dashboard.mov" type="video/mp4"> -->
     <img src="React-Dashboard.gif" alt="Dashboard Gif File" width="100%">
   </video>
 </div>
